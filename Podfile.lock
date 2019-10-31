@@ -1,0 +1,128 @@
+PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - Cosmos (16.0.0)
+  - DatePickerDialog (2.0)
+  - DynamicBlurView (3.0.1)
+  - FBSDKCoreKit (4.28.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.28.0):
+    - FBSDKCoreKit
+  - Hero (1.0.1)
+  - Intercom (4.1.8)
+  - Mapbox-iOS-SDK (5.1.0)
+  - MapboxGeocoder.swift (0.11.0)
+  - NextLevelSessionExporter (0.2.1)
+  - NVActivityIndicatorView (4.1.1):
+    - NVActivityIndicatorView/Presenter (= 4.1.1)
+  - NVActivityIndicatorView/Presenter (4.1.1)
+  - Parse (1.16.0):
+    - Parse/Core (= 1.16.0)
+  - Parse/Core (1.16.0):
+    - Bolts/Tasks (~> 1.9)
+  - Parse/FacebookUtils (1.16.0):
+    - FBSDKCoreKit (~> 4.28.0)
+    - FBSDKLoginKit (~> 4.28.0)
+    - FBSDKShareKit (~> 4.28.0)
+    - FBSDKTVOSKit (~> 4.28.0)
+    - Parse/Core
+  - Parse/UI (1.16.0):
+    - Parse/Core
+  - PhoneNumberKit (2.1.0):
+    - PhoneNumberKit/PhoneNumberKitCore (= 2.1.0)
+    - PhoneNumberKit/UIKit (= 2.1.0)
+  - PhoneNumberKit/PhoneNumberKitCore (2.1.0)
+  - PhoneNumberKit/UIKit (2.1.0):
+    - PhoneNumberKit/PhoneNumberKitCore
+  - PopupDialog (1.0.0):
+    - DynamicBlurView (~> 3.0.1)
+  - PryntTrimmerView (2.0.1)
+  - SteviaLayout (4.2.0)
+  - SwiftDate (5.1.0)
+  - SwiftyStoreKit (0.14.2)
+  - "UITextView+Placeholder (1.2.1)"
+  - "UIView+draggable (1.1.0)"
+  - WARangeSlider (1.1.1)
+  - YPImagePicker (3.4.1):
+    - PryntTrimmerView (~> 2.0)
+    - SteviaLayout (~> 4.2.0)
+
+DEPENDENCIES:
+  - Cosmos (~> 16.0)
+  - DatePickerDialog
+  - Hero
+  - Intercom
+  - Mapbox-iOS-SDK
+  - MapboxGeocoder.swift
+  - NextLevelSessionExporter (~> 0.2.0)
+  - NVActivityIndicatorView
+  - Parse
+  - Parse/FacebookUtils
+  - Parse/UI
+  - PhoneNumberKit (~> 2.1)
+  - PopupDialog (~> 1.0.0)
+  - SwiftDate (~> 5.1.0)
+  - SwiftyStoreKit
+  - "UITextView+Placeholder"
+  - "UIView+draggable"
+  - WARangeSlider
+  - YPImagePicker (~> 3.4.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Bolts
+    - Cosmos
+    - DatePickerDialog
+    - DynamicBlurView
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - Hero
+    - Intercom
+    - Mapbox-iOS-SDK
+    - MapboxGeocoder.swift
+    - NextLevelSessionExporter
+    - NVActivityIndicatorView
+    - Parse
+    - PhoneNumberKit
+    - PopupDialog
+    - PryntTrimmerView
+    - SteviaLayout
+    - SwiftDate
+    - SwiftyStoreKit
+    - "UITextView+Placeholder"
+    - "UIView+draggable"
+    - WARangeSlider
+    - YPImagePicker
+
+SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Cosmos: 7bcee0fa858a9355a214f2a181be5dffcee42c81
+  DatePickerDialog: 5e1c24d9fe6506cd45dbc573eed7b0a251b1c09d
+  DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
+  FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
+  FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
+  Hero: cee286821578e170d8c0c9c9cda7897357401112
+  Intercom: 2d2f4ad2d24f7b7e2d5b2b0d74bb02bc0e0f756a
+  Mapbox-iOS-SDK: 4106f0f6808a0362233a703fb22369b3af3e9b8c
+  MapboxGeocoder.swift: b78a3d2f42bef7d51edbb2444768634e5de722db
+  NextLevelSessionExporter: 190ffccdde4b515ff0b3091b7da2280120bf1558
+  NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
+  Parse: 5b36dc2c2f0a2fd82a257ae018bc3d68cf2c24e7
+  PhoneNumberKit: 62003f40ff75315fd3738286558bc365365ac222
+  PopupDialog: 28f29a1ffe9e1fab32fb258b53d56ca31670e8a2
+  PryntTrimmerView: 4260ae497a2f3e1bbfc0b71247eb74ab92bf0490
+  SteviaLayout: 0d2112caea45707695e8c718262c8ea3dd37ef17
+  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
+  SwiftyStoreKit: cc399645796b094022fb650c148a0aed25995873
+  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
+  "UIView+draggable": ddfbeb6bdfdeba63d9ccf32dc9be2b66cc589717
+  WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
+  YPImagePicker: 2cc64e1b8b8bac827cf99865fcd1e304ab342315
+
+PODFILE CHECKSUM: 33dfc0fd4806cc734e54f00a8381ab5ed35c3992
+
+COCOAPODS: 1.5.2
