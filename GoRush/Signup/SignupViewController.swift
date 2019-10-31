@@ -63,8 +63,8 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         
         //// Video Background
-        guard let path = Bundle.main.path(forResource: "videoGoRush", ofType:"mp4") else {
-            debugPrint("video.m4v not found")
+        guard let path = Bundle.main.path(forResource: "videoGoRush", ofType:"mov") else {
+            debugPrint("videoGoRush not found")
             return
         }
         self.player = AVPlayer(url: URL(fileURLWithPath: path))
@@ -86,7 +86,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         /// Logo
         if isIphoneXFamily() {
-            logo = UIImageView(frame: CGRect(x: ( Brain.kL - 168 ) / 2, y: displayOriginY+140, width: 168, height: 210))
+            logo = UIImageView(frame: CGRect(x: ( Brain.kL - 168 ) / 2, y: displayOriginY+170, width: 168, height: 210))
         }else{
             logo = UIImageView(frame: CGRect(x: ( Brain.kL - 168 ) / 2, y: displayOriginY+140, width: 168, height: 210))
         }
@@ -250,6 +250,14 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         super.viewWillDisappear(animated)
         
         
+      
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(animated)
+        
         player.isMuted = true
         player.pause()
         
@@ -259,12 +267,6 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         
-
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        
-        super.viewDidDisappear(animated)
     }
     
     

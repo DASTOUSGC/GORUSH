@@ -22,6 +22,7 @@
 		D339210C20176A85003A5D48 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D339210B20176A85003A5D48 /* TabBarController.swift */; };
 		D339211020178C96003A5D48 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D339210F20178C96003A5D48 /* Brain.swift */; };
 		D3579D42230CDC720048774E /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3579D41230CDC720048774E /* assets.xcassets */; };
+		D361490E236B17BA009ADC35 /* videoGoRush.mov in Resources */ = {isa = PBXBuildFile; fileRef = D361490D236B17BA009ADC35 /* videoGoRush.mov */; };
 		D3719CC02028FB50009EF788 /* SignupFirstNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */; };
 		D3719CC220290578009EF788 /* SignupPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC120290578009EF788 /* SignupPasswordViewController.swift */; };
 		D3719CC420290E75009EF788 /* SignupPhone1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */; };
@@ -36,12 +37,9 @@
 		D3A7E69C2360A0E3000F54E4 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6952360A0E1000F54E4 /* PreviewView.swift */; };
 		D3A7E69D2360A0E3000F54E4 /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6962360A0E3000F54E4 /* Merge.swift */; };
 		D3AC298A2352374500B610C8 /* SignupEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC29892352374400B610C8 /* SignupEmailViewController.swift */; };
-		D3AC29902353631800B610C8 /* videoGoRush.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D3AC298F2353631800B610C8 /* videoGoRush.mp4 */; };
 		D3AC2993235380BD00B610C8 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC2992235380BD00B610C8 /* RequestsViewController.swift */; };
 		D3AC2995235380C700B610C8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC2994235380C700B610C8 /* ProfileViewController.swift */; };
 		D3AC2997235380E700B610C8 /* requestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC2996235380E600B610C8 /* requestCollectionViewCell.swift */; };
-		D3AC299A23538DE600B610C8 /* settingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC299823538DE600B610C8 /* settingsTableViewCell.swift */; };
-		D3AC299B23538DE600B610C8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC299923538DE600B610C8 /* SettingsViewController.swift */; };
 		D3AC299E2353AAA300B610C8 /* SignupTypeWorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */; };
 		D3D5F742236700F70073EA99 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5F741236700F70073EA99 /* VideoViewController.swift */; };
 		D3D5F744236715540073EA99 /* WhereViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5F743236715540073EA99 /* WhereViewController.swift */; };
@@ -49,6 +47,8 @@
 		D3D5F74823678A470073EA99 /* SendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5F74723678A470073EA99 /* SendRequestViewController.swift */; };
 		D3D820D1235F598F00C805E5 /* SelectServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D820D0235F598F00C805E5 /* SelectServiceViewController.swift */; };
 		D3D820D4235F5A0F00C805E5 /* serviceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D820D3235F5A0E00C805E5 /* serviceCollectionViewCell.swift */; };
+		D3DB31B8236B1A33000F5468 /* settingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB31B6236B1A32000F5468 /* settingsTableViewCell.swift */; };
+		D3DB31B9236B1A33000F5468 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB31B7236B1A33000F5468 /* SettingsViewController.swift */; };
 		D3F283DB2029FBF4002FC51E /* SigninEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F283DA2029FBF4002FC51E /* SigninEmailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,9 +71,10 @@
 		D33920F5201768CA003A5D48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3392101201768CA003A5D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3392103201768CA003A5D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D339210B20176A85003A5D48 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = "../New Group/TabBarController.swift"; sourceTree = "<group>"; };
+		D339210B20176A85003A5D48 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../Tabbar/TabBarController.swift; sourceTree = "<group>"; };
 		D339210F20178C96003A5D48 /* Brain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
 		D3579D41230CDC720048774E /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
+		D361490D236B17BA009ADC35 /* videoGoRush.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = videoGoRush.mov; sourceTree = "<group>"; };
 		D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFirstNameViewController.swift; sourceTree = "<group>"; };
 		D3719CC120290578009EF788 /* SignupPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPasswordViewController.swift; sourceTree = "<group>"; };
 		D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhone1ViewController.swift; sourceTree = "<group>"; };
@@ -88,12 +89,9 @@
 		D3A7E6952360A0E1000F54E4 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		D3A7E6962360A0E3000F54E4 /* Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merge.swift; sourceTree = "<group>"; };
 		D3AC29892352374400B610C8 /* SignupEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupEmailViewController.swift; path = ../../../../Salud/Salud/Salud/SignInUp/SignUp/SignupEmailViewController.swift; sourceTree = "<group>"; };
-		D3AC298F2353631800B610C8 /* videoGoRush.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = videoGoRush.mp4; sourceTree = "<group>"; };
 		D3AC2992235380BD00B610C8 /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
 		D3AC2994235380C700B610C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D3AC2996235380E600B610C8 /* requestCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = requestCollectionViewCell.swift; sourceTree = "<group>"; };
-		D3AC299823538DE600B610C8 /* settingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsTableViewCell.swift; sourceTree = "<group>"; };
-		D3AC299923538DE600B610C8 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTypeWorkerViewController.swift; sourceTree = "<group>"; };
 		D3D5F741236700F70073EA99 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		D3D5F743236715540073EA99 /* WhereViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +99,8 @@
 		D3D5F74723678A470073EA99 /* SendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRequestViewController.swift; sourceTree = "<group>"; };
 		D3D820D0235F598F00C805E5 /* SelectServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectServiceViewController.swift; sourceTree = "<group>"; };
 		D3D820D3235F5A0E00C805E5 /* serviceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = serviceCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3DB31B6236B1A32000F5468 /* settingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsTableViewCell.swift; sourceTree = "<group>"; };
+		D3DB31B7236B1A33000F5468 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D3F283DA2029FBF4002FC51E /* SigninEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,17 +179,17 @@
 		D33920F4201768CA003A5D48 /* GoRush */ = {
 			isa = PBXGroup;
 			children = (
+				D361490D236B17BA009ADC35 /* videoGoRush.mov */,
 				D31F6592201796B000340E50 /* Utils */,
 				D339210F20178C96003A5D48 /* Brain.swift */,
 				D33920F5201768CA003A5D48 /* AppDelegate.swift */,
+				D3DB31BA236B1AA7000F5468 /* Settings */,
 				D3F283E0202A1567002FC51E /* Signup */,
 				D3AC29912353806E00B610C8 /* Home */,
 				D3D820D7235F5AD300C805E5 /* Requests */,
 				D3D820CF235F591C00C805E5 /* NewRequest */,
 				D3D820D6235F5ABA00C805E5 /* Profile */,
-				D3D820D5235F5AB500C805E5 /* Settings */,
 				D3392100201768CA003A5D48 /* LaunchScreen.storyboard */,
-				D3AC298F2353631800B610C8 /* videoGoRush.mp4 */,
 				D319628C22BAB9FB00339830 /* Localizable.strings */,
 				D3579D41230CDC720048774E /* assets.xcassets */,
 				D3392103201768CA003A5D48 /* Info.plist */,
@@ -234,16 +234,6 @@
 			path = NewRequest;
 			sourceTree = "<group>";
 		};
-		D3D820D5235F5AB500C805E5 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				D3AC299823538DE600B610C8 /* settingsTableViewCell.swift */,
-				D3AC299923538DE600B610C8 /* SettingsViewController.swift */,
-			);
-			name = Settings;
-			path = "New Group1";
-			sourceTree = "<group>";
-		};
 		D3D820D6235F5ABA00C805E5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +249,15 @@
 			);
 			name = Requests;
 			path = "NewRequest/New Group1";
+			sourceTree = "<group>";
+		};
+		D3DB31BA236B1AA7000F5468 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D3DB31B6236B1A32000F5468 /* settingsTableViewCell.swift */,
+				D3DB31B7236B1A33000F5468 /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		D3F283E0202A1567002FC51E /* Signup */ = {
@@ -352,8 +351,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3392102201768CA003A5D48 /* LaunchScreen.storyboard in Resources */,
-				D3AC29902353631800B610C8 /* videoGoRush.mp4 in Resources */,
 				D319628A22BAB9FB00339830 /* Localizable.strings in Resources */,
+				D361490E236B17BA009ADC35 /* videoGoRush.mov in Resources */,
 				D3579D42230CDC720048774E /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +472,7 @@
 				D3AC2997235380E700B610C8 /* requestCollectionViewCell.swift in Sources */,
 				D3A7E6992360A0E3000F54E4 /* SwiftyCamButton.swift in Sources */,
 				D3D5F74823678A470073EA99 /* SendRequestViewController.swift in Sources */,
+				D3DB31B9236B1A33000F5468 /* SettingsViewController.swift in Sources */,
 				D3A7E68A23609DB9000F54E4 /* CameraViewController.swift in Sources */,
 				D3AC2995235380C700B610C8 /* ProfileViewController.swift in Sources */,
 				D3A7E6982360A0E3000F54E4 /* SwiftyCamViewController.swift in Sources */,
@@ -480,9 +480,9 @@
 				D3D5F742236700F70073EA99 /* VideoViewController.swift in Sources */,
 				D339210C20176A85003A5D48 /* TabBarController.swift in Sources */,
 				D3AC298A2352374500B610C8 /* SignupEmailViewController.swift in Sources */,
-				D3AC299A23538DE600B610C8 /* settingsTableViewCell.swift in Sources */,
 				D3719CC6202911B0009EF788 /* SignupPhone2ViewController.swift in Sources */,
 				D3F283DB2029FBF4002FC51E /* SigninEmailViewController.swift in Sources */,
+				D3DB31B8236B1A33000F5468 /* settingsTableViewCell.swift in Sources */,
 				D31A283722D51DE300CBE86D /* ParentLoadingViewController.swift in Sources */,
 				D3A7E69C2360A0E3000F54E4 /* PreviewView.swift in Sources */,
 				D31911CA201FC1610083AB40 /* Countries.swift in Sources */,
@@ -494,7 +494,6 @@
 				D3719CC02028FB50009EF788 /* SignupFirstNameViewController.swift in Sources */,
 				D3A7E69B2360A0E3000F54E4 /* SwiftyRecordButton.swift in Sources */,
 				D3A7E69A2360A0E3000F54E4 /* SwiftyCamViewControllerDelegate.swift in Sources */,
-				D3AC299B23538DE600B610C8 /* SettingsViewController.swift in Sources */,
 				D3AC299E2353AAA300B610C8 /* SignupTypeWorkerViewController.swift in Sources */,
 				D3D5F7462367677B0073EA99 /* addressTableViewCell.swift in Sources */,
 				D31911CB201FC1610083AB40 /* CountryList.swift in Sources */,
