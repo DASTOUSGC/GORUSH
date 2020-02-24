@@ -12,8 +12,14 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.28.0):
     - FBSDKCoreKit
+  - GoogleMaps (3.2.0):
+    - GoogleMaps/Maps (= 3.2.0)
+  - GoogleMaps/Base (3.2.0)
+  - GoogleMaps/Maps (3.2.0):
+    - GoogleMaps/Base
   - Hero (1.0.1)
   - Intercom (4.1.8)
+  - KMPlaceholderTextView (1.4.0)
   - Mapbox-iOS-SDK (5.1.0)
   - MapboxGeocoder.swift (0.11.0)
   - NextLevelSessionExporter (0.2.1)
@@ -42,9 +48,9 @@ PODS:
     - DynamicBlurView (~> 3.0.1)
   - PryntTrimmerView (2.0.1)
   - SteviaLayout (4.2.0)
+  - Stripe (15.0.1)
   - SwiftDate (5.1.0)
   - SwiftyStoreKit (0.14.2)
-  - "UITextView+Placeholder (1.2.1)"
   - "UIView+draggable (1.1.0)"
   - WARangeSlider (1.1.1)
   - YPImagePicker (3.4.1):
@@ -54,8 +60,10 @@ PODS:
 DEPENDENCIES:
   - Cosmos (~> 16.0)
   - DatePickerDialog
+  - GoogleMaps
   - Hero
   - Intercom
+  - KMPlaceholderTextView (~> 1.4.0)
   - Mapbox-iOS-SDK
   - MapboxGeocoder.swift
   - NextLevelSessionExporter (~> 0.2.0)
@@ -65,9 +73,9 @@ DEPENDENCIES:
   - Parse/UI
   - PhoneNumberKit (~> 2.1)
   - PopupDialog (~> 1.0.0)
+  - Stripe
   - SwiftDate (~> 5.1.0)
   - SwiftyStoreKit
-  - "UITextView+Placeholder"
   - "UIView+draggable"
   - WARangeSlider
   - YPImagePicker (~> 3.4.0)
@@ -80,8 +88,10 @@ SPEC REPOS:
     - DynamicBlurView
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - GoogleMaps
     - Hero
     - Intercom
+    - KMPlaceholderTextView
     - Mapbox-iOS-SDK
     - MapboxGeocoder.swift
     - NextLevelSessionExporter
@@ -91,9 +101,9 @@ SPEC REPOS:
     - PopupDialog
     - PryntTrimmerView
     - SteviaLayout
+    - Stripe
     - SwiftDate
     - SwiftyStoreKit
-    - "UITextView+Placeholder"
     - "UIView+draggable"
     - WARangeSlider
     - YPImagePicker
@@ -105,8 +115,10 @@ SPEC CHECKSUMS:
   DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
   FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
   FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
+  GoogleMaps: 5046d7edfe381c1a0b20fdaf293915a375c3122b
   Hero: cee286821578e170d8c0c9c9cda7897357401112
   Intercom: 2d2f4ad2d24f7b7e2d5b2b0d74bb02bc0e0f756a
+  KMPlaceholderTextView: 2206c3df39979e9396e2d96fa9f427a8951121b0
   Mapbox-iOS-SDK: 4106f0f6808a0362233a703fb22369b3af3e9b8c
   MapboxGeocoder.swift: b78a3d2f42bef7d51edbb2444768634e5de722db
   NextLevelSessionExporter: 190ffccdde4b515ff0b3091b7da2280120bf1558
@@ -116,13 +128,13 @@ SPEC CHECKSUMS:
   PopupDialog: 28f29a1ffe9e1fab32fb258b53d56ca31670e8a2
   PryntTrimmerView: 4260ae497a2f3e1bbfc0b71247eb74ab92bf0490
   SteviaLayout: 0d2112caea45707695e8c718262c8ea3dd37ef17
+  Stripe: 2c4d0a88817361a102886315ff452d90f65e898b
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftyStoreKit: cc399645796b094022fb650c148a0aed25995873
-  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   "UIView+draggable": ddfbeb6bdfdeba63d9ccf32dc9be2b66cc589717
   WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
   YPImagePicker: 2cc64e1b8b8bac827cf99865fcd1e304ab342315
 
-PODFILE CHECKSUM: 33dfc0fd4806cc734e54f00a8381ab5ed35c3992
+PODFILE CHECKSUM: dc4f1b45525c40109c7983468cefd253f3c966eb
 
 COCOAPODS: 1.5.2

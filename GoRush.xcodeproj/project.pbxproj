@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		66481D7F59A24F5503AF2F32 /* Pods_GoRush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EAD263CA4E3B41FAC716818 /* Pods_GoRush.framework */; };
+		D3046B2E239A9867000E4DEA /* GrassHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B2D239A9867000E4DEA /* GrassHeight.swift */; };
+		D3046B31239A98B3000E4DEA /* grassHeightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B30239A98B3000E4DEA /* grassHeightCollectionViewCell.swift */; };
+		D3046B3E239B0E35000E4DEA /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B3B239B0E34000E4DEA /* PaymentsViewController.swift */; };
+		D3046B3F239B0E35000E4DEA /* cardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B3C239B0E35000E4DEA /* cardTableViewCell.swift */; };
+		D3046B40239B0E35000E4DEA /* AddPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B3D239B0E35000E4DEA /* AddPaymentViewController.swift */; };
 		D30D939A2308AD8D00471601 /* EmbedWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D93992308AD8D00471601 /* EmbedWebViewController.swift */; };
 		D31911C8201FC1610083AB40 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31911C3201FC15E0083AB40 /* CountryCell.swift */; };
 		D31911C9201FC1610083AB40 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31911C5201FC15F0083AB40 /* Country.swift */; };
@@ -17,16 +22,22 @@
 		D31A283722D51DE300CBE86D /* ParentLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31A283622D51DE200CBE86D /* ParentLoadingViewController.swift */; };
 		D3239C102018FE0900E40A5A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3239C0F2018FE0900E40A5A /* SignupViewController.swift */; };
 		D329C742201CBD0E008EFF1E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D329C741201CBD0E008EFF1E /* Utils.swift */; };
+		D3336B8A23F85BF200BC595B /* LandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3336B8923F85BF200BC595B /* LandViewController.swift */; };
+		D334506823ED812E00F11D84 /* SignupAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334506723ED812E00F11D84 /* SignupAddressViewController.swift */; };
+		D334506A23ED8B3E00F11D84 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334506923ED8B3E00F11D84 /* DateTextField.swift */; };
 		D33920F6201768CA003A5D48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33920F5201768CA003A5D48 /* AppDelegate.swift */; };
 		D3392102201768CA003A5D48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3392100201768CA003A5D48 /* LaunchScreen.storyboard */; };
 		D339210C20176A85003A5D48 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D339210B20176A85003A5D48 /* TabBarController.swift */; };
 		D339211020178C96003A5D48 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D339210F20178C96003A5D48 /* Brain.swift */; };
 		D3579D42230CDC720048774E /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3579D41230CDC720048774E /* assets.xcassets */; };
 		D361490E236B17BA009ADC35 /* videoGoRush.mov in Resources */ = {isa = PBXBuildFile; fileRef = D361490D236B17BA009ADC35 /* videoGoRush.mov */; };
+		D368A3502397078400286263 /* MowingAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D368A34F2397078400286263 /* MowingAreaViewController.swift */; };
 		D3719CC02028FB50009EF788 /* SignupFirstNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */; };
 		D3719CC220290578009EF788 /* SignupPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC120290578009EF788 /* SignupPasswordViewController.swift */; };
 		D3719CC420290E75009EF788 /* SignupPhone1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */; };
 		D3719CC6202911B0009EF788 /* SignupPhone2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC5202911B0009EF788 /* SignupPhone2ViewController.swift */; };
+		D38944EE236F169200D34F2E /* SignupEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38944ED236F169200D34F2E /* SignupEmailViewController.swift */; };
+		D38944F0236F186F00D34F2E /* SigninEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38944EF236F186F00D34F2E /* SigninEmailViewController.swift */; };
 		D39127B5226941D7009D0582 /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39127B4226941D6009D0582 /* JsonSerializer.swift */; };
 		D3A7E68A23609DB9000F54E4 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E68923609DB9000F54E4 /* CameraViewController.swift */; };
 		D3A7E6972360A0E3000F54E4 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E68F2360A0D8000F54E4 /* Orientation.swift */; };
@@ -36,11 +47,24 @@
 		D3A7E69B2360A0E3000F54E4 /* SwiftyRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6942360A0E0000F54E4 /* SwiftyRecordButton.swift */; };
 		D3A7E69C2360A0E3000F54E4 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6952360A0E1000F54E4 /* PreviewView.swift */; };
 		D3A7E69D2360A0E3000F54E4 /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6962360A0E3000F54E4 /* Merge.swift */; };
-		D3AC298A2352374500B610C8 /* SignupEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC29892352374400B610C8 /* SignupEmailViewController.swift */; };
-		D3AC2993235380BD00B610C8 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC2992235380BD00B610C8 /* RequestsViewController.swift */; };
 		D3AC2995235380C700B610C8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC2994235380C700B610C8 /* ProfileViewController.swift */; };
-		D3AC2997235380E700B610C8 /* requestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC2996235380E600B610C8 /* requestCollectionViewCell.swift */; };
 		D3AC299E2353AAA300B610C8 /* SignupTypeWorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */; };
+		D3BA284223D09111009FCCAB /* NewReviewToUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BA284123D09111009FCCAB /* NewReviewToUserViewController.swift */; };
+		D3C11E3123D0BCF600915515 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C11E3023D0BCF600915515 /* ReviewsViewController.swift */; };
+		D3C11E3323D0C2AA00915515 /* reviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C11E3223D0C2AA00915515 /* reviewTableViewCell.swift */; };
+		D3C11E3523D341DD00915515 /* BankAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C11E3423D341DC00915515 /* BankAccountViewController.swift */; };
+		D3CA707523B9129900D30643 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA707323B9129800D30643 /* EditProfileViewController.swift */; };
+		D3CA707623B9129900D30643 /* editProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA707423B9129900D30643 /* editProfileTableViewCell.swift */; };
+		D3CA707D23B9677500D30643 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA707C23B9677400D30643 /* ExploreViewController.swift */; };
+		D3CA707F23B9678E00D30643 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA707E23B9678E00D30643 /* JobsViewController.swift */; };
+		D3CA708123B9679E00D30643 /* SkillsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA708023B9679E00D30643 /* SkillsViewController.swift */; };
+		D3CA708923B96AC600D30643 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA708623B96AC600D30643 /* RequestsViewController.swift */; };
+		D3CA708A23B96AC600D30643 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA708723B96AC600D30643 /* RequestViewController.swift */; };
+		D3CA708B23B96AC600D30643 /* requestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA708823B96AC600D30643 /* requestCollectionViewCell.swift */; };
+		D3CA708E23B9748D00D30643 /* exploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA708D23B9748D00D30643 /* exploreCollectionViewCell.swift */; };
+		D3CA709023B9790B00D30643 /* skillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA708F23B9790B00D30643 /* skillCollectionViewCell.swift */; };
+		D3CA709223BA517100D30643 /* RequestWorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CA709123BA517100D30643 /* RequestWorkerViewController.swift */; };
+		D3CBED3523CE9072007D50D6 /* requestAcceptedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CBED3423CE9072007D50D6 /* requestAcceptedCollectionViewCell.swift */; };
 		D3D5F742236700F70073EA99 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5F741236700F70073EA99 /* VideoViewController.swift */; };
 		D3D5F744236715540073EA99 /* WhereViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5F743236715540073EA99 /* WhereViewController.swift */; };
 		D3D5F7462367677B0073EA99 /* addressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5F7452367677A0073EA99 /* addressTableViewCell.swift */; };
@@ -49,13 +73,17 @@
 		D3D820D4235F5A0F00C805E5 /* serviceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D820D3235F5A0E00C805E5 /* serviceCollectionViewCell.swift */; };
 		D3DB31B8236B1A33000F5468 /* settingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB31B6236B1A32000F5468 /* settingsTableViewCell.swift */; };
 		D3DB31B9236B1A33000F5468 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB31B7236B1A33000F5468 /* SettingsViewController.swift */; };
-		D3F283DB2029FBF4002FC51E /* SigninEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F283DA2029FBF4002FC51E /* SigninEmailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4BCA5DB2B273330C3B93BE98 /* Pods-GoRush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoRush.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoRush/Pods-GoRush.release.xcconfig"; sourceTree = "<group>"; };
 		5EAD263CA4E3B41FAC716818 /* Pods_GoRush.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoRush.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF3BA4460C89696C276857C /* Pods-GoRush.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoRush.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoRush/Pods-GoRush.debug.xcconfig"; sourceTree = "<group>"; };
+		D3046B2D239A9867000E4DEA /* GrassHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrassHeight.swift; sourceTree = "<group>"; };
+		D3046B30239A98B3000E4DEA /* grassHeightCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = grassHeightCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3046B3B239B0E34000E4DEA /* PaymentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
+		D3046B3C239B0E35000E4DEA /* cardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cardTableViewCell.swift; sourceTree = "<group>"; };
+		D3046B3D239B0E35000E4DEA /* AddPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentViewController.swift; sourceTree = "<group>"; };
 		D30D93992308AD8D00471601 /* EmbedWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedWebViewController.swift; sourceTree = "<group>"; };
 		D31911C3201FC15E0083AB40 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		D31911C4201FC15F0083AB40 /* CountryList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountryList.h; sourceTree = "<group>"; };
@@ -67,18 +95,25 @@
 		D31A283622D51DE200CBE86D /* ParentLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentLoadingViewController.swift; sourceTree = "<group>"; };
 		D3239C0F2018FE0900E40A5A /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		D329C741201CBD0E008EFF1E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D3336B8923F85BF200BC595B /* LandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandViewController.swift; sourceTree = "<group>"; };
+		D334506723ED812E00F11D84 /* SignupAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAddressViewController.swift; sourceTree = "<group>"; };
+		D334506923ED8B3E00F11D84 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		D33920F2201768CA003A5D48 /* GoRush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoRush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33920F5201768CA003A5D48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3392101201768CA003A5D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3392103201768CA003A5D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D339210B20176A85003A5D48 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../Tabbar/TabBarController.swift; sourceTree = "<group>"; };
 		D339210F20178C96003A5D48 /* Brain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
+		D340813823F8244E00876863 /* GoRush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoRush.entitlements; sourceTree = "<group>"; };
 		D3579D41230CDC720048774E /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 		D361490D236B17BA009ADC35 /* videoGoRush.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = videoGoRush.mov; sourceTree = "<group>"; };
+		D368A34F2397078400286263 /* MowingAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MowingAreaViewController.swift; sourceTree = "<group>"; };
 		D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFirstNameViewController.swift; sourceTree = "<group>"; };
 		D3719CC120290578009EF788 /* SignupPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPasswordViewController.swift; sourceTree = "<group>"; };
 		D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhone1ViewController.swift; sourceTree = "<group>"; };
 		D3719CC5202911B0009EF788 /* SignupPhone2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhone2ViewController.swift; sourceTree = "<group>"; };
+		D38944ED236F169200D34F2E /* SignupEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupEmailViewController.swift; sourceTree = "<group>"; };
+		D38944EF236F186F00D34F2E /* SigninEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailViewController.swift; sourceTree = "<group>"; };
 		D39127B4226941D6009D0582 /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
 		D3A7E68923609DB9000F54E4 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		D3A7E68F2360A0D8000F54E4 /* Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
@@ -88,11 +123,24 @@
 		D3A7E6942360A0E0000F54E4 /* SwiftyRecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRecordButton.swift; sourceTree = "<group>"; };
 		D3A7E6952360A0E1000F54E4 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		D3A7E6962360A0E3000F54E4 /* Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merge.swift; sourceTree = "<group>"; };
-		D3AC29892352374400B610C8 /* SignupEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupEmailViewController.swift; path = ../../../../Salud/Salud/Salud/SignInUp/SignUp/SignupEmailViewController.swift; sourceTree = "<group>"; };
-		D3AC2992235380BD00B610C8 /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
 		D3AC2994235380C700B610C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		D3AC2996235380E600B610C8 /* requestCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = requestCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTypeWorkerViewController.swift; sourceTree = "<group>"; };
+		D3BA284123D09111009FCCAB /* NewReviewToUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReviewToUserViewController.swift; sourceTree = "<group>"; };
+		D3C11E3023D0BCF600915515 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
+		D3C11E3223D0C2AA00915515 /* reviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reviewTableViewCell.swift; sourceTree = "<group>"; };
+		D3C11E3423D341DC00915515 /* BankAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountViewController.swift; sourceTree = "<group>"; };
+		D3CA707323B9129800D30643 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		D3CA707423B9129900D30643 /* editProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editProfileTableViewCell.swift; sourceTree = "<group>"; };
+		D3CA707C23B9677400D30643 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		D3CA707E23B9678E00D30643 /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
+		D3CA708023B9679E00D30643 /* SkillsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsViewController.swift; sourceTree = "<group>"; };
+		D3CA708623B96AC600D30643 /* RequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestsViewController.swift; path = GoRush/Customer/Requests/RequestsViewController.swift; sourceTree = SOURCE_ROOT; };
+		D3CA708723B96AC600D30643 /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestViewController.swift; path = GoRush/Customer/Requests/RequestViewController.swift; sourceTree = SOURCE_ROOT; };
+		D3CA708823B96AC600D30643 /* requestCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = requestCollectionViewCell.swift; path = GoRush/Customer/Requests/requestCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		D3CA708D23B9748D00D30643 /* exploreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exploreCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3CA708F23B9790B00D30643 /* skillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = skillCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3CA709123BA517100D30643 /* RequestWorkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestWorkerViewController.swift; sourceTree = "<group>"; };
+		D3CBED3423CE9072007D50D6 /* requestAcceptedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestAcceptedCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3D5F741236700F70073EA99 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		D3D5F743236715540073EA99 /* WhereViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereViewController.swift; sourceTree = "<group>"; };
 		D3D5F7452367677A0073EA99 /* addressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addressTableViewCell.swift; sourceTree = "<group>"; };
@@ -101,7 +149,6 @@
 		D3D820D3235F5A0E00C805E5 /* serviceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = serviceCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3DB31B6236B1A32000F5468 /* settingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsTableViewCell.swift; sourceTree = "<group>"; };
 		D3DB31B7236B1A33000F5468 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		D3F283DA2029FBF4002FC51E /* SigninEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +180,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D3046B2F239A986A000E4DEA /* Mowing */ = {
+			isa = PBXGroup;
+			children = (
+				D3046B2D239A9867000E4DEA /* GrassHeight.swift */,
+				D3046B30239A98B3000E4DEA /* grassHeightCollectionViewCell.swift */,
+				D368A34F2397078400286263 /* MowingAreaViewController.swift */,
+				D3336B8923F85BF200BC595B /* LandViewController.swift */,
+			);
+			path = Mowing;
+			sourceTree = "<group>";
+		};
+		D3046B32239AFBC0000E4DEA /* PaymentMethod */ = {
+			isa = PBXGroup;
+			children = (
+				D3046B3D239B0E35000E4DEA /* AddPaymentViewController.swift */,
+				D3046B3C239B0E35000E4DEA /* cardTableViewCell.swift */,
+				D3046B3B239B0E34000E4DEA /* PaymentsViewController.swift */,
+				D3C11E3423D341DC00915515 /* BankAccountViewController.swift */,
+			);
+			path = PaymentMethod;
+			sourceTree = "<group>";
+		};
 		D31911CE201FC1BA0083AB40 /* Countries */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +217,7 @@
 		D31F6592201796B000340E50 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D334506923ED8B3E00F11D84 /* DateTextField.swift */,
 				D3A7E69E2360A0EE000F54E4 /* Cam */,
 				D30D93992308AD8D00471601 /* EmbedWebViewController.swift */,
 				D31A283622D51DE200CBE86D /* ParentLoadingViewController.swift */,
@@ -179,15 +249,17 @@
 		D33920F4201768CA003A5D48 /* GoRush */ = {
 			isa = PBXGroup;
 			children = (
+				D340813823F8244E00876863 /* GoRush.entitlements */,
 				D361490D236B17BA009ADC35 /* videoGoRush.mov */,
 				D31F6592201796B000340E50 /* Utils */,
 				D339210F20178C96003A5D48 /* Brain.swift */,
 				D33920F5201768CA003A5D48 /* AppDelegate.swift */,
 				D3DB31BA236B1AA7000F5468 /* Settings */,
 				D3F283E0202A1567002FC51E /* Signup */,
-				D3AC29912353806E00B610C8 /* Home */,
-				D3D820D7235F5AD300C805E5 /* Requests */,
-				D3D820CF235F591C00C805E5 /* NewRequest */,
+				D3CA707723B9670100D30643 /* Worker */,
+				D3CA707823B9671500D30643 /* Customer */,
+				D3BA284323D0911F009FCCAB /* Review */,
+				D3AC29912353806E00B610C8 /* TabBar */,
 				D3D820D6235F5ABA00C805E5 /* Profile */,
 				D3392100201768CA003A5D48 /* LaunchScreen.storyboard */,
 				D319628C22BAB9FB00339830 /* Localizable.strings */,
@@ -211,13 +283,80 @@
 			path = Cam;
 			sourceTree = "<group>";
 		};
-		D3AC29912353806E00B610C8 /* Home */ = {
+		D3AC29912353806E00B610C8 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
 				D339210B20176A85003A5D48 /* TabBarController.swift */,
-				D3AC2992235380BD00B610C8 /* RequestsViewController.swift */,
 			);
-			path = Home;
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		D3BA284323D0911F009FCCAB /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				D3C11E3223D0C2AA00915515 /* reviewTableViewCell.swift */,
+				D3BA284123D09111009FCCAB /* NewReviewToUserViewController.swift */,
+				D3C11E3023D0BCF600915515 /* ReviewsViewController.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		D3CA707723B9670100D30643 /* Worker */ = {
+			isa = PBXGroup;
+			children = (
+				D3CA707B23B9673A00D30643 /* Skills */,
+				D3CA707A23B9673400D30643 /* Jobs */,
+				D3CA707923B9672C00D30643 /* Explore */,
+			);
+			path = Worker;
+			sourceTree = "<group>";
+		};
+		D3CA707823B9671500D30643 /* Customer */ = {
+			isa = PBXGroup;
+			children = (
+				D3CA708C23B96B2B00D30643 /* Req */,
+				D3046B32239AFBC0000E4DEA /* PaymentMethod */,
+				D3D820CF235F591C00C805E5 /* NewRequest */,
+			);
+			path = Customer;
+			sourceTree = "<group>";
+		};
+		D3CA707923B9672C00D30643 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				D3CA707C23B9677400D30643 /* ExploreViewController.swift */,
+				D3CA708D23B9748D00D30643 /* exploreCollectionViewCell.swift */,
+				D3CA709123BA517100D30643 /* RequestWorkerViewController.swift */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		D3CA707A23B9673400D30643 /* Jobs */ = {
+			isa = PBXGroup;
+			children = (
+				D3CA707E23B9678E00D30643 /* JobsViewController.swift */,
+			);
+			path = Jobs;
+			sourceTree = "<group>";
+		};
+		D3CA707B23B9673A00D30643 /* Skills */ = {
+			isa = PBXGroup;
+			children = (
+				D3CA708023B9679E00D30643 /* SkillsViewController.swift */,
+				D3CA708F23B9790B00D30643 /* skillCollectionViewCell.swift */,
+			);
+			path = Skills;
+			sourceTree = "<group>";
+		};
+		D3CA708C23B96B2B00D30643 /* Req */ = {
+			isa = PBXGroup;
+			children = (
+				D3CA708823B96AC600D30643 /* requestCollectionViewCell.swift */,
+				D3CBED3423CE9072007D50D6 /* requestAcceptedCollectionViewCell.swift */,
+				D3CA708623B96AC600D30643 /* RequestsViewController.swift */,
+				D3CA708723B96AC600D30643 /* RequestViewController.swift */,
+			);
+			path = Req;
 			sourceTree = "<group>";
 		};
 		D3D820CF235F591C00C805E5 /* NewRequest */ = {
@@ -230,6 +369,7 @@
 				D3A7E68923609DB9000F54E4 /* CameraViewController.swift */,
 				D3D5F743236715540073EA99 /* WhereViewController.swift */,
 				D3D5F74723678A470073EA99 /* SendRequestViewController.swift */,
+				D3046B2F239A986A000E4DEA /* Mowing */,
 			);
 			path = NewRequest;
 			sourceTree = "<group>";
@@ -237,18 +377,11 @@
 		D3D820D6235F5ABA00C805E5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				D3CA707423B9129900D30643 /* editProfileTableViewCell.swift */,
+				D3CA707323B9129800D30643 /* EditProfileViewController.swift */,
 				D3AC2994235380C700B610C8 /* ProfileViewController.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		D3D820D7235F5AD300C805E5 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				D3AC2996235380E600B610C8 /* requestCollectionViewCell.swift */,
-			);
-			name = Requests;
-			path = "NewRequest/New Group1";
 			sourceTree = "<group>";
 		};
 		D3DB31BA236B1AA7000F5468 /* Settings */ = {
@@ -263,14 +396,15 @@
 		D3F283E0202A1567002FC51E /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				D3F283DA2029FBF4002FC51E /* SigninEmailViewController.swift */,
+				D38944ED236F169200D34F2E /* SignupEmailViewController.swift */,
 				D3719CC5202911B0009EF788 /* SignupPhone2ViewController.swift */,
 				D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */,
 				D3719CC120290578009EF788 /* SignupPasswordViewController.swift */,
 				D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */,
-				D3AC29892352374400B610C8 /* SignupEmailViewController.swift */,
+				D334506723ED812E00F11D84 /* SignupAddressViewController.swift */,
 				D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */,
 				D3239C0F2018FE0900E40A5A /* SignupViewController.swift */,
+				D38944EF236F186F00D34F2E /* SigninEmailViewController.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -392,6 +526,7 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
+				"${BUILT_PRODUCTS_DIR}/KMPlaceholderTextView/KMPlaceholderTextView.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/MapboxGeocoder.swift/MapboxGeocoder.framework",
@@ -402,9 +537,9 @@
 				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/PryntTrimmerView/PryntTrimmerView.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/UIView+draggable/UIView_draggable.framework",
 				"${BUILT_PRODUCTS_DIR}/WARangeSlider/WARangeSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/YPImagePicker/YPImagePicker.framework",
@@ -418,6 +553,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KMPlaceholderTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxGeocoder.framework",
@@ -428,9 +564,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PryntTrimmerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIView_draggable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WARangeSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YPImagePicker.framework",
@@ -447,11 +583,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GoRush/Pods-GoRush-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/Intercom/intercom/intercom.framework/versions/a/resources/intercom.bundle",
 				"${PODS_ROOT}/Intercom/intercom/intercom.framework/versions/a/resources/IntercomTranslations.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/intercom.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IntercomTranslations.bundle",
 			);
@@ -469,37 +607,60 @@
 			files = (
 				D31911C8201FC1610083AB40 /* CountryCell.swift in Sources */,
 				D3719CC220290578009EF788 /* SignupPasswordViewController.swift in Sources */,
-				D3AC2997235380E700B610C8 /* requestCollectionViewCell.swift in Sources */,
+				D38944EE236F169200D34F2E /* SignupEmailViewController.swift in Sources */,
 				D3A7E6992360A0E3000F54E4 /* SwiftyCamButton.swift in Sources */,
+				D3CA708B23B96AC600D30643 /* requestCollectionViewCell.swift in Sources */,
 				D3D5F74823678A470073EA99 /* SendRequestViewController.swift in Sources */,
 				D3DB31B9236B1A33000F5468 /* SettingsViewController.swift in Sources */,
 				D3A7E68A23609DB9000F54E4 /* CameraViewController.swift in Sources */,
 				D3AC2995235380C700B610C8 /* ProfileViewController.swift in Sources */,
+				D3336B8A23F85BF200BC595B /* LandViewController.swift in Sources */,
 				D3A7E6982360A0E3000F54E4 /* SwiftyCamViewController.swift in Sources */,
+				D3C11E3523D341DD00915515 /* BankAccountViewController.swift in Sources */,
+				D3CA707623B9129900D30643 /* editProfileTableViewCell.swift in Sources */,
+				D3CA707523B9129900D30643 /* EditProfileViewController.swift in Sources */,
+				D334506A23ED8B3E00F11D84 /* DateTextField.swift in Sources */,
 				D3D820D4235F5A0F00C805E5 /* serviceCollectionViewCell.swift in Sources */,
 				D3D5F742236700F70073EA99 /* VideoViewController.swift in Sources */,
 				D339210C20176A85003A5D48 /* TabBarController.swift in Sources */,
-				D3AC298A2352374500B610C8 /* SignupEmailViewController.swift in Sources */,
 				D3719CC6202911B0009EF788 /* SignupPhone2ViewController.swift in Sources */,
-				D3F283DB2029FBF4002FC51E /* SigninEmailViewController.swift in Sources */,
 				D3DB31B8236B1A33000F5468 /* settingsTableViewCell.swift in Sources */,
+				D3CA707F23B9678E00D30643 /* JobsViewController.swift in Sources */,
+				D3C11E3123D0BCF600915515 /* ReviewsViewController.swift in Sources */,
+				D334506823ED812E00F11D84 /* SignupAddressViewController.swift in Sources */,
+				D3CA709023B9790B00D30643 /* skillCollectionViewCell.swift in Sources */,
+				D3046B3E239B0E35000E4DEA /* PaymentsViewController.swift in Sources */,
 				D31A283722D51DE300CBE86D /* ParentLoadingViewController.swift in Sources */,
 				D3A7E69C2360A0E3000F54E4 /* PreviewView.swift in Sources */,
 				D31911CA201FC1610083AB40 /* Countries.swift in Sources */,
 				D329C742201CBD0E008EFF1E /* Utils.swift in Sources */,
+				D368A3502397078400286263 /* MowingAreaViewController.swift in Sources */,
 				D33920F6201768CA003A5D48 /* AppDelegate.swift in Sources */,
+				D3C11E3323D0C2AA00915515 /* reviewTableViewCell.swift in Sources */,
+				D3046B3F239B0E35000E4DEA /* cardTableViewCell.swift in Sources */,
+				D3046B40239B0E35000E4DEA /* AddPaymentViewController.swift in Sources */,
 				D3D820D1235F598F00C805E5 /* SelectServiceViewController.swift in Sources */,
+				D3046B31239A98B3000E4DEA /* grassHeightCollectionViewCell.swift in Sources */,
+				D3CA709223BA517100D30643 /* RequestWorkerViewController.swift in Sources */,
 				D31911C9201FC1610083AB40 /* Country.swift in Sources */,
 				D3A7E69D2360A0E3000F54E4 /* Merge.swift in Sources */,
+				D3CBED3523CE9072007D50D6 /* requestAcceptedCollectionViewCell.swift in Sources */,
 				D3719CC02028FB50009EF788 /* SignupFirstNameViewController.swift in Sources */,
 				D3A7E69B2360A0E3000F54E4 /* SwiftyRecordButton.swift in Sources */,
+				D38944F0236F186F00D34F2E /* SigninEmailViewController.swift in Sources */,
+				D3046B2E239A9867000E4DEA /* GrassHeight.swift in Sources */,
+				D3CA708923B96AC600D30643 /* RequestsViewController.swift in Sources */,
+				D3CA708E23B9748D00D30643 /* exploreCollectionViewCell.swift in Sources */,
 				D3A7E69A2360A0E3000F54E4 /* SwiftyCamViewControllerDelegate.swift in Sources */,
 				D3AC299E2353AAA300B610C8 /* SignupTypeWorkerViewController.swift in Sources */,
+				D3BA284223D09111009FCCAB /* NewReviewToUserViewController.swift in Sources */,
+				D3CA708A23B96AC600D30643 /* RequestViewController.swift in Sources */,
+				D3CA708123B9679E00D30643 /* SkillsViewController.swift in Sources */,
 				D3D5F7462367677B0073EA99 /* addressTableViewCell.swift in Sources */,
 				D31911CB201FC1610083AB40 /* CountryList.swift in Sources */,
 				D3719CC420290E75009EF788 /* SignupPhone1ViewController.swift in Sources */,
 				D339211020178C96003A5D48 /* Brain.swift in Sources */,
-				D3AC2993235380BD00B610C8 /* RequestsViewController.swift in Sources */,
+				D3CA707D23B9677500D30643 /* ExploreViewController.swift in Sources */,
 				D3A7E6972360A0E3000F54E4 /* Orientation.swift in Sources */,
 				D30D939A2308AD8D00471601 /* EmbedWebViewController.swift in Sources */,
 				D39127B5226941D7009D0582 /* JsonSerializer.swift in Sources */,
@@ -652,6 +813,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R7H3TYVKX8;
@@ -675,6 +837,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R7H3TYVKX8;

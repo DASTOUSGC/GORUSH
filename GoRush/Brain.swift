@@ -19,20 +19,26 @@ import SwiftDate
 
 
 class Brain: NSObject {
-    
 
 
     static let kParseAppId                    =    "rd5MHEoMvQSL5eV4BUVtI9RPUbNM75JKkoESQqiT"
     static let kParseClientKey                =    "lbxe5hLHPFEPo3iNGEtYxId5QidJEcNT7iBMPbUp"
     static let kParseServer                   =    "https://pg-app-3s4icbv58asgut9dz8st2xtgd5ftbe.scalabl.cloud/1/"
 
+    static let kStripeKey                =    "pk_test_BmEUUY0w13S2RkV1qdpFfuNS00LJ1bLSrj"
+
     
     static let kInstallationNotifications = "notifications"
     static let kInstallationNotificationsGroupId = "notificationsGroup"
 
 
+    static let kGoogleMapsAPIKey                =    "AIzaSyA3zInJd8N5WhBsR8a7WrxQ-JaSUvhNEy0"
+
     static let kIntercomAPIKey                =    ""
     static let kIntercomAppId                =    ""
+    
+    static let kDevise                =    "cad"
+    static let kCountry                =    "CA"
 
     static let kLoginFacebook                    =    true
     static let kLoginFacebookGetDataEachTime     =    false
@@ -71,7 +77,6 @@ class Brain: NSObject {
     static let kNotificationAvailable = "available"
     static let kInstallationDisabledNotifs = "disabledNotifs"
 
-  
     
     //User
     static let kUserClassName = "_User"
@@ -83,6 +88,31 @@ class Brain: NSObject {
     static let kUserProfilePicture = "profilePicture"
     static let kUserType = "type"
     static let kUserLocation = "location"
+    static let kUserStripeCustomer = "stripeCustomer"
+    static let kUserSkills = "skills"
+    static let kUserRateWorker = "rateWorker"
+    static let kUserRateCustomer = "rateCustomer"
+    static let kUserReviewsCustomerNumber = "reviewsCustomerNumber"
+    static let kUserReviewsWorkerNumber = "reviewsWorkerNumber"
+
+    
+    
+    //StripeCustomer
+      static let kStripeCustomerClassName = "StripeCustomer"
+      static let kStripeCustomerIdStripe = "idStripe"
+      static let kStripeWorkerIdStripe = "workerIdStripe"
+      static let kStripeCustomerUser = "user"
+    
+    
+        ////User->Mowing
+        static let kUserMowing = "mowing"
+        static let kUserMowingCenterPosition = "centerPosition"
+        static let kUserMowingCoordinatesTotal = "coordinatesTotal"
+        static let kUserMowingCoordinatesHome = "coordinatesHome"
+        static let kUserMowingAreaTotal = "areaTotal"
+        static let kUserMowingAreaHome = "areaHome"
+        static let kUserMowingAreaResult = "areaResult"
+        static let kUserMowingHeightGrass = "heightGrass"
 
     
     //Services
@@ -93,16 +123,62 @@ class Brain: NSObject {
     static let kServiceAvailable = "available"
     static let kServiceCover = "cover"
     static let kServiceOrder = "order"
+    static let kServiceFee = "fee"
+    static let kServiceCancellationFee = "cancellationFee"
+
+        ////Services->Mowing
+        static let kServiceMinPrice = "minPrice"
+        static let kServicePriceByPi2 = "priceByPi2"
+        static let kServiceLimitUpArea = "limitUpArea"
+        static let kServicePercentByGraassHeight = "percentByGrassHeight"
+
 
     //Request
     static let kRequestClassName = "Request"
     static let kRequestUrl = "url"
     static let kRequestFront = "front"
     static let kRequestService = "service"
-    static let krequestAddress = "address"
+    static let kRequestServiceId = "serviceId"
+    static let kRequestAddress = "address"
+    static let kRequestCenter = "center"
+    static let kRequestMowing = "mowing"
+    static let kRequestPriceCustomer = "priceCustomer"
+    static let kRequestPriceWorker = "priceWorker"
+    static let kRequestMowingHeightGrass = "mowingHeightGrass"
+    static let kRequestState = "state"
+    static let kRequestCustomer = "customer"
+    static let kRequestVideo = "video"
+    static let kRequestPhoto = "photo"
+    static let kRequestVideoWelcome = "videoWelcome"
+    static let kRequestPhotoWelcome = "photoWelcome"
+    static let kRequestSurface = "surface"
+    static let kRequestWorker = "worker"
+    static let kRequestRefuseWorkerId = "refuseWorkerId"
+    static let kRequestRefuseWorker = "refuseWorker"
+
+    static let kRequestVideoStart = "videoStart"
+    static let kRequestPhotoStart = "photoStart"
+    static let kRequestTimeStart = "timeStart"
+
+    static let kRequestVideoEnd = "videoEnd"
+    static let kRequestPhotoEnd = "photoEnd"
+    static let kRequestReviewFromCustomer = "reviewFromCustomer"
+    static let kRequestReviewFromWorker = "reviewFromWorker"
 
 
-    
+    //Review
+    static let kReviewClassName = "Review"
+    static let kReviewRequest = "request"
+    static let kReviewRequestId = "requestId"
+    static let kReviewCustomer = "customer"
+    static let kReviewCustomerId = "customerId"
+    static let kReviewWorker = "worker"
+    static let kReviewWorkerId = "workerId"
+    static let kReviewRate = "rate"
+    static let kReviewFrom = "from"
+    static let kReviewReview = "review"
+    static let kReviewAvailable = "available"
+
     
     //Config
     static let kConfigTerms = "terms"
@@ -118,10 +194,89 @@ class Brain: NSObject {
     static let kconfigDisabledRewards = "disabledRewards"
     static let kConfigMapboxUrl = "mapboxUrl"
 
+    
 
 
 }
 
+
+
+
+class StripeCustomer {
+    
+    private static var stripeCustomer: StripeCustomer?
+   
+    var stripeAccount : [String:Any]?
+    var stripeId : String?
+
+    class func shared() -> StripeCustomer{
+        
+        if self.stripeCustomer == nil {
+            
+            self.stripeCustomer = StripeCustomer()
+            
+            
+        }
+        
+        return self.stripeCustomer!
+    }
+    
+    func refreshStripeAccount(completion: @escaping (_ stripeAccount: [String:Any]?) -> Void) {
+        
+        if PFUser.current()?.object(forKey: Brain.kUserStripeCustomer) != nil {
+            
+            let stripeCustomer =  PFUser.current()?.object(forKey: Brain.kUserStripeCustomer) as! PFObject
+            
+            stripeCustomer.fetchInBackground { (stripeFetched, error) in
+                
+                
+                if stripeFetched != nil {
+                    
+                    
+                    self.stripeId = stripeFetched!.object(forKey: Brain.kStripeCustomerIdStripe) as? String
+                    
+                    PFCloud.callFunction(inBackground: "RetreivePaymentMethodCustomerAccount", withParameters: ["customerId":self.stripeId!], block: { (object, error) in
+                        
+                        
+                        if object != nil {
+                            
+                            self.stripeAccount = object! as? [String : Any]
+                            completion(self.stripeAccount!)
+                            
+                        }else{
+                            
+                            
+                            self.stripeAccount = nil
+                            completion(nil)
+                            
+                        }
+                        
+                        
+                    })
+                }
+               
+                
+                
+            }
+        }
+    }
+   
+
+}
+
+
+
+func originYBottomButtonCTA() -> CGFloat {
+    
+    if isIphoneXFamily() {
+        
+        return Brain.kHauteurIphone-90
+        
+    }else{
+        
+        return Brain.kHauteurIphone-80
+    }
+}
 
 func yTop () -> CGFloat {
     
@@ -247,6 +402,7 @@ class SignupProcess
     var phone: String?
     var type:String?
     var profilePicture:PFFile?
+    var businessStripeId:String?
 
     
     func updateIntercomData(){
@@ -282,7 +438,7 @@ class SignupProcess
         
         if ((PFUser.current()) != nil) {
             
-            if PFUser.current()?.email == nil && email == nil{
+            if PFUser.current()?.email == nil{
                 
                 let emailVC = SignupEmailViewController()
                 navigationController.pushViewController(emailVC, animated: true)
@@ -295,9 +451,14 @@ class SignupProcess
                 navigationController.pushViewController(phoneNumber, animated: true)
                 
            
-            }else if type == nil{
+            }else if PFUser.current()?.object(forKey: Brain.kUserType)  == nil {
                 
                 let typeVC = SignupTypeWorkerViewController()
+                navigationController.pushViewController(typeVC, animated: true)
+                
+            }else if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "worker" && PFUser.current()?.object(forKey: Brain.kUserStripeCustomer) == nil && self.businessStripeId == nil {
+                
+                let typeVC = SignupAddressViewController(firstname: PFUser.current()?.object(forKey: Brain.kUserFirstName) as! String, lastname:  PFUser.current()?.object(forKey: Brain.kUserLastName) as! String , email:  PFUser.current()?.object(forKey: Brain.kUserEmail) as! String)
                 navigationController.pushViewController(typeVC, animated: true)
                 
             }else{
@@ -306,35 +467,42 @@ class SignupProcess
                 if navigationController.viewControllers.last?.className == "SignupViewController" {
                     
                     let lastVc = navigationController.viewControllers.last as! SignupViewController
-                    lastVc.loginButtonFacebook.loadingIndicator(true)
+                    lastVc.loginButtonFacebook.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                     
                 }else if navigationController.viewControllers.last?.className == "SignupPhone2ViewController" {
 
                     let lastVc = navigationController.viewControllers.last as! SignupPhone2ViewController
-                    lastVc.nextButton.loadingIndicator(true)
+                    lastVc.nextButton.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                  }else if navigationController.viewControllers.last?.className == "SignupEmailViewController" {
 
                     let lastVc = navigationController.viewControllers.last as! SignupEmailViewController
-                    lastVc.nextButton.loadingIndicator(true)
+                    lastVc.nextButton.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                 
                 }else if navigationController.viewControllers.last?.className == "SignupTypeWorkerViewController" {
                     
                     let lastVc = navigationController.viewControllers.last as! SignupTypeWorkerViewController
-                    lastVc.nextButton.loadingIndicator(true)
+                    lastVc.nextButton.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
+                    
+                }else if navigationController.viewControllers.last?.className == "SignupAddressViewController" {
+                    
+                    let lastVc = navigationController.viewControllers.last as! SignupAddressViewController
+                    lastVc.nextButton.loadingIndicatorWhite(true)
+                    lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                 }
 
                 
            
                 if PFUser.current()?.email == nil && email != nil {
+                    
                     
                     PFUser.current()?.email = email
 
@@ -359,11 +527,12 @@ class SignupProcess
                     
                 }
                 
-                PFUser.current()?[Brain.kUserType] = type!
-
                 
                 
 
+                
+                            
+                
                 PFUser.current()?.saveInBackground(block: { (success:Bool, error:Error?) in
                     
                    
@@ -420,6 +589,12 @@ class SignupProcess
                             lastVc.present(alert, animated: true, completion: nil)
 
                             
+                        }else if navigationController.viewControllers.last?.className == "SignupAddressViewController" {
+                            
+                            let lastVc = navigationController.viewControllers.last as! SignupAddressViewController
+                            lastVc.nextButton.loadingIndicatorWhite(true)
+                            lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                            
                         }
                         
                       
@@ -431,6 +606,9 @@ class SignupProcess
                         
                         self.updateInstallation()
                         self.updateIntercomData();
+                        
+                        
+                        
 
 
                         
@@ -449,8 +627,71 @@ class SignupProcess
                                 role.users.add(PFUser.current()!)
                                 role.saveInBackground(block: { (success, error1) in
                                     
+                                    if (PFUser.current()?.object(forKey: Brain.kUserStripeCustomer)) == nil {
+                                                              
+                                                              
+                                        PFCloud.callFunction(inBackground: "CreateStripeCustomerAccount", withParameters: ["email":PFUser.current()!.object(forKey: Brain.kUserEmail)!,"name":PFUser.current()?.object(forKey: Brain.kUserFirstName)!]) { (customer, error) in
+                                          
+                                          
+                                          if (customer != nil) {
+                                              
+                                              let stripeCustomer = PFObject(className: Brain.kStripeCustomerClassName)
+                                              
+                                              let acl = PFACL()
+                                              acl.setReadAccess(true, for: PFUser.current()!)
+                                              acl.setWriteAccess(true, for: PFUser.current()!)
+                                              
+                                              stripeCustomer.acl = acl
+                                              
+                                            
+                                            if self.businessStripeId != nil {
+                                                
+                                                stripeCustomer.setObject(self.businessStripeId!, forKey: Brain.kStripeWorkerIdStripe)
+
+                                                PFCloud.callFunction(inBackground: "AddFirstSkillsToBusiness", withParameters: [
+                                                                                            
+                                                     "userId":PFUser.current()?.objectId!
+
+                                                 ]) { (user, error) in
+                                                    
+                                                   
+
+                                                 }
+                                            }
+                                            
+                                              stripeCustomer.setObject((customer! as! Dictionary)["id"]!, forKey: Brain.kStripeCustomerIdStripe)
+                                              stripeCustomer.setObject(PFUser.current()!, forKey: Brain.kStripeCustomerUser)
+                                              stripeCustomer.saveInBackground(block: { (success, error) in
+                                                  
+                                                  
+                                                  
+                                                  PFUser.current()?.setObject(stripeCustomer, forKey: Brain.kUserStripeCustomer)
+                                                  PFUser.current()?.saveInBackground(block: { (success, error3) in
+                                                      
+                                                      
+                                                  })
+                                                  
+                                                  appDelegate.loginDone(animated: true)
+                                                  
+                                                  
+                                              })
+                                              
+                                          }
+                                          
+                                      }
+                                      
+                                  }else{
+                                      
+                                     
+                                      
+                                      appDelegate.loginDone(animated: true)
+
+                                     
+                                      
+                                      
+                                  }
                                     
-                                    appDelegate.loginDone(animated: true)
+                                    
 
                                 })
                                 
@@ -509,6 +750,11 @@ class SignupProcess
                 let typeVC = SignupTypeWorkerViewController()
                 navigationController.pushViewController(typeVC, animated: true)
 
+            }else if type == "worker" && self.businessStripeId == nil {
+                
+                let typeVC = SignupAddressViewController(firstname: firstname!, lastname:  lastname! , email:  email!)
+                navigationController.pushViewController(typeVC, animated: true)
+
             }else{
                 
                 
@@ -517,27 +763,27 @@ class SignupProcess
                 if navigationController.viewControllers.last?.className == "SignupViewController" {
                     
                     let lastVc = navigationController.viewControllers.last as! SignupViewController
-                    lastVc.loginButtonFacebook.loadingIndicator(true)
+                    lastVc.loginButtonFacebook.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                     
                 }else if navigationController.viewControllers.last?.className == "SignupPhone2ViewController" {
                     
                     let lastVc = navigationController.viewControllers.last as! SignupPhone2ViewController
-                    lastVc.nextButton.loadingIndicator(true)
+                    lastVc.nextButton.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                 }else if navigationController.viewControllers.last?.className == "SignupEmailViewController" {
                     
                     let lastVc = navigationController.viewControllers.last as! SignupEmailViewController
-                    lastVc.nextButton.loadingIndicator(true)
+                    lastVc.nextButton.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                     
                 }else if navigationController.viewControllers.last?.className == "SignupTypeWorkerViewController" {
                     
                     let lastVc = navigationController.viewControllers.last as! SignupTypeWorkerViewController
-                    lastVc.nextButton.loadingIndicator(true)
+                    lastVc.nextButton.loadingIndicatorWhite(true)
                     lastVc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     
                     
@@ -555,8 +801,11 @@ class SignupProcess
                 }
                 
                 
-                
-                
+                user.setObject(0, forKey: Brain.kUserReviewsWorkerNumber)
+                user.setObject(0, forKey: Brain.kUserReviewsCustomerNumber)
+                user.setObject(5, forKey: Brain.kUserRateWorker)
+                user.setObject(5, forKey: Brain.kUserRateCustomer)
+
                 if password != nil {
                     
                     user.password = password
@@ -578,12 +827,12 @@ class SignupProcess
                 
                 user[Brain.kUserType] = type!
 
-                
-//                if profilePicture != nil {
-//                    
-//                    user[Brain.kUserProfilePicture] = profilePicture!
-//
-//                }
+                                                                  
+                if profilePicture != nil {
+                    
+                    user[Brain.kUserProfilePicture] = profilePicture!
+
+                }
                 
                 if phone != nil {
                     
@@ -702,26 +951,82 @@ class SignupProcess
                         self.updateIntercomData();
 
                         
+                        PFCloud.callFunction(inBackground: "CreateStripeCustomerAccount", withParameters: ["email":PFUser.current()!.object(forKey: Brain.kUserEmail)!,"firstname":self.firstname!, "lastname":self.lastname!]) { (customer, error) in
+                            
+                            
+                            if (customer != nil) {
+                                
+                           
+                                let stripeCustomer = PFObject(className: Brain.kStripeCustomerClassName)
+                                
+                                let acl = PFACL()
+                                acl.setReadAccess(true, for: PFUser.current()!)
+                                acl.setWriteAccess(true, for: PFUser.current()!)
+                                
+                                stripeCustomer.acl = acl
+                                
+                                stripeCustomer.setObject((customer as! Dictionary)["id"]!, forKey: Brain.kStripeCustomerIdStripe)
+
+
+                                if self.businessStripeId != nil {
+                                                                                                                 
+                                    stripeCustomer.setObject(self.businessStripeId!, forKey: Brain.kStripeWorkerIdStripe)
+                                    
+                                    PFCloud.callFunction(inBackground: "AddFirstSkillsToBusiness", withParameters: [
+                                              
+                                                   "userId":PFUser.current()?.objectId!
+
+                                               ]) { (user, error) in
+                                                  
+                                                 
+
+                                               }
+
+                                }
+                                                                   
+                                stripeCustomer.setObject(PFUser.current()!, forKey: Brain.kStripeCustomerUser)
+                                stripeCustomer.saveInBackground(block: { (success, error) in
+                                    
+                               
+                                   
+                                    PFUser.current()?.setObject(stripeCustomer, forKey: Brain.kUserStripeCustomer)
+                                    PFUser.current()?.saveInBackground(block: { (success, error3) in
+                                        
+                                        
+                                    })
+                                    
+                                    
+                                                           
+                                   let queryRole = PFRole.query()
+                                   queryRole?.whereKey("name", equalTo: "User")
+                                   queryRole?.getFirstObjectInBackground(block: { (object, error) in
+                                       
+                                       
+                                       let role = object as! PFRole
+                                       
+                                       role.users.add(PFUser.current()!)
+                                       role.saveInBackground(block: { (success, error1) in
+                                           
+                                           appDelegate.loginDone(animated: true)
+
+                                           
+                                       })
+                                       
+                                   })
+                                   
+                                    
+
+                                    
+                                })
+                                
+                            }
+                            
+                        }
 
                         
                         
-                        let queryRole = PFRole.query()
-                        queryRole?.whereKey("name", equalTo: "User")
-                        queryRole?.getFirstObjectInBackground(block: { (object, error) in
-                            
-                            
-                            let role = object as! PFRole
-                            
-                            role.users.add(PFUser.current()!)
-                            role.saveInBackground(block: { (success, error1) in
-                                
-                                appDelegate.loginDone(animated: true)
 
-                                
-                            })
-                            
-                        })
-                        
+                       
                     }
                
                 })
@@ -1030,18 +1335,18 @@ extension Date {
         
         if difference < 60 {
             
-            return String(format:NSLocalizedString("%d secondes ago", comment: ""),Int(difference))
+            return String(format:NSLocalizedString("%d secs ago", comment: ""),Int(difference))
             
         }else if hours < 1 {
             
             if minutes == 1 {
                 
-                return String(format:NSLocalizedString("%d minute ago", comment: ""),minutes)
+                return String(format:NSLocalizedString("%d min ago", comment: ""),minutes)
                 
                 
             }else{
                 
-                return  String(format:NSLocalizedString("%d minutes ago", comment: ""),minutes)
+                return  String(format:NSLocalizedString("%d min ago", comment: ""),minutes)
                 
             }
             

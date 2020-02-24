@@ -84,7 +84,7 @@ open class SwiftyCamButton: UIButton {
             return
         }
         
-//       delegate?.buttonWasTapped()
+       delegate?.buttonWasTapped()
     }
     
     /// UILongPressGestureRecognizer Function

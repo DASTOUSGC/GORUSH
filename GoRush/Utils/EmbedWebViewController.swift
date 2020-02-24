@@ -24,10 +24,7 @@ class EmbedWebViewController: UIViewController , UIGestureRecognizerDelegate, WK
     
     var container : UIView!
 
-    var frontLayer : UIView!
     var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
-    var topCache : UIView!
-    var bottomCache : UIView!
     
     var presentingVC: UIViewController?  // use this variable to connect both view controllers
     
@@ -112,37 +109,14 @@ class EmbedWebViewController: UIViewController , UIGestureRecognizerDelegate, WK
         self.title = ""
         
         
-        topCache = UIView(frame: CGRect(x: 0, y: -Brain.kHauteurIphone, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone + 50))
-        topCache?.backgroundColor = UIColor.black.withAlphaComponent(1)
-        self.view.addSubview(topCache!)
+    
         
         
-        if isIphoneXFamily() {
+      
             
-            bottomCache = UIView(frame: CGRect(x: 0, y: Brain.kHauteurIphone - ( Brain.kHauteurIphone - Utils.getHeightOfStory() + 44 ) , width: Brain.kLargeurIphone, height: ( Brain.kHauteurIphone - Utils.getHeightOfStory() + 44 )))
-            bottomCache?.backgroundColor = .black
-            self.view.addSubview(bottomCache!)
-            
-            container = UIView(frame: CGRect(x: 0, y: 44, width: Brain.kLargeurIphone, height:  Utils.getHeightOfStory()))
-            container.layer.cornerRadius = 12
-            container.layer.masksToBounds = true
-            
-            self.frontLayer = UIView(frame: CGRect(x: 0, y: 44, width: Brain.kLargeurIphone, height:  Utils.getHeightOfStory()))
-            frontLayer.backgroundColor = .clear
-            
-        }else{
-            
-            self.container = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone))
-            self.container.layer.masksToBounds = true
-
-            self.frontLayer = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone))
-            frontLayer.backgroundColor = .clear
-            
-        }
-        
-  
+        self.container = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone))
+        self.container.layer.masksToBounds = true
         self.container.backgroundColor = UIColor(hex:"FAFAFA")
-       
         self.view.addSubview(self.container)
         
         
@@ -154,13 +128,7 @@ class EmbedWebViewController: UIViewController , UIGestureRecognizerDelegate, WK
         
    
        
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(panBackgroundView(sender:)))
-        self.frontLayer.addGestureRecognizer(pan)
-        pan.delegate = self
-        
-       
-        
-        container.addSubview(self.frontLayer)
+      
 //
 //        webView = WKWebView(frame: CGRect(x: 0, y: 0, width: container.w(), height: container.h()))
 //        webView.backgroundColor = .white
@@ -249,13 +217,7 @@ class EmbedWebViewController: UIViewController , UIGestureRecognizerDelegate, WK
     }
     @objc func closeAction (_ sender : UIButton){
         
-        UIView.animate(withDuration: 0.1, animations: {
-            self.topCache.backgroundColor = UIColor.black.withAlphaComponent(0)
-            
-        })
-        
-        
-       
+     
         
         self.dismiss(animated: true) {
             
@@ -407,74 +369,7 @@ class EmbedWebViewController: UIViewController , UIGestureRecognizerDelegate, WK
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func panBackgroundView(sender:UIPanGestureRecognizer) {
-        
-        if self.frontLayer == nil {
-            
-            
-            return
-            
-        }
-        
-        let touchPoint = sender.location(in: self.frontLayer!.window)
-        
-        
-        if sender.state == UIGestureRecognizerState.began {
-            initialTouchPoint = touchPoint
-        } else if sender.state == UIGestureRecognizerState.changed {
-            
-            if touchPoint.y - initialTouchPoint.y > 0 {
-                
-                self.view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y, width: self.view.frame.size.width, height: self.view.frame.size.height)
-                
-                let distance = touchPoint.y - initialTouchPoint.y
-                let alpha = 1 -   (2.5 * distance / Brain.kHauteurIphone)
-                
-                self.topCache.backgroundColor = UIColor.black.withAlphaComponent(alpha)
-                
-                if !isIphoneXFamily() {
-                    
-                    let cornerRadius =  12 * (distance / 100)
-                    self.container.layer.cornerRadius = min(cornerRadius, 12)
-                }
-                
-            }
-        } else if sender.state == UIGestureRecognizerState.ended || sender.state == UIGestureRecognizerState.cancelled {
-            if touchPoint.y - initialTouchPoint.y > 100 {
-                
-                
-                //                UIView.animate(withDuration: 0.1, animations: {
-                self.topCache.backgroundColor = UIColor.black.withAlphaComponent(0)
-                //
-                //                }) { (done) in
-                //
-                //
-                //                }
-                
-               
-                
-                
-                self.dismiss(animated: true, completion: nil)
-                
-                
-            } else {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-                    
-                    self.topCache.backgroundColor = UIColor.black.withAlphaComponent(1)
-                    
-                    if !isIphoneXFamily() {
-                        
-                        
-                        self.container.layer.cornerRadius = 0
-                        
-                    }
-                    
-                })
-            }
-        }
-        
-    }
+   
     
     
 

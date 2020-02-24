@@ -147,7 +147,7 @@ open class SwiftyCamViewController: UIViewController, UIGestureRecognizerDelegat
 
 	/// Set default launch camera
 
-	public var defaultCamera                   = CameraSelection.front
+    public var defaultCamera                   = CameraSelection.rear
 
 	/// Sets wether the taken photo or video should be oriented according to the device orientation
 
@@ -1243,7 +1243,7 @@ extension SwiftyCamViewController : SwiftyCamButtonDelegate {
 	/// Set UITapGesture to take photo
 
 	public func buttonWasTapped() {
-//        takePhoto()
+        takePhoto()
 	}
 
 	/// Set UILongPressGesture start to begin video

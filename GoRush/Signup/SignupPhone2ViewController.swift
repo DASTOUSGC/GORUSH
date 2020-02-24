@@ -42,7 +42,11 @@ class SignupPhone2ViewController: UIViewController , UIGestureRecognizerDelegate
     var code:String!
     var phone:String!
     
-    var updatePassword = false
+    var updatePhone = false
+    
+    var editProfileVC : EditProfileViewController?
+
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
@@ -56,6 +60,17 @@ class SignupPhone2ViewController: UIViewController , UIGestureRecognizerDelegate
         self.phone = phone
         
     }
+    
+    convenience init(code:String, phone:String, updatePhone : Bool, editProfileVC : EditProfileViewController!)
+       {
+           
+           self.init()
+           self.code = code
+           self.phone = phone
+           self.updatePhone = updatePhone
+           self.editProfileVC = editProfileVC
+           
+       }
     
 
     
@@ -96,7 +111,7 @@ class SignupPhone2ViewController: UIViewController , UIGestureRecognizerDelegate
         view.addSubview(textB)
         
         
-        textField = UITextField(frame: CGRect(x: (Brain.kLargeurIphone-335)/2, y: textB.frame.origin.y + 70, width: 335, height: 60))
+        textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 70, width: Brain.kLargeurIphone-40, height: 60))
         textField.textAlignment = .center
        
         textField.textColor = UIColor.black
@@ -108,7 +123,7 @@ class SignupPhone2ViewController: UIViewController , UIGestureRecognizerDelegate
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         view.addSubview(textField)
         
-        nextButton = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-60-20, width:335, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: Brain.kHauteurIphone-60-20, width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
@@ -172,7 +187,7 @@ class SignupPhone2ViewController: UIViewController , UIGestureRecognizerDelegate
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if nextButton.frame.origin.y == Brain.kHauteurIphone-60-20{
-                nextButton.frame = CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:335, height: 60)
+                nextButton.frame = CGRect(x:20, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:Brain.kLargeurIphone-40, height: 60)
                 self.notreceived.frame = CGRect(x: 0, y: nextButton.frame.origin.y-40, width: Brain.kLargeurIphone, height: 30)
 
             }
@@ -212,13 +227,20 @@ class SignupPhone2ViewController: UIViewController , UIGestureRecognizerDelegate
      
         self.textField.resignFirstResponder()
         
-        if self.updatePassword == true {
+        if self.updatePhone == true {
+
+
+            print("GOOOOOOOOOOOOOOO")
             
             
             PFUser.current()?.setObject(self.phone, forKey: Brain.kUserPhone)
             PFUser.current()?.saveInBackground()
 //            self.navigationController?.popViewController(animated: true)
 
+            editProfileVC!.pushToEditPhone = false
+            editProfileVC!.dismiss(animated: true, completion: {
+            
+            })
         
             
             
@@ -239,7 +261,7 @@ class SignupPhone2ViewController: UIViewController , UIGestureRecognizerDelegate
         if(textField.text?.count == 4){
             
             
-            if(textField.text == self.code || textField.text == "0000"){
+            if(textField.text == self.code){
 
                 nextButton.isEnabled = true
                 nextButton.alpha = 1.0

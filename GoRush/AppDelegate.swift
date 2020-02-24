@@ -16,6 +16,10 @@ import CoreLocation
 import NVActivityIndicatorView
 import PopupDialog
 import AVKit
+import GoogleMaps
+import Stripe
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate{
@@ -41,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         _ = try? audioSession.setCategory(AVAudioSessionCategoryAmbient, with: AVAudioSessionCategoryOptions.mixWithOthers)
         
         
+        
         ///Init des settings de design
         updateAppSettings()
         
@@ -48,11 +53,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         initParse()
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         
+        
+        ///Stripe
+        STPPaymentConfiguration.shared().publishableKey = Brain.kStripeKey
+
+        
+        
         /// Intercom
         Intercom.setApiKey(Brain.kIntercomAPIKey, forAppId: Brain.kIntercomAppId)
 
         /// Fetch PFConfig
         PFConfig.getInBackground()
+
+        
+        ///GOogleMaps
+        GMSServices.provideAPIKey(Brain.kGoogleMapsAPIKey)
+
+        
+        self.setupStripeAccount()
 
         
         /// Init location
@@ -84,6 +102,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
             homeViewController = SignupViewController()
             
+            
+            if homeViewController?.player != nil {
+                
+                homeViewController?.player.isMuted = true
+                          homeViewController?.player.pause()
+                          
+            }
+          
             PFUser.current()?.fetchInBackground()
             
             
@@ -98,13 +124,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
             window!.makeKeyAndVisible()
 
-            self.tabBarController = TabBarController()
             
-            self.homeViewController?.present(self.tabBarController!, animated: false, completion: {
+
+            self.tabBarController = TabBarController()
+
+            let navTabbar = UINavigationController(rootViewController: tabBarController!)
+            navTabbar.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
+
+            self.homeViewController?.present(navTabbar, animated: false, completion: {
+                
                 
                 
                 self.launchScreenView.removeFromSuperview()
                 
+                if self.homeViewController?.player != nil {
+                   
+                   self.homeViewController?.player.isMuted = true
+                   self.homeViewController?.player.pause()
+                             
+                }
                 
             })
 
@@ -137,7 +175,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
 
     
- 
+    func setupStripeAccount(){
+        
+        StripeCustomer.shared().refreshStripeAccount { (stripeAccount) in
+            
+            
+        }
+    }
     
     
    
@@ -348,7 +392,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         
         tabBarController = TabBarController()
-        homeViewController?.present(tabBarController!, animated: animated, completion: {
+
+        let navTabbar = UINavigationController(rootViewController: tabBarController!)
+        navTabbar.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
+        
+        homeViewController?.present(navTabbar, animated: animated, completion: {
             
             
             self.removeLoadingView()
@@ -439,6 +487,88 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     
+    func receivePush(content : UNNotificationContent){
+        
+        if PFUser.current() == nil {
+
+            return
+        }
+        if content.userInfo["reservationId"] != nil{
+            
+            
+            if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "customer" {
+                
+                self.tabBarController?.selectedIndex = 0
+
+            }else{
+                
+                self.tabBarController?.selectedIndex = 1
+
+                
+            }
+
+
+            
+            self.addLoadingView()
+
+            
+            self.resetAllNavigations()
+            
+            
+            let request = PFQuery(className: Brain.kRequestClassName)
+            request.includeKey(Brain.kRequestService)
+            request.includeKey(Brain.kRequestCustomer)
+            request.includeKey(Brain.kRequestWorker)
+
+            request.getObjectInBackground(withId: content.userInfo["requestId"] as! String) { (request, error) in
+                
+                
+                if request != nil{
+                    
+
+                if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "customer" {
+
+
+                    let request = RequestViewController(request: request!)
+                    request.hidesBottomBarWhenPushed = true
+                    self.tabBarController?.navigationController!.pushViewController(request, animated: true)
+
+                    
+                }else{
+
+                    let request = RequestWorkerViewController(request: request!)
+                  request.hidesBottomBarWhenPushed = true
+                      
+                  self.tabBarController?.navigationController!.pushViewController(request, animated: true)
+
+                }
+
+
+                    self.removeLoadingView()
+
+                }else{
+                    
+                    self.removeLoadingView()
+                }
+                
+                
+            }
+            
+           
+        }
+        
+        
+        
+    }
+    
+    func resetAllNavigations(){
+        
+        self.tabBarController?.exploreViewController?.navigationController?.popToRootViewController(animated: false)
+        self.tabBarController?.jobsViewController?.navigationController?.popToRootViewController(animated: false)
+        self.tabBarController?.requestsViewController?.navigationController?.popToRootViewController(animated: false)
+        self.tabBarController?.profileViewController?.navigationController?.popToRootViewController(animated: false)
+    }
+    
    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("Handle push from background or closed")
@@ -452,7 +582,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         installation?.saveInBackground()
         
         
-        
+        self.receivePush(content: response.notification.request.content)
+
       
         completionHandler()
         

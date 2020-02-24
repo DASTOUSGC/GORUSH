@@ -73,7 +73,7 @@ class SignupFirstNameViewController: UIViewController , UIGestureRecognizerDeleg
         view.addSubview(textB)
         
         
-        textField = UITextField(frame: CGRect(x: (Brain.kLargeurIphone-335)/2, y: textB.frame.origin.y + 70, width: 335, height: 60))
+        textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 70, width: Brain.kLargeurIphone-40, height: 60))
         textField.textAlignment = .center
         textField.layer.cornerRadius = 30
         textField.backgroundColor = UIColor(hex: "FCFCFC")
@@ -86,7 +86,7 @@ class SignupFirstNameViewController: UIViewController , UIGestureRecognizerDeleg
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         view.addSubview(textField)
         
-        textField2 = UITextField(frame: CGRect(x: (Brain.kLargeurIphone-335)/2, y: textField.yBottom() + 10, width: 335, height: 60))
+        textField2 = UITextField(frame: CGRect(x: 20, y: textField.yBottom() + 10, width: Brain.kLargeurIphone-40, height: 60))
         textField2.textAlignment = .center
         textField2.layer.cornerRadius = 30
         textField2.textColor = UIColor.black
@@ -100,7 +100,7 @@ class SignupFirstNameViewController: UIViewController , UIGestureRecognizerDeleg
         textField2.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         view.addSubview(textField2)
         
-        nextButton = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-60-20, width:335, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: Brain.kHauteurIphone-60-20, width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
@@ -154,7 +154,7 @@ class SignupFirstNameViewController: UIViewController , UIGestureRecognizerDeleg
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if nextButton.frame.origin.y == Brain.kHauteurIphone-60-20{
-                nextButton.frame = CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:335, height: 60)
+                nextButton.frame = CGRect(x:20, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:Brain.kLargeurIphone-40, height: 60)
                 
             }
         }

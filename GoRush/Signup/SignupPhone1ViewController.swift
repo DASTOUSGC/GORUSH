@@ -82,7 +82,7 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
         view.addSubview(textB)
         
         
-        textField = UITextField(frame: CGRect(x: (Brain.kLargeurIphone-335)/2, y: textB.frame.origin.y + 70, width: 335, height: 60))
+        textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 70, width: Brain.kLargeurIphone-40, height: 60))
         textField.textAlignment = .center
         textField.textColor = UIColor.black
         textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -95,12 +95,12 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
 
         
         textField.sizeToFit()
-        textField.frame.size.width = textField.frame.size.width + 20
+        textField.frame.size.width = textField.frame.size.width + 40
         textField.frame.origin.x = (Brain.kLargeurIphone - textField.frame.size.width ) / 2
 
         
         
-        nextButton = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone - 90, width:335, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: originYBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
@@ -192,8 +192,8 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
     @objc func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if nextButton.frame.origin.y == Brain.kHauteurIphone-90{
-                nextButton.frame = CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:335, height: 60)
+            if nextButton.frame.origin.y == originYBottomButtonCTA(){
+                nextButton.frame = CGRect(x:20, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:Brain.kLargeurIphone-40, height: 60)
                 
             }
         }
@@ -240,7 +240,7 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
     @objc func touchNext(_ sender: UIButton){
         
 
-        nextButton.loadingIndicator(true)
+        nextButton.loadingIndicatorWhite(true)
         self.backButtonNav.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
@@ -249,88 +249,104 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
         print("code : \(code)")
        
         
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+//
+//
+//
+//            self.nextButton.loadingIndicator(false)
+//            self.backButtonNav.isHidden = false
+//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+//
+//            let verificationPhone = SignupPhone2ViewController(code: code, phone: self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+//            self.pushViewController(verificationPhone, animated: true)
+//
+//        })
+//
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-            
-            
-            
-            self.nextButton.loadingIndicator(false)
-            self.backButtonNav.isHidden = false
-            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-            
-            let verificationPhone = SignupPhone2ViewController(code: code, phone: self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
-            self.pushViewController(verificationPhone, animated: true)
-            
-        })
+        var phone = self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
+        do {
         
-        
-//
-//        PFCloud.callFunction(inBackground: "checkPhoneNumber",
-//                             withParameters:["phoneNumber":phone]) { (object:Any?, error:Error?) in
-//
-//
-//                                if  error != nil {
-//
-//                                    self.nextButton.loadingIndicator(false)
-//                                    self.backButtonNav.isHidden = false
-//                                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-//
-//                                    let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: "Sorry, this phone number is already registered", preferredStyle: UIAlertControllerStyle.alert)
-//                                    if let popoverController = alert.popoverPresentationController {
-//                                        popoverController.sourceView = self.view
-//                                        popoverController.permittedArrowDirections = []
-//                                        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-//                                    }
-//
-//                                    alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
-//                                    self.present(alert, animated: true, completion: nil)
-//
-//
-//                                }else{
-//
-//
-//                                    var name = ""
-//
-//                                    if PFUser.current() != nil {
-//
-//                                        name = PFUser.current()!.object(forKey: Brain.kUserFirstName)! as! String
-//
-//                                    }else{
-//
-//                                        if SignupProcess.shared().firstname != nil {
-//
-//                                            name = SignupProcess.shared().firstname!
-//                                        }
-//                                    }
-//
-//                                    PFCloud.callFunction(inBackground: "sendSMSVerificationNumber",
-//                                                         withParameters:["code":code,
-//                                                                         "to":self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines),
-//                                                                         "firstName":name]) { (object:Any?, error:Error?) in
-//
-//                                                            self.nextButton.loadingIndicator(false)
-//                                                            self.backButtonNav.isHidden = false
-//                                                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-//
-//
-//                                                            if  error != nil && 1 == 2 {
-//
-//
-//
-//                                                            }else{
-//
-//                                                                print("code \(code)")
-//                                                                let verificationPhone = SignupPhone2ViewController(code: code, phone: self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
-//                                                                self.pushViewController(verificationPhone, animated: true)
-//
-//
-//                                                            }
-//
-//                                    }
-//                                }
-//
-//        }
+            let phoneNumberKit = PhoneNumberKit()
+            let phoneNumber =  try phoneNumberKit.parse(self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+            phone = phoneNumberKit.format(phoneNumber, toType: .e164) // +61236618300
+            
+       }
+       catch {
+       }
+
+
+
+        PFCloud.callFunction(inBackground: "checkPhoneNumber",
+                             withParameters:["phoneNumber":phone]) { (object:Any?, error:Error?) in
+
+
+                                print("rrr phone \(error)")
+                                
+                                
+                                if  error != nil && 1 == 2  {
+
+                                    self.nextButton.loadingIndicator(false)
+                                    self.backButtonNav.isHidden = false
+                                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+
+                                    let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: "Sorry, this phone number is already registered", preferredStyle: UIAlertControllerStyle.alert)
+                                    if let popoverController = alert.popoverPresentationController {
+                                        popoverController.sourceView = self.view
+                                        popoverController.permittedArrowDirections = []
+                                        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                                    }
+
+                                    alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
+                                    self.present(alert, animated: true, completion: nil)
+
+
+                                }else{
+
+
+                                    var name = ""
+
+                                    if PFUser.current() != nil {
+
+                                        name = PFUser.current()!.object(forKey: Brain.kUserFirstName)! as! String
+
+                                    }else{
+
+                                        if SignupProcess.shared().firstname != nil {
+
+                                            name = SignupProcess.shared().firstname!
+                                        }
+                                    }
+
+                                    PFCloud.callFunction(inBackground: "sendSMSVerificationNumber",
+                                                         withParameters:["code":code,
+                                                                         "to":self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines),
+                                                                         "firstName":name]) { (object:Any?, error:Error?) in
+
+                                                            self.nextButton.loadingIndicator(false)
+                                                            self.backButtonNav.isHidden = false
+                                                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+
+
+                                                            if  error != nil {
+
+                                                                print("err \(error)")
+
+
+                                                            }else{
+
+                                                                print("code \(code)")
+                                                                let verificationPhone = SignupPhone2ViewController(code: code, phone: self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                                                                self.pushViewController(verificationPhone, animated: true)
+
+
+                                                            }
+
+                                    }
+                                }
+
+        }
         
     }
     

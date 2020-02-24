@@ -21,7 +21,7 @@ class ParentLoadingViewController: UIViewController {
         
         self.view.backgroundColor = Brain.kColorCustomGray
        
-        loading = NVActivityIndicatorView(frame: CGRect(x: Brain.kLargeurIphone/2-25 , y: Brain.kHauteurIphone/2-50 - 64, width: 50, height: 50), type: .ballPulse , color: .white, padding: 0.0)
+        loading = NVActivityIndicatorView(frame: CGRect(x: Brain.kLargeurIphone/2-25 , y: Brain.kHauteurIphone/2-50 - 64, width: 50, height: 50), type: .ballPulse , color: Brain.kColorMain, padding: 0.0)
         
         self.view.addSubview(self.loading)
         

@@ -197,8 +197,9 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         
         player?.play()
-        self.player.isMuted = false
+        self.player.isMuted = true
 
+        
 
         
         NotificationCenter.default.addObserver(self,
@@ -220,14 +221,14 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
     @objc func loopVideo() {
         self.player.seek(to: kCMTimeZero)
         self.player.play()
-        self.player.isMuted = false
+        self.player.isMuted = true
 
     }
   
     @objc func appWillEnterForegroundNotification() {
         
         player?.play()
-        self.player.isMuted = false
+        self.player.isMuted = true
 
     }
     
@@ -288,7 +289,6 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
             let nav = UINavigationController(rootViewController: webview)
             nav.isNavigationBarHidden = true
             nav.navigationBar.isTranslucent = false
-            nav.modalPresentationStyle = .overCurrentContext
             
             self.present(nav, animated: true) {
                 
@@ -308,7 +308,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         PFFacebookUtils.logInInBackground(withReadPermissions: Brain.kFacebookPermissions) { (user, error) in
             
             self.player.play()
-            self.player.isMuted = false
+            self.player.isMuted = true
 
             
             if let error = error{
@@ -327,6 +327,11 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
                     PFUser.current()?.acl = PFACL(user: PFUser.current()!)
                     PFUser.current()?.acl?.setReadAccess(true, forRoleWithName: "User")
                     
+
+                    PFUser.current()?.setObject(0, forKey: Brain.kUserReviewsWorkerNumber)
+                    PFUser.current()?.setObject(0, forKey: Brain.kUserReviewsCustomerNumber)
+                    PFUser.current()?.setObject(5, forKey: Brain.kUserRateWorker)
+                    PFUser.current()?.setObject(5, forKey: Brain.kUserRateCustomer)
                     
                 }
                 
@@ -465,11 +470,11 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         let emailVC = SigninEmailViewController()
         navigationController?.pushViewController(emailVC, animated: true)
-
+//
+//        let typeVC = SignupAddressViewController(firstname: "tst", lastname:  "test" , email:  "ss")
+//        
+//        self.navigationController!.pushViewController(typeVC, animated: true)
         
-//        let typeWorker = SignupTypeWorkerViewController()
-//        navigationController?.pushViewController(typeWorker, animated: true)
-
     }
     
    

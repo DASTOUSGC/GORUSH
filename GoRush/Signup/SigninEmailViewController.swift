@@ -6,7 +6,6 @@
 //  Copyright © 2018 Julien Levallois. All rights reserved.
 //
 
-
 import UIKit
 import Parse
 import FBSDKCoreKit
@@ -27,26 +26,26 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     
     var textField: UITextField!
     var textField2: UITextField!
-
+    
     
     
     var backButtonNav:UIButton!
     var nextButton:UIButton!
     
     var resetPasswordButton:UIButton!
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         
         view.backgroundColor = .white
-
-      
+        
+        
         displayOriginY = originY()
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -65,7 +64,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textA.font = UIFont.systemFont(ofSize: 21, weight: .bold)
         textA.text = NSLocalizedString("Sign in with email", comment: "")
         textA.textColor = .black
-
+        
         view.addSubview(textA)
         
         
@@ -77,7 +76,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         view.addSubview(textB)
         
         
-        textField = UITextField(frame: CGRect(x: (Brain.kLargeurIphone-335)/2, y: textB.frame.origin.y + 70, width: 335, height: 60))
+        textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 70, width: Brain.kLargeurIphone-40, height: 60))
         textField.textAlignment = .center
         textField.layer.cornerRadius = 30
         textField.backgroundColor = UIColor(hex: "FCFCFC")
@@ -92,7 +91,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         view.addSubview(textField)
         
-        textField2 = UITextField(frame: CGRect(x: (Brain.kLargeurIphone-335)/2, y: textField.yBottom() + 10, width: 335, height: 60))
+        textField2 = UITextField(frame: CGRect(x: 20, y: textField.yBottom() + 10, width: Brain.kLargeurIphone-40, height: 60))
         textField2.textAlignment = .center
         textField2.layer.cornerRadius = 30
         textField2.textColor = UIColor.black
@@ -109,7 +108,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         
         
-        nextButton = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-60-20, width:335, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: Brain.kHauteurIphone-60-20, width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
@@ -177,7 +176,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.navigationBar.barStyle = .black
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         
@@ -185,7 +184,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         
     }
- 
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         
@@ -193,13 +192,13 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         textField.resignFirstResponder()
         textField2.resignFirstResponder()
-
+        
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
         
         
     }
     
-   
+    
     override func willMove(toParentViewController parent: UIViewController?) {
         super.willMove(toParentViewController:parent)
         if parent == nil {
@@ -216,9 +215,9 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if nextButton.frame.origin.y == Brain.kHauteurIphone-60-20{
-                nextButton.frame = CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:335, height: 60)
+                nextButton.frame = CGRect(x:20, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:Brain.kLargeurIphone-40, height: 60)
                 self.resetPasswordButton.frame = CGRect(x: 0, y: nextButton.frame.origin.y-40, width: Brain.kLargeurIphone, height: 30)
-
+                
             }
         }
     }
@@ -247,7 +246,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     @objc func touchNext(_ sender: UIButton){
         
         
-        self.nextButton.loadingIndicator(true)
+        self.nextButton.loadingIndicatorWhite(true)
         self.backButtonNav.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
@@ -278,7 +277,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
                 
                 UserDefaults.standard.set(self.textField.text!, forKey: "username")
                 UserDefaults.standard.set(self.textField2.text!, forKey: "password")
-
+                
                 
                 self.nextButton.loadingIndicator(false)
                 self.backButtonNav.isHidden = false
@@ -319,7 +318,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
             
             
         }
-       
+        
     }
     
     
@@ -328,15 +327,16 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     @objc func textFieldDidChange(_ textField: UITextField) {
         
         
+        
         if self.textField.text!.isValidEmail()  {
-          
+            
             resetPasswordButton.isHidden = false
-
+            
             
         }else{
-          
+            
             resetPasswordButton.isHidden = true
-
+            
         }
         
         if (self.textField.text!.isValidEmail() && self.textField2.text!.count > 0 ) {
@@ -352,7 +352,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         }
     }
     
-   
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -367,4 +367,9 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
             }.resume()
     }
     
+    
+  
 }
+
+
+

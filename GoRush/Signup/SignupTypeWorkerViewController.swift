@@ -194,7 +194,7 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
         
         
         
-        nextButton = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-335)/2, y: Brain.kHauteurIphone-90, width:335, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: originYBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
@@ -209,7 +209,7 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
         /////
         /////
         
-        viewCustomer = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-335)/2, y: nextButton.y() - 75, width:335, height: 60))
+        viewCustomer = UIButton(frame: CGRect(x:20, y: nextButton.y() - 75, width:Brain.kLargeurIphone-40, height: 60))
         viewCustomer.layer.cornerRadius = 30;
         viewCustomer.clipsToBounds = true
         viewCustomer.addTarget(self, action: #selector(touchCustomer(_:)), for: .touchUpInside)
@@ -239,7 +239,7 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
         /////
         /////
         
-        viewWorker = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-335)/2, y: viewCustomer.y() - 75, width:335, height: 60))
+        viewWorker = UIButton(frame: CGRect(x:20, y: viewCustomer.y() - 75, width:Brain.kLargeurIphone-40, height: 60))
         viewWorker.layer.cornerRadius = 30;
         viewWorker.clipsToBounds = true
         viewWorker.setBackgroundColor(color: UIColor(hex: "F8F8F8"), forState: .highlighted)
@@ -268,12 +268,7 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
         
         /////
         /////
-        
-        
-        
-      
-        
-        
+    
         
     }
    
@@ -479,12 +474,30 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
         
         if self.selectedWorker == false {
             
-            SignupProcess.shared().type = "customer"
+            
+            if PFUser.current() != nil {
+                
+                PFUser.current()?.setObject("customer", forKey: Brain.kUserType)
+
+            }else{
+                SignupProcess.shared().type = "customer"
+
+            }
 
             
         }else{
             
-            SignupProcess.shared().type = "worker"
+            
+            if PFUser.current() != nil {
+                           
+               PFUser.current()?.setObject("worker", forKey: Brain.kUserType)
+
+           }else{
+              
+                SignupProcess.shared().type = "worker"
+
+           }
+
 
         }
         

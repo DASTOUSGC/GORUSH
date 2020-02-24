@@ -30,6 +30,7 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
     var textA: UILabel!
     var textB: UILabel!
     
+    var switchText = NSLocalizedString("Switch To Worker", comment: "")
     
     deinit {
         
@@ -101,18 +102,10 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         view.addSubview(tableView)
         
         
+    
         
-        objects = [
-            [NSLocalizedString("Notifications", comment:""),"iconNotifs"],
-            //            [NSLocalizedString("Payments", comment:""),"iconPayments"],
-            //            [NSLocalizedString("Invite friends", comment:""),"iconInviteFriends"],
-            [NSLocalizedString("Need help?", comment:""),"iconContact"],
-            [NSLocalizedString("Rate us!", comment:""),"iconRateUs"],
-            [NSLocalizedString("Terms & Privacy Policy", comment:""),"iconTerms"],
-            [NSLocalizedString("Log out", comment:""),"iconLogout"],
-        ]
         
-        self.tableView.reloadData()
+      
         
       
         
@@ -148,6 +141,34 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
+        
+        
+        
+        if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "customer" {
+            
+            switchText = NSLocalizedString("Switch To Worker", comment: "")
+
+            
+        }else{
+            
+            switchText = NSLocalizedString("Switch To Customer", comment: "")
+
+        }
+        
+        
+        objects = [
+                  [NSLocalizedString("Notifications", comment:""),"iconNotifs"],
+                  [switchText,"iconSwitch"],
+                  //            [NSLocalizedString("Invite friends", comment:""),"iconInviteFriends"],
+                  [NSLocalizedString("Need help?", comment:""),"iconContact"],
+                  [NSLocalizedString("Rate us!", comment:""),"iconRateUs"],
+                  [NSLocalizedString("Terms & Privacy Policy", comment:""),"iconTerms"],
+                  [NSLocalizedString("Log out", comment:""),"iconLogout"],
+              ]
+              
+        
+        self.tableView.reloadData()
+        
         
     }
     
@@ -192,6 +213,9 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         let content = objects[indexPath.row] as! NSArray
         
         
+        cell.name.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+
+        
       
         if (content[0] as! String == NSLocalizedString("Notifications", comment:"")) {
             
@@ -200,6 +224,13 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
             cell.switchNotif.isHidden = false
             cell.switchNotif.addTarget(self, action: #selector(switchNotif(sender:)), for: .valueChanged)
 
+
+        }else if (content[0] as! String == self.switchText) {
+            
+        
+            cell.name.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+
+            
 
         }else{
             
@@ -241,8 +272,91 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
             
             
             
-        }else if (content[0] as! String == NSLocalizedString("Need help?", comment:"")) {
+        }else if (content[0] as! String == switchText) {
             
+        
+            if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "customer" {
+                
+                PFUser.current()?.setObject("worker", forKey: Brain.kUserType)
+
+            }else{
+                
+                
+                PFUser.current()?.setObject("customer", forKey: Brain.kUserType)
+            }
+            
+
+            
+            
+            PFUser.current()?.saveInBackground()
+            
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+            appDelegate.addLoadingView()
+            
+            
+        
+            if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "worker" {
+                
+                
+                let stripeWorker =  PFUser.current()?.object(forKey: Brain.kUserStripeCustomer) as! PFObject
+                                          
+                stripeWorker.fetchInBackground { (stripeWorker, error) in
+                    
+                    if stripeWorker?.object(forKey: Brain.kStripeWorkerIdStripe) != nil {
+                        
+                                    appDelegate.tabBarController?.updateMode()
+                                   appDelegate.tabBarController?.selectedIndex = 0
+                                   
+                                   self.navigationController?.popViewController(animated: true)
+                                   
+                                   
+                                   DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { // Change `2.0` to the desired number of seconds.
+                                      // Code you want to be delayed
+                                       
+                                       appDelegate.removeLoadingView()
+                                       
+                                   }
+                        
+                    }else{
+                        
+                        
+                        appDelegate.removeLoadingView()
+                        
+                        //// Pas de compte worker!
+                        PFUser.current()?.setObject("customer", forKey: Brain.kUserType)
+                        PFUser.current()?.saveInBackground()
+                        
+                        let typeVC = SignupAddressViewController(firstname: PFUser.current()?.object(forKey: Brain.kUserFirstName) as! String, lastname:  PFUser.current()?.object(forKey: Brain.kUserLastName) as! String , email:  PFUser.current()?.object(forKey: Brain.kUserEmail) as! String, fromCustomerMode: true)
+                        self.navigationController!.pushViewController(typeVC, animated: true)
+                        
+                    }
+                }
+                
+            }else{
+                
+                appDelegate.tabBarController?.updateMode()
+                           appDelegate.tabBarController?.selectedIndex = 0
+                           
+                           self.navigationController?.popViewController(animated: true)
+                           
+                           
+                           DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { // Change `2.0` to the desired number of seconds.
+                              // Code you want to be delayed
+                               
+                               appDelegate.removeLoadingView()
+                               
+                           }
+            }
+
+
+            
+           
+            
+        
+        }else if (content[0] as! String == NSLocalizedString("Need help?", comment:"")) {
+
 //
 //            let composeVC = MFMailComposeViewController()
 //            composeVC.mailComposeDelegate = self
@@ -314,9 +428,9 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
                 let nav = UINavigationController(rootViewController: webview)
                 nav.isNavigationBarHidden = true
                 nav.navigationBar.isTranslucent = false
-                nav.modalPresentationStyle = .overCurrentContext
                 
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
                 appDelegate.tabBarController?.present(nav, animated: true, completion: {
                     
                 })
@@ -329,7 +443,7 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
             
             
             
-            let alert = UIAlertController(title: NSLocalizedString("Are you sure you want to log out?", comment: ""), message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Log out", comment: ""), message: NSLocalizedString("Are you sure you want to log out?", comment: ""), preferredStyle: .alert)
             
             
             if let popoverController = alert.popoverPresentationController {

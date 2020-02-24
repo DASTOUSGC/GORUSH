@@ -15,7 +15,7 @@ target 'GoRush' do
   pod 'UIView+draggable'
   pod 'DatePickerDialog'
   pod 'PhoneNumberKit', '~> 2.1'
-  pod 'UITextView+Placeholder'
+  pod 'KMPlaceholderTextView', '~> 1.4.0'
   pod 'Cosmos', '~> 16.0'
 
   pod 'PopupDialog', '~> 1.0.0'
@@ -26,7 +26,8 @@ target 'GoRush' do
   pod 'NextLevelSessionExporter', '~> 0.2.0'
   pod 'MapboxGeocoder.swift'
   pod 'Mapbox-iOS-SDK'
-
+  pod 'GoogleMaps'
+  pod 'Stripe'
 
 
 end
