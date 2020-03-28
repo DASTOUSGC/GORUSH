@@ -12,6 +12,7 @@ import AVFoundation
 import Parse
 import KMPlaceholderTextView
 import Cosmos
+import Intercom
 
 
 class ReviewsViewController: UIViewController, UIGestureRecognizerDelegate, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -25,6 +26,8 @@ class ReviewsViewController: UIViewController, UIGestureRecognizerDelegate, UITe
     
     var tableviewIdentifier = "MyCell"
     
+    var closeIndicator : UIImageView!
+
     deinit {
         
         print("dealloc Service")
@@ -75,12 +78,19 @@ class ReviewsViewController: UIViewController, UIGestureRecognizerDelegate, UITe
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .interactive
-        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: 20))
+        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: 40))
         self.tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: 200))
         view.addSubview(tableView)
 
 
 
+
+        closeIndicator = UIImageView(frame: CGRect(x: ( Brain.kL - 60 ) / 2, y: 12, width: 60, height: 5))
+        closeIndicator.layer.cornerRadius = 2.5
+        closeIndicator.backgroundColor = UIColor(hex: "ECECEC")
+        view.addSubview(closeIndicator)
+
+        
     }
     
     
@@ -100,6 +110,8 @@ class ReviewsViewController: UIViewController, UIGestureRecognizerDelegate, UITe
         self.navigationController?.navigationBar.layoutIfNeeded()
         self.navigationController?.navigationBar.prefersLargeTitles = false
 
+        Intercom.logEvent(withName: "customer_openReviews")
+
         self.getReviews()
     }
     
@@ -111,9 +123,12 @@ class ReviewsViewController: UIViewController, UIGestureRecognizerDelegate, UITe
         let reviewsQuery = PFQuery(className: Brain.kReviewClassName)
         
         if self.fromWorker == true {
-            reviewsQuery.whereKey(Brain.kReviewWorkerId, equalTo: self.user.objectId!)
-        }else{
             reviewsQuery.whereKey(Brain.kReviewCustomerId, equalTo: self.user.objectId!)
+            reviewsQuery.whereKey(Brain.kReviewFrom, equalTo: "worker")
+        }else{
+            reviewsQuery.whereKey(Brain.kReviewWorkerId, equalTo: self.user.objectId!)
+            reviewsQuery.whereKey(Brain.kReviewFrom, equalTo: "customer")
+
 
         }
         reviewsQuery.includeKey(Brain.kReviewCustomer)
@@ -133,7 +148,6 @@ class ReviewsViewController: UIViewController, UIGestureRecognizerDelegate, UITe
                 
             }
             
-            print("rr \(reviewsO)")
             self.tableView.reloadData()
             
         }
@@ -177,18 +191,18 @@ class ReviewsViewController: UIViewController, UIGestureRecognizerDelegate, UITe
         
         if self.fromWorker == true {
         
-            cell.user = cell.review.object(forKey: Brain.kReviewCustomer) as? PFUser
+            cell.user = cell.review.object(forKey: Brain.kReviewWorker) as? PFUser
         
         }else{
          
-            cell.user = cell.review.object(forKey: Brain.kReviewWorker) as? PFUser
+            cell.user = cell.review.object(forKey: Brain.kReviewCustomer) as? PFUser
 
         }
         
         
         if cell.user.object(forKey: Brain.kUserProfilePicture) != nil {
             
-            cell.profile.file = cell.user.object(forKey: Brain.kUserProfilePicture) as? PFFile
+            cell.profile.file = cell.user.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
             cell.profile.loadInBackground()
             
         }else{

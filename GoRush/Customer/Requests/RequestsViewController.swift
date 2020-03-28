@@ -8,10 +8,15 @@
 
 import Foundation
 import Parse
-
+import ParseLiveQuery
+import Intercom
 
 class RequestsViewController: ParentLoadingViewController , UICollectionViewDataSource, UICollectionViewDelegate{
     
+    
+    var subscriptionRequests: Subscription<PFObject>!
+    var liveQueryRequests : PFQuery<PFObject>!
+
     
     var titleViewController = NSLocalizedString("Requests", comment:"")
     var requests = [PFObject]()
@@ -33,7 +38,6 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
     
     
     var lightMode = false
-    var timer: Timer?
 
     
     deinit {
@@ -100,7 +104,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
         
         collectionViewUpcoming = UICollectionView(frame: CGRect(x: 0, y: customTitle.yBottom() + 5 + 18.5, width: Brain.kLargeurIphone , height: Brain.kHauteurIphone - customTitle.yBottom() - 5 - 18.5 ) , collectionViewLayout: layout)
         collectionViewUpcoming.dataSource = self
-        collectionViewUpcoming.contentInset = UIEdgeInsetsMake(37, 0, 150, 0)
+        collectionViewUpcoming.contentInset = UIEdgeInsets(top: 37, left: 0, bottom: 150, right: 0)
         collectionViewUpcoming.backgroundColor = .clear
         collectionViewUpcoming.delegate = self
         collectionViewUpcoming.showsVerticalScrollIndicator = false
@@ -127,7 +131,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
         
         collectionViewPast = UICollectionView(frame: CGRect(x: Brain.kL, y: customTitle.yBottom() + 5 + 18.5, width: Brain.kLargeurIphone , height: Brain.kHauteurIphone - customTitle.yBottom() - 5 - 18.5 ) , collectionViewLayout: layoutPast)
         collectionViewPast.dataSource = self
-        collectionViewPast.contentInset = UIEdgeInsetsMake(37, 0, 150, 0)
+        collectionViewPast.contentInset = UIEdgeInsets(top: 37, left: 0, bottom: 150, right: 0)
         collectionViewPast.backgroundColor = .clear
         collectionViewPast.delegate = self
         collectionViewPast.showsVerticalScrollIndicator = false
@@ -169,20 +173,6 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
        
                
         
-        
-    }
-    
-    
-    func stopTimer() {
-        if timer != nil {
-            timer?.invalidate()
-            timer = nil
-        }
-    }
-
-    @objc func loop() {
-       
-        self.getRequests()
         
     }
     
@@ -236,6 +226,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
         
         print("become active App")
         self.getRequests()
+        self.checkPendingReviews()
 
     }
     
@@ -255,16 +246,15 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
         
         
         self.getRequests()
-            
-        
+        self.checkPendingReviews()
+        self.updateLiveQueries()
+
         self.collectionViewUpcoming.reloadData()
         self.collectionViewPast.reloadData()
 
-        
-        if timer == nil {
-                          timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.loop), userInfo: nil, repeats: true)
-               }
-        
+
+        Intercom.logEvent(withName: "customer_openRequestsView")
+
     }
     
     
@@ -279,13 +269,8 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
             
             self.mainScroll.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             
-            self.upcomingButton.setTitleColor(.white, for: .normal)
-            self.pastButton.setTitleColor(UIColor(hex: "BDBDBD"), for: .normal)
-            
-            
         }) { (done) in
-            
-            
+ 
         }
     }
     
@@ -298,12 +283,9 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
             
             self.mainScroll.setContentOffset(CGPoint(x: Brain.kL, y: 0), animated: true)
             
-            self.upcomingButton.setTitleColor(UIColor(hex: "BDBDBD"), for: .normal)
-            self.pastButton.setTitleColor(.white, for: .normal)
             
         }) { (done) in
-            
-            
+
         }
     }
     
@@ -338,31 +320,97 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
         
         
         let requestsPast = PFQuery(className: Brain.kRequestClassName)
-          requestsPast.whereKey(Brain.kRequestCustomer, equalTo: PFUser.current()!)
-          requestsPast.whereKey(Brain.kRequestState, notContainedIn : ["accepted","started","pending","canceled"])
-          requestsPast.whereKeyExists(Brain.kRequestPhoto)
-          requestsPast.includeKey(Brain.kRequestService)
-          requestsPast.includeKey(Brain.kRequestWorker)
-          requestsPast.limit = 1000
+        requestsPast.whereKey(Brain.kRequestCustomer, equalTo: PFUser.current()!)
+        requestsPast.whereKey(Brain.kRequestState, notContainedIn : ["accepted","started","pending","canceled"])
+        requestsPast.whereKeyExists(Brain.kRequestPhoto)
+        requestsPast.includeKey(Brain.kRequestService)
+        requestsPast.includeKey(Brain.kRequestWorker)
+        requestsPast.limit = 1000
         requestsPast.cachePolicy = .cacheThenNetwork
         requestsPast.order(byDescending: "createdAt")
 
-          requestsPast.findObjectsInBackground { (requestsQueryPast, error) in
+        requestsPast.findObjectsInBackground { (requestsQueryPast, error) in
+          
+          
+          if requestsQueryPast != nil {
               
+              self.requestsPast = requestsQueryPast!
+          }else{
               
-              if requestsQueryPast != nil {
-                  
-                  self.requestsPast = requestsQueryPast!
-              }else{
-                  
-                  self.requestsPast = [PFObject]()
-              }
-              
-              self.collectionViewPast.reloadData()
-              
+              self.requestsPast = [PFObject]()
           }
+          
+          self.collectionViewPast.reloadData()
+          
+        }
         
     }
+    
+    func updateLiveQueries(){
+           
+        print("GO LIVE QUERY")
+        liveQueryRequests = PFQuery(className: Brain.kRequestClassName)
+        liveQueryRequests.whereKey(Brain.kRequestCustomer, equalTo: PFUser.current()!)
+
+        subscriptionRequests = Client.shared.subscribe(self.liveQueryRequests).handleEvent { query, event in
+
+           print("live query Requests")
+
+           DispatchQueue.main.async {
+               self.getRequests()
+           }
+              
+        }
+
+    }
+    
+    
+    
+    func checkPendingReviews(){
+        
+        
+        let requestPendingReviews = PFQuery(className: Brain.kRequestClassName)
+        requestPendingReviews.whereKey(Brain.kRequestCustomer, equalTo: PFUser.current()!)
+        requestPendingReviews.whereKey(Brain.kRequestState, equalTo: "ended")
+        requestPendingReviews.whereKeyDoesNotExist(Brain.kRequestReviewFromCustomer)
+        requestPendingReviews.includeKey(Brain.kRequestService)
+        requestPendingReviews.includeKey(Brain.kRequestWorker)
+        requestPendingReviews.limit = 1000
+        requestPendingReviews.order(byDescending: "createdAt")
+        requestPendingReviews.findObjectsInBackground { (requestsEnded, error) in
+         
+            if requestsEnded != nil {
+                
+                if requestsEnded!.count > 0 {
+                    
+                    let request = requestsEnded![0]
+                    let worker = request.object(forKey: Brain.kRequestWorker) as! PFUser
+                    let name = worker.object(forKey: Brain.kUserFirstName) as! String
+                    
+                    
+                    let alert = UIAlertController(title: NSLocalizedString("Pending review", comment: ""),
+                                                  message: String(format:NSLocalizedString("Congratulations %@ has completed your request, you can now add a review regarding his work", comment: ""), name), preferredStyle: .alert)
+
+                    let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
+
+                        let rateVC = NewReviewToUserViewController(user: worker, request : request , fromWorker: false)
+                        rateVC.hidesBottomBarWhenPushed = true
+                        self.navigationController?.pushViewController(rateVC, animated: true)
+                        
+                    })
+                    alert.addAction(yesAction)
+
+                    DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                    }
+                }
+            }
+          
+        }
+        
+        
+    }
+
     
   
     
@@ -391,8 +439,14 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        
+        if self.liveQueryRequests != nil {
+                
+            Client.shared.unsubscribe(self.liveQueryRequests)
+
+        }
         
     }
     
@@ -400,7 +454,6 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
         
         super.viewWillDisappear(animated)
         
-        self.stopTimer()
         
     }
     
@@ -485,51 +538,45 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
                         
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Accepted", for: indexPath as IndexPath) as! exploreCollectionViewCell
                         cell.cover.image = nil
-                       cell.cover.isHidden = true
-                       cell.icon.isHidden = true
-                       cell.icon.image = nil
-                       cell.profilePicture.isHidden = true
-                       cell.filter.isHidden = true
-                       cell.timeAgo.isHidden = true
-                       cell.name.isHidden = true
-                       cell.loading.stopAnimating()
+                        cell.cover.isHidden = true
+                        cell.icon.isHidden = true
+                        cell.icon.image = nil
+                        cell.profilePicture.isHidden = true
+                        cell.filter.isHidden = true
+                        cell.timeAgo.isHidden = true
+                        cell.name.isHidden = true
+                        cell.loading.stopAnimating()
 
-
-                         
                         cell.request = self.requests[indexPath.row]
                         cell.service = cell.request.object(forKey: Brain.kRequestService) as? PFObject
                         cell.worker = cell.request.object(forKey: Brain.kRequestWorker) as? PFUser
 
-                      cell.loading.startAnimating()
-
+                        cell.loading.startAnimating()
 
                         
-                        if (cell.request.object(forKey: Brain.kRequestPhotoWelcome) != nil) {
+                        if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
                                                           
-                             cell.cover.file = cell.request.object(forKey: Brain.kRequestPhotoWelcome)  as? PFFile
-                             cell.cover.load { (image, error) in
-                                
+                                cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
+                                cell.cover.load { (image, error) in
                                 cell.cover.isHidden = false
                                 cell.icon.isHidden = false
                                 cell.profilePicture.isHidden = false
                                 cell.filter.isHidden = false
                                 cell.timeAgo.isHidden = false
                                 cell.name.isHidden = false
-                                
+
                                 cell.loading.stopAnimating()
 
 
                             }
 
                          }
-
-
-
-                                     
+                        
+                   
                                      
                          if cell.worker.object(forKey: Brain.kUserProfilePicture) != nil {
                              
-                             cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFile
+                             cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
                              cell.profilePicture.loadInBackground()
                              
                          }else{
@@ -556,7 +603,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
 
                         }
                         
-                        if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFile {
+                        if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFileObject {
                             
                             cell.icon.file = icon
                             cell.icon.loadInBackground()
@@ -572,38 +619,26 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
                         
                     }else{
                         
-                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Request", for: indexPath as IndexPath) as! requestCollectionViewCell
-                         cell.cover.image = nil
-                         cell.cover.isHidden = true
-                         cell.pendingView.isHidden = true
-
-                             cell.filter.isHidden = true
-
-
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Request", for: indexPath as IndexPath) as! requestCollectionViewCell
+                        cell.cover.image = nil
+                        cell.cover.isHidden = true
+                        cell.pendingView.isHidden = true
+                        cell.filter.isHidden = true
+                        cell.pendingView.isHidden = false
+                        cell.request = self.requests[indexPath.row]
+                          
+                         if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
+                          
                              
-                            cell.pendingView.isHidden = false
+                             cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
+                             cell.cover.loadInBackground()
+                             cell.cover.isHidden = false
 
-                             
-                            cell.request = self.requests[indexPath.row]
-                              
-                             if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
-                              
-                                 
-                                 print("XXXOXOXOOXOX")
-                                 cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFile
-                                 cell.cover.loadInBackground()
-                                 cell.cover.isHidden = false
+                         }
 
-                             }else{
-                                 
-                                 print("NOOo")
 
-                             }
-                        
-                        
-                         
-                         return cell
-                        
+                        return cell
+
                         
                     }
                 
@@ -650,9 +685,9 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
                 cell.worker = cell.request.object(forKey: Brain.kRequestWorker) as? PFUser
                 
              
-               if (cell.request.object(forKey: Brain.kRequestPhotoWelcome) != nil) {
+               if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
                                                  
-                    cell.cover.file = cell.request.object(forKey: Brain.kRequestPhotoWelcome)  as? PFFile
+                    cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
                     cell.cover.load { (image, error) in
                        
                        cell.cover.isHidden = false
@@ -673,7 +708,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
                 
                 if cell.worker.object(forKey: Brain.kUserProfilePicture) != nil {
                                             
-                    cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFile
+                    cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
                     cell.profilePicture.loadInBackground()
                     
                 }else{
@@ -694,7 +729,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
 
                 }
                 
-                if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFile {
+                if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFileObject {
                     
                     cell.icon.file = icon
                     cell.icon.loadInBackground()

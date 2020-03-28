@@ -9,6 +9,7 @@
 import Foundation
 import Parse
 import MessageUI
+import Intercom
 
 
 class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate {
@@ -67,7 +68,7 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
             self.backButtonNav = UIButton(frame:CGRect(x:10,y:yTop() + 25,width:40,height:40))
             
         }
-        self.backButtonNav.setBackgroundImage(UIImage.init(named:"backArrowWhite")?.withRenderingMode(.alwaysTemplate), for: UIControlState.normal)
+        self.backButtonNav.setBackgroundImage(UIImage.init(named:"backArrowWhite")?.withRenderingMode(.alwaysTemplate), for: UIControl.State.normal)
         self.backButtonNav.tintColor = UIColor(hex: "4D4D4D")
         self.backButtonNav.addTarget(self, action: #selector(touchBackNav(_:)), for: .touchUpInside)
         self.view.addSubview(self.backButtonNav)
@@ -77,7 +78,7 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
 
-        textA = UILabel(frame: CGRect(x: 0, y: backButtonNav.y() + 2, width: Brain.kLargeurIphone, height: 30))
+        textA = UILabel(frame: CGRect(x: 0, y: backButtonNav.y() + 11, width: Brain.kLargeurIphone, height: 30))
         textA.textAlignment = .center
         textA.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         textA.textColor = UIColor(hex: "4D4D4D")
@@ -91,14 +92,13 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         tableView = UITableView(frame: CGRect(x: 0, y: textA.yBottom() + 10, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone - textA.yBottom() - 10))
         tableView.register(settingsTableViewCell.self, forCellReuseIdentifier: tableviewIdentifier)
         tableView.dataSource = self
-        tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .clear
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: 200))
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: 10))
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: 0))
         view.addSubview(tableView)
         
         
@@ -169,7 +169,8 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         
         self.tableView.reloadData()
         
-        
+        Intercom.logEvent(withName: "customer_openSettings")
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -285,13 +286,12 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
                 PFUser.current()?.setObject("customer", forKey: Brain.kUserType)
             }
             
-
-            
             
             PFUser.current()?.saveInBackground()
             
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.updateIntercomData()
 
             appDelegate.addLoadingView()
             
@@ -324,12 +324,12 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
                         
                         appDelegate.removeLoadingView()
                         
-                        //// Pas de compte worker!
+                        // Pas de compte worker!
                         PFUser.current()?.setObject("customer", forKey: Brain.kUserType)
                         PFUser.current()?.saveInBackground()
                         
-                        let typeVC = SignupAddressViewController(firstname: PFUser.current()?.object(forKey: Brain.kUserFirstName) as! String, lastname:  PFUser.current()?.object(forKey: Brain.kUserLastName) as! String , email:  PFUser.current()?.object(forKey: Brain.kUserEmail) as! String, fromCustomerMode: true)
-                        self.navigationController!.pushViewController(typeVC, animated: true)
+                        let typeVC = SignupAddressViewController(fromCustomerMode: true)
+                        self.navigationController!.pushViewController(typeVC, animated: false)
                         
                     }
                 }
@@ -367,7 +367,7 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
 //            self.present(composeVC, animated: true, completion: nil)
 //
             
-            //        Intercom.presentMessageComposer()
+            Intercom.presentMessenger()
             
         }else if (content[0] as! String == NSLocalizedString("Rate us!", comment:"")) {
             
@@ -423,15 +423,9 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
             if PFConfig.current().object(forKey: Brain.kConfigTerms) as? String != nil {
                 
                 
-                let webview = EmbedWebViewController(link: PFConfig.current().object(forKey: Brain.kConfigTerms) as! String, title:  NSLocalizedString("Terms & Privacy Policy", comment:""))
-                
-                let nav = UINavigationController(rootViewController: webview)
-                nav.isNavigationBarHidden = true
-                nav.navigationBar.isTranslucent = false
-                
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let webview = WebViewController(link: PFConfig.current().object(forKey: Brain.kConfigTerms) as! String)
 
-                appDelegate.tabBarController?.present(nav, animated: true, completion: {
+                self.present(webview, animated: true, completion: {
                     
                 })
                 
@@ -445,14 +439,7 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
             
             let alert = UIAlertController(title: NSLocalizedString("Log out", comment: ""), message: NSLocalizedString("Are you sure you want to log out?", comment: ""), preferredStyle: .alert)
             
-            
-            if let popoverController = alert.popoverPresentationController {
-                popoverController.sourceView = self.view
-                popoverController.permittedArrowDirections = []
-                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            }
-            
-            
+           
             let yesAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: { action in
                 
                 

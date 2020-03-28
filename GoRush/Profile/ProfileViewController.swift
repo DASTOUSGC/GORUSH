@@ -10,6 +10,8 @@ import Foundation
 import Parse
 import YPImagePicker
 import Cosmos
+import Intercom
+
 
 class ProfilViewController: ParentLoadingViewController {
     
@@ -50,6 +52,9 @@ class ProfilViewController: ParentLoadingViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         
+        
+        print("GOOOO 11")
+
         if lightMode == false {
             
             return .default
@@ -197,16 +202,14 @@ class ProfilViewController: ParentLoadingViewController {
         
         if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "customer" {
             
-            let reviews = ReviewsViewController(user: PFUser.current()!, fromWorker: false)
-            reviews.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(reviews, animated: true)
-
+            let reviews = ReviewsViewController(user: PFUser.current()!, fromWorker: true)
+            self.present(reviews, animated: true) {
+                   }
         }else{
             
-            let reviews = ReviewsViewController(user: PFUser.current()!, fromWorker: true)
-            reviews.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(reviews, animated: true)
-
+            let reviews = ReviewsViewController(user: PFUser.current()!, fromWorker: false)
+            self.present(reviews, animated: true) {
+                   }
         }
         
     }
@@ -228,7 +231,7 @@ class ProfilViewController: ParentLoadingViewController {
         
         if ((PFUser.current()?.object(forKey: Brain.kUserProfilePicture)) != nil ) {
             
-            self.profilePicture.file = PFUser.current()?.object(forKey: Brain.kUserProfilePicture) as? PFFile
+            self.profilePicture.file = PFUser.current()?.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
             self.profilePicture.loadInBackground()
             
             buttonUpdate.setTitle(NSLocalizedString("Change", comment: ""), for: .normal)
@@ -309,7 +312,6 @@ class ProfilViewController: ParentLoadingViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
         
-        
     
         
         updateProfil()
@@ -321,6 +323,18 @@ class ProfilViewController: ParentLoadingViewController {
         })
         
         
+        
+        if PFUser.current()?.object(forKey: Brain.kUserType) as! String == "customer" {
+            
+            Intercom.logEvent(withName: "customer_openProfileView")
+
+        }else{
+            
+            Intercom.logEvent(withName: "worker_openProfileView")
+
+        }
+        
+
     }
     
     
@@ -363,7 +377,7 @@ class ProfilViewController: ParentLoadingViewController {
               let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
               
               // create an action
-              let firstAction: UIAlertAction = UIAlertAction(title:NSLocalizedString("Remove Current Photo", comment: ""), style: .destructive) { action -> Void in
+              let firstAction: UIAlertAction = UIAlertAction(title:NSLocalizedString("Delete current profile picture", comment: ""), style: .destructive) { action -> Void in
                   
                   PFUser.current()?.remove(forKey: Brain.kUserProfilePicture)
                   PFUser.current()?.saveInBackground()
@@ -371,7 +385,7 @@ class ProfilViewController: ParentLoadingViewController {
                   self.updateProfil()
               }
               
-              let secondAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Change Profile Photo", comment: ""), style: .default) { action -> Void in
+              let secondAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Update profile picture", comment: ""), style: .default) { action -> Void in
                   
                   print("Second Action pressed")
                   
@@ -405,77 +419,59 @@ class ProfilViewController: ParentLoadingViewController {
       
       
       func showCameraPicker() {
-          var config = YPImagePickerConfiguration()
-          config.library.mediaType = .photo
-          config.library.onlySquare  = false
-          config.onlySquareImagesFromCamera = true
-          config.targetImageSize = .original
-          config.usesFrontCamera = true
-          config.showsFilters = false
-          //        config.filters = [YPFilterDescriptor(name: "Normal", filterName: ""),
-          //                          YPFilterDescriptor(name: "Mono", filterName: "CIPhotoEffectMono")]
-          config.shouldSaveNewPicturesToAlbum = false
-          //        config.video.compression = AVAssetExportPresetHighestQuality
-          config.albumName = NSLocalizedString("Picnic", comment: "")
-          //        config.screens = [.library, .photo, .video]
-          config.screens = [.library]
-          config.startOnScreen = .library
-          //        config.video.recordingTimeLimit = 8
-          //        config.video.libraryTimeLimit = 8
-//          config.showsCrop = .rectangle(ratio: (16/16))
-          config.wordings.libraryTitle = NSLocalizedString("Gallery", comment: "")
-          config.hidesStatusBar = false
-          config.preferredStatusBarStyle = .lightContent
-          config.library.maxNumberOfItems = 1
-          config.library.minNumberOfItems = 1
-          config.library.numberOfItemsInRow = 3
-          config.library.spacingBetweenItems = 2
-          config.isScrollToChangeModesEnabled = true
           
-          // Build a picker with your configuration
-          let picker = YPImagePicker(configuration: config)
-          picker.didFinishPicking { [unowned picker] items, cancelled in
-              
-              if cancelled {
-                  print("Picker was canceled")
-                  picker.dismiss(animated: true, completion: nil)
-                  UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: Brain.kItemNavBarFont, NSAttributedStringKey.foregroundColor:UIColor.white], for:.normal)
-                  
-                  return
-              }
-              
-              if let firstItem = items.first {
-                  switch firstItem {
-                  case .photo(let photo):
-                      
-                      
-                      let imageData = UIImageJPEGRepresentation(photo.image, 0.3)
-                      let imageFile = PFFile(name:"profile.jpg", data:imageData!)
-                      
-                     
-                      PFUser.current()?.setObject(imageFile!, forKey: Brain.kUserProfilePicture)
-                      PFUser.current()?.saveInBackground()
-                      
-                      self.profilePicture.image = photo.image
-                      
-                      self.buttonUpdate.setTitle(NSLocalizedString("Change", comment: ""), for: .normal)
-                      
-                      self.updateProfil()
-                      
-                      
-                      UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: Brain.kItemNavBarFont, NSAttributedStringKey.foregroundColor:UIColor.white], for:.normal)
-                      
-                      picker.dismiss(animated: true, completion: nil)
-                      
-                  case .video( _): break
-                      
-                  }
-              }
-          }
-          
-          present(picker, animated: true, completion: nil)
-          
-          
+            var config = YPImagePickerConfiguration()
+           config.usesFrontCamera = false
+           config.showsPhotoFilters = false
+           config.shouldSaveNewPicturesToAlbum = false
+           config.screens = [.library]
+           config.showsCrop = .none
+           config.targetImageSize = YPImageSize.cappedTo(size: 512)
+           config.hidesStatusBar = false
+           config.hidesBottomBar = true
+
+           // Build a picker with your configuration
+           let picker = YPImagePicker(configuration: config)
+           picker.modalPresentationStyle = .formSheet
+           picker.didFinishPicking { [unowned picker] items, cancelled in
+               
+               if cancelled {
+                   print("Picker was canceled")
+                   picker.dismiss(animated: true, completion: nil)
+                   
+                   return
+               }
+               
+               if let firstItem = items.first {
+                   switch firstItem {
+                   case .photo(let photo):
+                       
+                       
+                      let imageData = photo.image.jpegData(compressionQuality: 0.3)
+                        let imageFile = PFFileObject(name:"profile.jpg", data:imageData!)
+                        
+                       
+                        PFUser.current()?.setObject(imageFile!, forKey: Brain.kUserProfilePicture)
+                        PFUser.current()?.saveInBackground()
+                        
+                        self.profilePicture.image = photo.image
+                        
+                        self.buttonUpdate.setTitle(NSLocalizedString("Change", comment: ""), for: .normal)
+                        
+                        self.updateProfil()
+                        
+                        
+                        
+                        picker.dismiss(animated: true, completion: nil)
+                       
+                   case .video( _): break
+                       
+                   }
+               }
+           }
+           
+           present(picker, animated: true, completion: nil)
+               
           
       }
       

@@ -14,7 +14,6 @@ import UserNotifications
 import Intercom
 import CoreLocation
 import NVActivityIndicatorView
-import PopupDialog
 import AVKit
 import GoogleMaps
 import Stripe
@@ -35,53 +34,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var launchScreenView : UIView!
     
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
       
        
         
-        /// Gestion audio
+        //Gestion audio
         let audioSession = AVAudioSession.sharedInstance()
-        _ = try? audioSession.setCategory(AVAudioSessionCategoryAmbient, with: AVAudioSessionCategoryOptions.mixWithOthers)
+        _ = try? audioSession.setCategory(.ambient, options: .mixWithOthers)
+        _ = try? audioSession.setActive(true)
+
         
         
         
-        ///Init des settings de design
+        //Init des settings de design
         updateAppSettings()
         
-        /// Init Parse - Backend
+        //Init Parse - Backend
         initParse()
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         
         
-        ///Stripe
-        STPPaymentConfiguration.shared().publishableKey = Brain.kStripeKey
+        //Config
+        if PFConfig.current().object(forKey: Brain.kConfigStripe) != nil {
+            
+            PFConfig.getInBackground()
+
+            
+            Stripe.setDefaultPublishableKey(PFConfig.current().object(forKey: Brain.kConfigStripe) as! String)
+            self.setupStripeAccount()
+
+            GMSServices.provideAPIKey(PFConfig.current().object(forKey: Brain.kConfigGoogleMap) as! String)
+
+            Intercom.setApiKey(PFConfig.current().object(forKey: Brain.kConfigIntecomApiKey) as! String,
+                               forAppId: PFConfig.current().object(forKey: Brain.kConfigIntercomAppId) as! String)
+
+            
+        }else{
+            
+            PFConfig.getInBackground { (config, error) in
+                
+                Stripe.setDefaultPublishableKey(PFConfig.current().object(forKey: Brain.kConfigStripe) as! String)
+                self.setupStripeAccount()
+
+                GMSServices.provideAPIKey(PFConfig.current().object(forKey: Brain.kConfigGoogleMap) as! String)
+
+
+                Intercom.setApiKey(PFConfig.current().object(forKey: Brain.kConfigIntecomApiKey) as! String,
+                                   forAppId: PFConfig.current().object(forKey: Brain.kConfigIntercomAppId) as! String)
+
+            }
+        }
 
         
+    
         
-        /// Intercom
-        Intercom.setApiKey(Brain.kIntercomAPIKey, forAppId: Brain.kIntercomAppId)
-
-        /// Fetch PFConfig
-        PFConfig.getInBackground()
-
         
-        ///GOogleMaps
-        GMSServices.provideAPIKey(Brain.kGoogleMapsAPIKey)
-
-        
-        self.setupStripeAccount()
-
-        
-        /// Init location
+        //Init location
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
 
      
         self.preloadServices()
         
-        
-        /// Screen de chargement
+        //Screen de chargement
         launchScreenView = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()!.view!
         launchScreenView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         launchScreenView.frame = CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone)
@@ -90,10 +106,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         loading.startAnimating()
         
         launchScreenView.addSubview(loading)
-        
-        
-        
-        
         
         
         if PFUser.current() != nil && PFUser.current()?.object(forKey: Brain.kUserPhone) != nil {
@@ -106,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             if homeViewController?.player != nil {
                 
                 homeViewController?.player.isMuted = true
-                          homeViewController?.player.pause()
+                homeViewController?.player.pause()
                           
             }
           
@@ -118,10 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
             window = UIWindow(frame: UIScreen.main.bounds)
             window!.rootViewController = homeNav
-           
-            
             window?.rootViewController?.view.addSubview(launchScreenView)
-
             window!.makeKeyAndVisible()
 
             
@@ -164,7 +173,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         
         
-        
        
         let center  = UNUserNotificationCenter.current()
         center.delegate = self
@@ -192,8 +200,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         UINavigationBar.appearance().tintColor = UIColor(hex: "EE5210")
         UINavigationBar.appearance().barTintColor = UIColor(hex: "EE5210")
 
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font: Brain.kNavbarFont, NSAttributedStringKey.foregroundColor:UIColor(hex: "FFFFFF")]
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: Brain.kItemNavBarFont, NSAttributedStringKey.foregroundColor:UIColor(hex: "FFFFFF")], for:.normal)
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: Brain.kNavbarFont, NSAttributedString.Key.foregroundColor:UIColor(hex: "FFFFFF")]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: Brain.kItemNavBarFont, NSAttributedString.Key.foregroundColor:UIColor(hex: "FFFFFF")], for:.normal)
 
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = Brain.kColorMain
 
@@ -224,13 +232,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     
                     let service = servicesFetched![i]
                     
-                    if let cover = service.object(forKey: Brain.kServiceCover) as? PFFile {
+                    if let cover = service.object(forKey: Brain.kServiceCover) as? PFFileObject {
                         
                         cover.getDataInBackground()
                         
                     }
                     
-                    if let icon = service.object(forKey: Brain.kServiceIcon) as? PFFile {
+                    if let icon = service.object(forKey: Brain.kServiceIcon) as? PFFileObject {
                         
                         icon.getDataInBackground()
 
@@ -285,6 +293,83 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         
     }
+    
+    func updateIntercomData(){
+        
+        Intercom.registerUser(withUserId: (PFUser.current()?.objectId)!)
+
+             
+         let userAttributes = ICMUserAttributes()
+         
+        if PFUser.current()?[Brain.kUserFirstName] != nil && PFUser.current()?.object(forKey: Brain.kUserLastName) != nil{
+             
+             userAttributes.name = String(format: "%@ %@", (PFUser.current()?[Brain.kUserFirstName] as! String),(PFUser.current()?[Brain.kUserLastName] as! String))
+
+        }else if  PFUser.current()?[Brain.kUserFirstName] != nil{
+            
+            userAttributes.name = String(format: "%@", (PFUser.current()?[Brain.kUserFirstName] as! String))
+
+        }
+        
+        
+         userAttributes.email = (PFUser.current()?[Brain.kUserEmail] as! String)
+
+         let customDic = NSMutableDictionary()
+         
+         
+         if PFUser.current()?[Brain.kUserFacebookId] != nil{
+             
+             customDic.setValue(PFUser.current()?[Brain.kUserFacebookId] , forKey: Brain.kUserFacebookId)
+         }
+        
+        if PFUser.current()?[Brain.kUserPhone] != nil{
+            
+            userAttributes.phone = PFUser.current()?[Brain.kUserPhone] as? String
+        }
+        
+     
+        if PFUser.current()?[Brain.kUserType] != nil{
+            
+            customDic.setValue(PFUser.current()?[Brain.kUserPhone] , forKey: Brain.kUserType)
+        }
+        
+        if PFUser.current()?[Brain.kUserType] != nil{
+                   
+            customDic.setValue(PFUser.current()?[Brain.kUserPhone] , forKey: Brain.kUserType)
+        }
+        
+        
+             
+         userAttributes.customAttributes = customDic as? [String : Any]
+         
+         Intercom.updateUser(userAttributes)
+
+      }
+      
+      func updateInstallation() {
+             
+             
+             if(PFUser.current() != nil){
+                 
+                 let installation = PFInstallation.current()
+                 let user = PFUser.current()!
+
+                 if ((user.object(forKey: Brain.kUserFirstName)) != nil){
+                     
+                     installation?.setObject(user.object(forKey: Brain.kUserFirstName)!, forKey: Brain.kUserFirstName)
+                 }
+                
+                 
+                 installation?.setObject(PFUser.current()!, forKey: "user")
+                 installation?.setObject(Locale.preferredLanguages[0], forKey: "language")
+                 installation?.addUniqueObject("Global", forKey: "channels")
+                 installation?.saveInBackground()
+
+             }
+
+         }
+    
+    
     
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -356,10 +441,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
        
         
-        let isHandled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as! String?, annotation: options[.annotation])
+        let isHandled = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[.sourceApplication] as! String?, annotation: options[.annotation])
         return isHandled
     }
     
@@ -381,6 +466,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
        
+        if (Intercom.isIntercomPushNotification(userInfo)) {
+              
+            Intercom.handlePushNotification(userInfo)
+        
+        }
+        
         let installation = PFInstallation.current()
         installation?.badge = 0
         installation?.saveInBackground()
@@ -388,19 +479,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     
-    func loginDone(animated: Bool){
-        
+    func loginDone(){
         
         tabBarController = TabBarController()
+        
+        self.updateIntercomData()
+
 
         let navTabbar = UINavigationController(rootViewController: tabBarController!)
         navTabbar.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
         
-        homeViewController?.present(navTabbar, animated: animated, completion: {
+        homeViewController?.present(navTabbar, animated: true, completion: {
             
-            
-            self.removeLoadingView()
-
         })
 
     }
@@ -455,7 +545,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        FBSDKAppEvents.activateApp()
+        AppEvents.activateApp()
         
         
         PFUser.current()?.fetchInBackground()

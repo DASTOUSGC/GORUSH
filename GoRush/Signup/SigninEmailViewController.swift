@@ -16,11 +16,6 @@ import FBSDKLoginKit
 class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate, UITextFieldDelegate{
     
     
-    
-    
-    var displayOriginY: CGFloat!
-    
-    
     var textA: UILabel!
     var textB: UILabel!
     
@@ -44,27 +39,22 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         
         view.backgroundColor = .white
-        
-        
-        displayOriginY = originY()
-        
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         
         
-        self.backButtonNav = UIButton(frame:CGRect(x:10,y:displayOriginY + 35,width:40,height:40))
-        self.backButtonNav.setBackgroundImage(UIImage.init(named:"backButtonWithoutNav"), for: UIControlState.normal)
+        self.backButtonNav = UIButton(frame:CGRect(x:10,y:yTop() + 35,width:40,height:40))
+        self.backButtonNav.setBackgroundImage(UIImage.init(named:"backButtonWithoutNav"), for: UIControl.State.normal)
         self.backButtonNav.addTarget(self, action: #selector(touchBackNav(_:)), for: .touchUpInside)
         self.view.addSubview(self.backButtonNav)
         
         
-        textA = UILabel(frame: CGRect(x: 0, y: displayOriginY+80, width: Brain.kLargeurIphone, height: 30))
+        textA = UILabel(frame: CGRect(x: 0, y: yTop()+80, width: Brain.kLargeurIphone, height: 30))
         textA.textAlignment = .center
         textA.font = UIFont.systemFont(ofSize: 21, weight: .bold)
         textA.text = NSLocalizedString("Sign in with email", comment: "")
         textA.textColor = .black
-        
         view.addSubview(textA)
         
         
@@ -76,7 +66,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         view.addSubview(textB)
         
         
-        textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 70, width: Brain.kLargeurIphone-40, height: 60))
+        textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 30, width: Brain.kLargeurIphone-40, height: 60))
         textField.textAlignment = .center
         textField.layer.cornerRadius = 30
         textField.backgroundColor = UIColor(hex: "FCFCFC")
@@ -85,6 +75,8 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textField.textColor = UIColor.black
         textField.tintColor = Brain.kColorMain
         textField.keyboardType = .emailAddress
+        textField.returnKeyType = .next
+        textField.tag = 100
         textField.placeholder = NSLocalizedString("Email", comment: "")
         textField.autocapitalizationType = .none
         textField.placeholderColor(color: UIColor(hex: "ADADAD"))
@@ -98,6 +90,8 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textField2.backgroundColor = UIColor(hex: "FCFCFC")
         textField2.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         textField2.delegate = self
+        textField2.tag = 101
+        textField2.returnKeyType = .next
         textField2.tintColor = Brain.kColorMain
         textField2.isSecureTextEntry = true
         textField2.placeholder = NSLocalizedString("Password", comment: "")
@@ -108,20 +102,19 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         
         
-        nextButton = UIButton(frame: CGRect(x:20, y: Brain.kHauteurIphone-60-20, width:Brain.kLargeurIphone-40, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: textField2.yBottom() + 10, width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
         nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         nextButton.setTitleColor(UIColor.white, for: .normal)
-        nextButton.setTitleColor(UIColor.gray, for: .highlighted)
         nextButton.addTarget(self, action: #selector(touchNext(_:)), for: .touchUpInside)
         nextButton.isEnabled = false
         nextButton.alpha = 0.5
         nextButton.applyGradient()
         view.addSubview(nextButton)
         
-        resetPasswordButton = UIButton(frame: CGRect(x: 0, y: nextButton.frame.origin.y-40, width: Brain.kLargeurIphone, height: 30))
+        resetPasswordButton = UIButton(frame: CGRect(x: 0, y: nextButton.yBottom() + 20, width: Brain.kLargeurIphone, height: 30))
         resetPasswordButton.setTitle(NSLocalizedString("Can't sign in? Reset Password", comment: ""), for: .normal)
         resetPasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         resetPasswordButton.setTitleColor(UIColor.gray, for: .normal)
@@ -173,13 +166,6 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.navigationBar.barStyle = .black
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
-        
         textField.becomeFirstResponder()
         
         
@@ -193,48 +179,10 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textField.resignFirstResponder()
         textField2.resignFirstResponder()
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
-        
         
     }
     
     
-    override func willMove(toParentViewController parent: UIViewController?) {
-        super.willMove(toParentViewController:parent)
-        if parent == nil {
-            
-            if PFUser.current() != nil {
-                
-                PFUser.logOut()
-            }
-            
-        }
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if nextButton.frame.origin.y == Brain.kHauteurIphone-60-20{
-                nextButton.frame = CGRect(x:20, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:Brain.kLargeurIphone-40, height: 60)
-                self.resetPasswordButton.frame = CGRect(x: 0, y: nextButton.frame.origin.y-40, width: Brain.kLargeurIphone, height: 30)
-                
-            }
-        }
-    }
-    
-    
-    
-    func pushViewController(_ viewcontroller:UIViewController, animated:Bool){
-        
-        navigationController?.pushViewController(viewcontroller, animated: animated)
-        
-    }
-    
-    
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
     
     @objc func touchBackNav(_ sender: UIButton){
         
@@ -247,8 +195,6 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         
         
         self.nextButton.loadingIndicatorWhite(true)
-        self.backButtonNav.isHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         
         PFUser.logInWithUsername(inBackground: textField.text!, password: textField2.text!) { (userlogin, error) -> Void in
@@ -257,19 +203,12 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
             if let error = error {
                 
                 PFUser.logOut()
-                let alert = UIAlertController(title: NSLocalizedString("Signin error", comment: ""), message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-                if let popoverController = alert.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.permittedArrowDirections = []
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                }
-                
-                alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
-                
                 self.nextButton.loadingIndicator(false)
+                
+                let alert = UIAlertController(title: NSLocalizedString("Sign in error", comment: ""), message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+               
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
-                self.backButtonNav.isHidden = false
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                 
                 
             } else {
@@ -278,15 +217,11 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
                 UserDefaults.standard.set(self.textField.text!, forKey: "username")
                 UserDefaults.standard.set(self.textField2.text!, forKey: "password")
                 
-                
-                self.nextButton.loadingIndicator(false)
-                self.backButtonNav.isHidden = false
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                
-                SignupProcess.shared().updateInstallation()
-                
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.loginDone(animated: true)
+                appDelegate.updateInstallation()
+                appDelegate.loginDone()
+                self.nextButton.loadingIndicator(false)
+
                 
             }
             
@@ -301,14 +236,9 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
             
             PFUser.requestPasswordResetForEmail(inBackground: self.textField.text!)
             
-            let alert = UIAlertController(title: NSLocalizedString("Reset Pasword", comment: ""), message: NSLocalizedString("You will receive an email to reset your password.", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
-            if let popoverController = alert.popoverPresentationController {
-                popoverController.sourceView = self.view
-                popoverController.permittedArrowDirections = []
-                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            }
-            
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: NSLocalizedString("Reset password", comment: ""), message: NSLocalizedString("You will receive an email to reset your password.", comment: ""), preferredStyle: UIAlertController.Style.alert)
+           
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
             
             self.nextButton.loadingIndicator(false)
             self.backButtonNav.isHidden = false
@@ -320,9 +250,6 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         }
         
     }
-    
-    
-    
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
@@ -351,24 +278,13 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
             
         }
     }
-    
-    
-    
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    
-    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-            }.resume()
-    }
-    
-    
-  
 }
 
 

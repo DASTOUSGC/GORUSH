@@ -11,6 +11,9 @@ import UIKit
 import AVFoundation
 import Parse
 import Photos
+import FBSDKCoreKit
+import FBSDKLoginKit
+import Intercom
 
 class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     
@@ -43,8 +46,18 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     var iconService : PFImageView!
     var labelService : UILabel!
     
+    var iconBoost : UIImageView!
+    var labelBoost : UILabel!
+    
     var iconWhere : UIImageView!
     var labelWhere : UILabel!
+    
+    var iconWhen : UIImageView!
+    var labelWhen : UILabel!
+    
+    var iconPhotos : UIImageView!
+    var labelPhotos : UILabel!
+    
     var labelSize : UIButton!
     var labelPrice : UILabel!
     
@@ -59,6 +72,8 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     var paymentMethodLabel : UILabel!
     var rightArrow : UIImageView!
 
+    var timer : Timer!
+    
     
     override var prefersStatusBarHidden: Bool {
         return false
@@ -100,22 +115,21 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if self.photo != nil {
             
-            let imageData = UIImageJPEGRepresentation(self.photo!, 0.5)
-            let imageFile = PFFile(name:"request.png", data:imageData!)
+            let imageData = self.photo!.jpegData(compressionQuality: 0.5)
+            let imageFile = PFFileObject(name:"request.png", data:imageData!)
             imageFile!.saveInBackground()
             self.request.setObject(imageFile!, forKey: Brain.kRequestPhoto)
 
         }
         
         if self.video != nil {
-            
           
            
             do {
                                
                let data = try Data(contentsOf: self.video!)
 
-                let video = PFFile(name:"request.mov", data:data)
+                let video = PFFileObject(name:"request.mov", data:data)
                 video!.saveInBackground()
                 self.request.setObject(video!, forKey: Brain.kRequestVideo)
                    
@@ -128,8 +142,8 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
             
             if image != nil {
                 
-                let imageData = UIImageJPEGRepresentation(image!, 0.5)
-                let img = PFFile(name:"request.png", data:imageData!)
+                let imageData = image!.jpegData(compressionQuality: 0.5)
+                let img = PFFileObject(name:"request.png", data:imageData!)
                 img!.saveInBackground()
                 self.request.setObject(img!, forKey: Brain.kRequestPhoto)
                 
@@ -233,7 +247,7 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(backButton)
         
         
-        nextButton = UIButton(frame: CGRect(x:20, y: originYBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: yTopBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Go Rush!", comment: ""), for: .normal)
@@ -242,7 +256,6 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         nextButton.setTitleColor(UIColor.gray, for: .highlighted)
         nextButton.addTarget(self, action: #selector(touchNext(_:)), for: .touchUpInside)
         nextButton.applyGradient()
-        self.nextButton.loadingIndicatorWhite(true)
         self.nextButton.isEnabled = false
         view.addSubview(nextButton)
         
@@ -259,8 +272,20 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(labelService)
         
         
+        //Boost
+        self.iconBoost = PFImageView(frame: CGRect(x: 20, y: self.labelService.yBottom() + 12, width: 20, height: 20))
+        self.iconBoost.image = UIImage(named: "iconBoost")
+        self.iconBoost.layer.applySketchShadow()
+        view.addSubview(iconBoost)
         
-        self.iconWhere = UIImageView(frame: CGRect(x: 20, y: self.iconService.yBottom() + 12, width: 20, height: 20))
+        self.labelBoost = UILabel(frame: CGRect(x: 48, y: iconBoost.y(), width: Brain.kLargeurIphone  - 70, height: 20))
+        self.labelBoost.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        self.labelBoost.textColor = .white
+        self.labelBoost.layer.applySketchShadow()
+        self.view.addSubview(labelBoost)
+        
+        //Where
+        self.iconWhere = UIImageView(frame: CGRect(x: 20, y: self.labelBoost.yBottom() + 12, width: 20, height: 20))
         self.iconWhere.image = UIImage(named: "iconWhere")
         self.iconWhere.layer.applySketchShadow()
         view.addSubview(iconWhere)
@@ -272,7 +297,32 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(labelWhere)
         
         
-        self.labelSize = UIButton(frame: CGRect(x: 20, y: self.labelWhere.yBottom() + 12, width: 120, height: 38))
+        //When
+        self.iconWhen = PFImageView(frame: CGRect(x: 20, y:  self.labelWhere.yBottom() + 12, width: 20, height: 20))
+        self.iconWhen.image = UIImage(named: "iconWhen")
+        self.iconWhen.layer.applySketchShadow()
+        view.addSubview(iconWhen)
+
+        self.labelWhen = UILabel(frame: CGRect(x: 48, y: iconWhen.y(), width: Brain.kLargeurIphone  - 70, height: 20))
+        self.labelWhen.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        self.labelWhen.textColor = .white
+        self.labelWhen.layer.applySketchShadow()
+        self.view.addSubview(labelWhen)
+        
+        
+        //Photos
+        self.iconPhotos = PFImageView(frame: CGRect(x: 20, y: self.labelWhen.yBottom() + 12, width: 20, height: 20))
+        self.iconPhotos.image = UIImage(named: "iconPhotos")
+        self.iconPhotos.layer.applySketchShadow()
+        view.addSubview(iconPhotos)
+
+        self.labelPhotos = UILabel(frame: CGRect(x: 48, y: iconPhotos.y(), width: Brain.kLargeurIphone  - 70, height: 20))
+        self.labelPhotos.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        self.labelPhotos.textColor = .white
+        self.labelPhotos.layer.applySketchShadow()
+        self.view.addSubview(labelPhotos)
+        
+        self.labelSize = UIButton(frame: CGRect(x: 20, y: self.labelPhotos.yBottom() + 12, width: 120, height: 38))
         self.labelSize.backgroundColor = Brain.kColorMain
         self.labelSize.applyGradient()
         self.labelSize.layer.cornerRadius = 19
@@ -292,6 +342,7 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         
         cardView = UIButton(frame: CGRect(x: 20, y: nextButton.y() - 43 , width: Brain.kLargeurIphone - 40, height: 43))
         cardView.addTarget(self, action: #selector(updatePaymentMethod(_:)), for: .touchUpInside)
+        self.cardView.isHidden = true
         self.view.addSubview(cardView)
 
         imageCard = UIImageView(frame: CGRect(x: 0, y: 0, width: 44, height: 27))
@@ -305,6 +356,7 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         fourpoints = UIImageView(frame: CGRect(x: imageCard.x() + imageCard.w() + 13, y: 12, width: 21, height: 3))
         fourpoints.image = UIImage(named: "fourpoints")?.withRenderingMode(.alwaysTemplate)
         fourpoints.tintColor = .white
+        
         cardView.addSubview(fourpoints)
 
         numberCard = UILabel(frame: CGRect(x: fourpoints.x() + fourpoints.w() + 6, y: 0, width: 47, height: 27))
@@ -338,10 +390,114 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
+    @objc func updateTime(){
+
+
+
+        if self.request.object(forKey: Brain.kRequestTimeLimit) as! Date > Date() {
+           
+
+            //Timer decroissant
+            let cal = Calendar.current
+            let d1 = self.request.object(forKey: Brain.kRequestTimeLimit) as! Date
+            let d2 = Date()
+            let components = cal.dateComponents([.hour,.minute,.second], from: d2, to: d1)
+            
+            self.labelWhen.text = String(format: "%.2d:%.2d:%.2d", components.hour!,components.minute!,components.second!)
+
+        }else{
+
+
+            //Static
+            let dateFormat = DateFormatter()
+            dateFormat.dateFormat = "EEEE dd MMMM"
+            self.labelWhen.text = String(format: "%@", dateFormat.string(from: Date()))
+
+        }
+
+           
+    }
+       
+    
+    
     func updateRequest(){
         
         
-        self.iconService.file = self.service.object(forKey: Brain.kServiceIcon) as? PFFile
+        self.iconBoost.frame.origin.y = self.labelService.yBottom() + 12
+        self.labelBoost.frame.origin.y = self.iconBoost.frame.origin.y
+        
+        var priceBoost = Double(0)
+
+        
+        if self.request.object(forKey: Brain.kRequestBoost) != nil {
+            
+            self.labelBoost.isHidden = false
+            self.iconBoost.isHidden = false
+            self.iconWhere.frame.origin.y = self.labelBoost.yBottom() + 12
+            
+            var boostName = ""
+            let boosts = self.request.object(forKey: Brain.kRequestBoost) as! [[String:Any]]
+            
+            
+            for i in 0..<boosts.count {
+                
+                let boost = boosts[i]
+               
+                if i == boosts.count - 1 {
+                   
+                    boostName = boostName + String(format:"%@", boost[Brain.kName.localizableName()] as! String)
+
+                }else{
+                    
+                    boostName = boostName + String(format:"%@ & ", boost[Brain.kName.localizableName()] as! String)
+                }
+                
+                priceBoost = priceBoost + Double(truncating: boost[Brain.kBoostPrice] as! NSNumber)
+                
+            }
+            
+            self.labelBoost.text = boostName
+
+
+        }else{
+            
+            self.labelBoost.isHidden = true
+            self.iconBoost.isHidden = true
+            self.iconWhere.frame.origin.y = self.labelService.yBottom() + 12
+
+        }
+        self.labelWhere.frame.origin.y = self.iconWhere.frame.origin.y
+        
+        self.iconWhen.frame.origin.y = self.labelWhere.yBottom() + 12
+        self.labelWhen.frame.origin.y = self.iconWhen.frame.origin.y
+        
+        
+        self.iconPhotos.frame.origin.y = self.labelWhen.yBottom() + 12
+        self.labelPhotos.frame.origin.y = self.iconPhotos.frame.origin.y
+
+        if self.request.object(forKey: Brain.kRequestPhotos) != nil {
+           
+           self.labelPhotos.isHidden = false
+           self.iconPhotos.isHidden = false
+           self.labelSize.frame.origin.y = self.labelPhotos.yBottom() + 12
+            
+            self.labelPhotos.text = String(format:"%d", (self.request.object(forKey: Brain.kRequestPhotos) as! [PFFileObject]).count)
+
+        }else{
+           
+           self.labelPhotos.isHidden = true
+           self.iconPhotos.isHidden = true
+           self.labelSize.frame.origin.y = self.labelWhen.yBottom() + 12
+
+        }
+
+            
+        self.labelPrice.frame.origin.y = self.labelSize.yBottom() + 10
+        
+        
+        
+        
+        self.iconService.file = self.service.object(forKey: Brain.kServiceIcon) as? PFFileObject
         self.iconService.loadInBackground()
 
         
@@ -353,11 +509,14 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.labelSize.setTitle(String(format: NSLocalizedString("≅%dpi²", comment: ""), self.request.object(forKey: Brain.kRequestSurface) as! Int), for: .normal)
 
         
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedString.Key.foregroundColor : UIColor.white]
+        let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.white]
          
+        //Worker price
+        var workerPrice = self.request.object(forKey: Brain.kRequestPriceWorker) as! Double + priceBoost
+        workerPrice = workerPrice + (workerPrice * Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100)
         
-        let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", self.request.object(forKey: Brain.kRequestPriceCustomer) as! Double), attributes:attrs1)
+        let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", workerPrice), attributes:attrs1)
         let attributedString2 = NSMutableAttributedString(string:"$", attributes:attrs2)
 
         attributedString1.append(attributedString2)
@@ -371,6 +530,8 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func updatePaymentMethod(_ sender: UIButton){
         
         
+        Intercom.logEvent(withName: "customer_openPaymentMethodFromSendRequest")
+
         let payment = PaymentsViewController()
        payment.hidesBottomBarWhenPushed = true
        self.navigationController?.pushViewController(payment, animated: true)
@@ -378,7 +539,6 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     @objc func touchBackNav(_ sender: UIButton){
-        
         
         self.navigationController?.popViewController(animated: true)
         
@@ -398,7 +558,49 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         }else{
             
          
-            ////Send request
+            var priceBoost = Double(0)
+            
+            var boost = false
+
+            
+            if self.request.object(forKey: Brain.kRequestBoost) != nil {
+                
+                boost = true
+                
+                let boosts = self.request.object(forKey: Brain.kRequestBoost) as! [[String:Any]]
+
+                
+                for i in 0..<boosts.count {
+                    
+                    let boost = boosts[i]
+                    priceBoost = priceBoost + Double(truncating: boost[Brain.kBoostPrice] as! NSNumber)
+                    
+                }
+                
+                //Worker price
+                let priceWithoutBoost = Double(truncating: self.request.object(forKey: Brain.kRequestPriceWorker) as! NSNumber)
+                var priceWithBoost = priceWithoutBoost + priceBoost
+                
+                self.request.setObject(priceWithBoost.rounded(toPlaces: 2), forKey: Brain.kRequestPriceWorker)
+                priceWithBoost = priceWithBoost + (priceWithBoost * Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100)
+
+                //Customer price
+                self.request.setObject(priceWithBoost.rounded(toPlaces: 2), forKey: Brain.kRequestPriceCustomer)
+            }
+            
+          
+            AppEvents.logPurchase(Double(truncating: self.request.object(forKey: Brain.kRequestPriceCustomer) as! NSNumber), currency: "cad")
+            
+            let serviceName = (self.request.object(forKey: Brain.kRequestService) as! PFObject).object(forKey: Brain.kServicesName) as! String
+            let serviceId = (self.request.object(forKey: Brain.kRequestService) as! PFObject).objectId!
+
+            
+            Intercom.logEvent(withName: "customer_purchase", metaData:
+                [   "service":serviceName,
+                    "serviceId":serviceId,
+                    "price":Double(truncating: self.request.object(forKey: Brain.kRequestPriceCustomer) as! NSNumber),
+                    "boost":boost])
+
             self.nextButton.loadingIndicatorWhite(true)
             self.request.saveInBackground { (done, error) in
                 
@@ -419,22 +621,26 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
         
+        self.updateTime()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+
+        
         
         if self.video != nil {
 
             NotificationCenter.default.addObserver(self,
                                                          selector: #selector(appWillEnterForegroundNotification),
-                                                         name: .UIApplicationWillEnterForeground, object: nil)
+                                                         name: UIApplication.willEnterForegroundNotification, object: nil)
                   
                   NotificationCenter.default.addObserver(self,
                                                          selector: #selector(applicationWillResignActive),
-                                                         name: NSNotification.Name.UIApplicationWillResignActive,
+                                                         name: UIApplication.willResignActiveNotification,
                                                          object: nil)
                   
                   
                   NotificationCenter.default.addObserver(self,
                                                          selector: #selector(appWillEnterForegroundNotification),
-                                                         name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                                         name: UIApplication.didBecomeActiveNotification,
                                                          object: nil)
                   
             
@@ -443,14 +649,13 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         
         self.checkPaymentsMethod()
         
+        Intercom.logEvent(withName: "customer_openSendRequestView")
+
     }
     
     func checkPaymentsMethod(){
         
 
-
-            /////////
-        
         if StripeCustomer.shared().stripeAccount != nil {
             
             self.nextButton.loadingIndicator(false)
@@ -509,8 +714,6 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.nextButton.loadingIndicator(false)
                 self.nextButton.isEnabled = true
 
-                
-                
                 if stripeAccount != nil {
                     
                     
@@ -590,7 +793,7 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // Allow background audio to continue to play
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.ambient)
             } catch let error as NSError {
                 print(error)
             }
@@ -631,16 +834,18 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         
-        
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
+        if timer != nil {
+            timer.invalidate()
+        }
     }
     
     
     @objc fileprivate func playerItemDidReachEnd(_ notification: Notification) {
         if self.player != nil {
-            self.player!.seek(to: kCMTimeZero)
+            self.player!.seek(to: .zero)
             self.player!.play()
         }
     }
@@ -658,7 +863,7 @@ func thumbnailImageFor(fileUrl:URL) -> UIImage? {
 
     let numerator = Int64(1)
     let denominator = videoDuration.timescale
-    let time = CMTimeMake(numerator, denominator)
+    let time = CMTimeMake(value: numerator, timescale: denominator)
 
     do {
         let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)

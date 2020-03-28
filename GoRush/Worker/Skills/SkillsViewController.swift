@@ -8,6 +8,7 @@
 
 import Foundation
 import Parse
+import Intercom
 
 
 class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSource, UICollectionViewDelegate{
@@ -82,7 +83,6 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
         
         collectionView = UICollectionView(frame: CGRect(x: 0, y: customTitle.yBottom() + 10, width: Brain.kLargeurIphone , height: Brain.kHauteurIphone - customTitle.yBottom() - 10 ) , collectionViewLayout: layout)
         collectionView.dataSource = self
-//        collectionView.contentInset = UIEdgeInsetsMake(37, 0, 0, 0)
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
@@ -128,7 +128,8 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
         
         self.collectionView.reloadData()
 
-        
+        Intercom.logEvent(withName: "worker_openSkillsView")
+
     }
     
  
@@ -189,7 +190,7 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
     }
     
     
-    ////COLLECTIONVIEW
+    //COLLECTIONVIEW
     
     
     func collectionView(_ collectionView: UICollectionView,
@@ -257,7 +258,7 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
                    
                    cell.service = self.services[indexPath.row]
                    
-                   if let cover = cell.service.object(forKey: Brain.kServiceCover) as? PFFile {
+                   if let cover = cell.service.object(forKey: Brain.kServiceCover) as? PFFileObject {
                        
                        cell.cover.file = cover
                     
@@ -306,7 +307,7 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
                        
                    }
                    
-                   if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFile {
+                   if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFileObject {
                        
                        cell.icon.file = icon
                        cell.icon.loadInBackground()

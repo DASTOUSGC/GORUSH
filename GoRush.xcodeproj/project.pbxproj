@@ -7,21 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66481D7F59A24F5503AF2F32 /* Pods_GoRush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EAD263CA4E3B41FAC716818 /* Pods_GoRush.framework */; };
+		A3578724C4FBDC17240005F6 /* Pods_GoRush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7039BD12B5C35DE2BA7649FC /* Pods_GoRush.framework */; };
 		D3046B2E239A9867000E4DEA /* GrassHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B2D239A9867000E4DEA /* GrassHeight.swift */; };
 		D3046B31239A98B3000E4DEA /* grassHeightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B30239A98B3000E4DEA /* grassHeightCollectionViewCell.swift */; };
 		D3046B3E239B0E35000E4DEA /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B3B239B0E34000E4DEA /* PaymentsViewController.swift */; };
 		D3046B3F239B0E35000E4DEA /* cardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B3C239B0E35000E4DEA /* cardTableViewCell.swift */; };
 		D3046B40239B0E35000E4DEA /* AddPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3046B3D239B0E35000E4DEA /* AddPaymentViewController.swift */; };
-		D30D939A2308AD8D00471601 /* EmbedWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D93992308AD8D00471601 /* EmbedWebViewController.swift */; };
-		D31911C8201FC1610083AB40 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31911C3201FC15E0083AB40 /* CountryCell.swift */; };
-		D31911C9201FC1610083AB40 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31911C5201FC15F0083AB40 /* Country.swift */; };
+		D30D939A2308AD8D00471601 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D93992308AD8D00471601 /* WebViewController.swift */; };
 		D31911CA201FC1610083AB40 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31911C6201FC1600083AB40 /* Countries.swift */; };
-		D31911CB201FC1610083AB40 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31911C7201FC1610083AB40 /* CountryList.swift */; };
 		D319628A22BAB9FB00339830 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D319628C22BAB9FB00339830 /* Localizable.strings */; };
 		D31A283722D51DE300CBE86D /* ParentLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31A283622D51DE200CBE86D /* ParentLoadingViewController.swift */; };
 		D3239C102018FE0900E40A5A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3239C0F2018FE0900E40A5A /* SignupViewController.swift */; };
-		D329C742201CBD0E008EFF1E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D329C741201CBD0E008EFF1E /* Utils.swift */; };
 		D3336B8A23F85BF200BC595B /* LandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3336B8923F85BF200BC595B /* LandViewController.swift */; };
 		D334506823ED812E00F11D84 /* SignupAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334506723ED812E00F11D84 /* SignupAddressViewController.swift */; };
 		D334506A23ED8B3E00F11D84 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334506923ED8B3E00F11D84 /* DateTextField.swift */; };
@@ -36,9 +32,11 @@
 		D3719CC220290578009EF788 /* SignupPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC120290578009EF788 /* SignupPasswordViewController.swift */; };
 		D3719CC420290E75009EF788 /* SignupPhone1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */; };
 		D3719CC6202911B0009EF788 /* SignupPhone2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC5202911B0009EF788 /* SignupPhone2ViewController.swift */; };
+		D3886D14242CDF1900EBC882 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3886D13242CDF1800EBC882 /* Utils.swift */; };
 		D38944EE236F169200D34F2E /* SignupEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38944ED236F169200D34F2E /* SignupEmailViewController.swift */; };
 		D38944F0236F186F00D34F2E /* SigninEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38944EF236F186F00D34F2E /* SigninEmailViewController.swift */; };
-		D39127B5226941D7009D0582 /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39127B4226941D6009D0582 /* JsonSerializer.swift */; };
+		D3A58670242F57C200B4A18B /* OptionsMowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A5866F242F57C200B4A18B /* OptionsMowingViewController.swift */; };
+		D3A58673242FBD9E00B4A18B /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A58672242FBD9E00B4A18B /* PhotosViewController.swift */; };
 		D3A7E68A23609DB9000F54E4 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E68923609DB9000F54E4 /* CameraViewController.swift */; };
 		D3A7E6972360A0E3000F54E4 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E68F2360A0D8000F54E4 /* Orientation.swift */; };
 		D3A7E6982360A0E3000F54E4 /* SwiftyCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6902360A0DA000F54E4 /* SwiftyCamViewController.swift */; };
@@ -46,7 +44,6 @@
 		D3A7E69A2360A0E3000F54E4 /* SwiftyCamViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6932360A0DF000F54E4 /* SwiftyCamViewControllerDelegate.swift */; };
 		D3A7E69B2360A0E3000F54E4 /* SwiftyRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6942360A0E0000F54E4 /* SwiftyRecordButton.swift */; };
 		D3A7E69C2360A0E3000F54E4 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6952360A0E1000F54E4 /* PreviewView.swift */; };
-		D3A7E69D2360A0E3000F54E4 /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E6962360A0E3000F54E4 /* Merge.swift */; };
 		D3AC2995235380C700B610C8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC2994235380C700B610C8 /* ProfileViewController.swift */; };
 		D3AC299E2353AAA300B610C8 /* SignupTypeWorkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */; };
 		D3BA284223D09111009FCCAB /* NewReviewToUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BA284123D09111009FCCAB /* NewReviewToUserViewController.swift */; };
@@ -76,25 +73,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4BCA5DB2B273330C3B93BE98 /* Pods-GoRush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoRush.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoRush/Pods-GoRush.release.xcconfig"; sourceTree = "<group>"; };
-		5EAD263CA4E3B41FAC716818 /* Pods_GoRush.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoRush.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BF3BA4460C89696C276857C /* Pods-GoRush.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoRush.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoRush/Pods-GoRush.debug.xcconfig"; sourceTree = "<group>"; };
+		0FA5A2C4462BA5C09F8F7910 /* Pods-GoRush.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoRush.debug.xcconfig"; path = "Target Support Files/Pods-GoRush/Pods-GoRush.debug.xcconfig"; sourceTree = "<group>"; };
+		7039BD12B5C35DE2BA7649FC /* Pods_GoRush.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoRush.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3046B2D239A9867000E4DEA /* GrassHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrassHeight.swift; sourceTree = "<group>"; };
 		D3046B30239A98B3000E4DEA /* grassHeightCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = grassHeightCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3046B3B239B0E34000E4DEA /* PaymentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		D3046B3C239B0E35000E4DEA /* cardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cardTableViewCell.swift; sourceTree = "<group>"; };
 		D3046B3D239B0E35000E4DEA /* AddPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentViewController.swift; sourceTree = "<group>"; };
-		D30D93992308AD8D00471601 /* EmbedWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedWebViewController.swift; sourceTree = "<group>"; };
-		D31911C3201FC15E0083AB40 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
-		D31911C4201FC15F0083AB40 /* CountryList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountryList.h; sourceTree = "<group>"; };
-		D31911C5201FC15F0083AB40 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		D30D93992308AD8D00471601 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D31911C6201FC1600083AB40 /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
-		D31911C7201FC1610083AB40 /* CountryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		D319628B22BAB9FB00339830 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D319628D22BABA0200339830 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D31A283622D51DE200CBE86D /* ParentLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentLoadingViewController.swift; sourceTree = "<group>"; };
 		D3239C0F2018FE0900E40A5A /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		D329C741201CBD0E008EFF1E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D3336B8923F85BF200BC595B /* LandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandViewController.swift; sourceTree = "<group>"; };
 		D334506723ED812E00F11D84 /* SignupAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAddressViewController.swift; sourceTree = "<group>"; };
 		D334506923ED8B3E00F11D84 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
@@ -104,7 +95,6 @@
 		D3392103201768CA003A5D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D339210B20176A85003A5D48 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../Tabbar/TabBarController.swift; sourceTree = "<group>"; };
 		D339210F20178C96003A5D48 /* Brain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
-		D340813823F8244E00876863 /* GoRush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoRush.entitlements; sourceTree = "<group>"; };
 		D3579D41230CDC720048774E /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 		D361490D236B17BA009ADC35 /* videoGoRush.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = videoGoRush.mov; sourceTree = "<group>"; };
 		D368A34F2397078400286263 /* MowingAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MowingAreaViewController.swift; sourceTree = "<group>"; };
@@ -112,9 +102,11 @@
 		D3719CC120290578009EF788 /* SignupPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPasswordViewController.swift; sourceTree = "<group>"; };
 		D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhone1ViewController.swift; sourceTree = "<group>"; };
 		D3719CC5202911B0009EF788 /* SignupPhone2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPhone2ViewController.swift; sourceTree = "<group>"; };
+		D3886D13242CDF1800EBC882 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D38944ED236F169200D34F2E /* SignupEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupEmailViewController.swift; sourceTree = "<group>"; };
 		D38944EF236F186F00D34F2E /* SigninEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEmailViewController.swift; sourceTree = "<group>"; };
-		D39127B4226941D6009D0582 /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
+		D3A5866F242F57C200B4A18B /* OptionsMowingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMowingViewController.swift; sourceTree = "<group>"; };
+		D3A58672242FBD9E00B4A18B /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		D3A7E68923609DB9000F54E4 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		D3A7E68F2360A0D8000F54E4 /* Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
 		D3A7E6902360A0DA000F54E4 /* SwiftyCamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamViewController.swift; sourceTree = "<group>"; };
@@ -122,7 +114,6 @@
 		D3A7E6932360A0DF000F54E4 /* SwiftyCamViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamViewControllerDelegate.swift; sourceTree = "<group>"; };
 		D3A7E6942360A0E0000F54E4 /* SwiftyRecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRecordButton.swift; sourceTree = "<group>"; };
 		D3A7E6952360A0E1000F54E4 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
-		D3A7E6962360A0E3000F54E4 /* Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merge.swift; sourceTree = "<group>"; };
 		D3AC2994235380C700B610C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTypeWorkerViewController.swift; sourceTree = "<group>"; };
 		D3BA284123D09111009FCCAB /* NewReviewToUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReviewToUserViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +140,7 @@
 		D3D820D3235F5A0E00C805E5 /* serviceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = serviceCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3DB31B6236B1A32000F5468 /* settingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsTableViewCell.swift; sourceTree = "<group>"; };
 		D3DB31B7236B1A33000F5468 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E4A4EA28505B996D363FB515 /* Pods-GoRush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoRush.release.xcconfig"; path = "Target Support Files/Pods-GoRush/Pods-GoRush.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,26 +148,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66481D7F59A24F5503AF2F32 /* Pods_GoRush.framework in Frameworks */,
+				A3578724C4FBDC17240005F6 /* Pods_GoRush.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2291C3E613FE07F5DE204595 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8BF3BA4460C89696C276857C /* Pods-GoRush.debug.xcconfig */,
-				4BCA5DB2B273330C3B93BE98 /* Pods-GoRush.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		A64E2A71F2580752D0D30AAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5EAD263CA4E3B41FAC716818 /* Pods_GoRush.framework */,
+				7039BD12B5C35DE2BA7649FC /* Pods_GoRush.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -187,6 +170,7 @@
 				D3046B30239A98B3000E4DEA /* grassHeightCollectionViewCell.swift */,
 				D368A34F2397078400286263 /* MowingAreaViewController.swift */,
 				D3336B8923F85BF200BC595B /* LandViewController.swift */,
+				D3A5866F242F57C200B4A18B /* OptionsMowingViewController.swift */,
 			);
 			path = Mowing;
 			sourceTree = "<group>";
@@ -197,33 +181,19 @@
 				D3046B3D239B0E35000E4DEA /* AddPaymentViewController.swift */,
 				D3046B3C239B0E35000E4DEA /* cardTableViewCell.swift */,
 				D3046B3B239B0E34000E4DEA /* PaymentsViewController.swift */,
-				D3C11E3423D341DC00915515 /* BankAccountViewController.swift */,
 			);
 			path = PaymentMethod;
-			sourceTree = "<group>";
-		};
-		D31911CE201FC1BA0083AB40 /* Countries */ = {
-			isa = PBXGroup;
-			children = (
-				D31911C6201FC1600083AB40 /* Countries.swift */,
-				D31911C5201FC15F0083AB40 /* Country.swift */,
-				D31911C3201FC15E0083AB40 /* CountryCell.swift */,
-				D31911C4201FC15F0083AB40 /* CountryList.h */,
-				D31911C7201FC1610083AB40 /* CountryList.swift */,
-			);
-			path = Countries;
 			sourceTree = "<group>";
 		};
 		D31F6592201796B000340E50 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				D334506923ED8B3E00F11D84 /* DateTextField.swift */,
+				D31911C6201FC1600083AB40 /* Countries.swift */,
 				D3A7E69E2360A0EE000F54E4 /* Cam */,
-				D30D93992308AD8D00471601 /* EmbedWebViewController.swift */,
+				D334506923ED8B3E00F11D84 /* DateTextField.swift */,
+				D30D93992308AD8D00471601 /* WebViewController.swift */,
 				D31A283622D51DE200CBE86D /* ParentLoadingViewController.swift */,
-				D39127B4226941D6009D0582 /* JsonSerializer.swift */,
-				D31911CE201FC1BA0083AB40 /* Countries */,
-				D329C741201CBD0E008EFF1E /* Utils.swift */,
+				D3886D13242CDF1800EBC882 /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -233,8 +203,8 @@
 			children = (
 				D33920F4201768CA003A5D48 /* GoRush */,
 				D33920F3201768CA003A5D48 /* Products */,
-				2291C3E613FE07F5DE204595 /* Pods */,
 				A64E2A71F2580752D0D30AAC /* Frameworks */,
+				F7BFE2CC9C4C06616E192AF3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -249,18 +219,19 @@
 		D33920F4201768CA003A5D48 /* GoRush */ = {
 			isa = PBXGroup;
 			children = (
-				D340813823F8244E00876863 /* GoRush.entitlements */,
 				D361490D236B17BA009ADC35 /* videoGoRush.mov */,
 				D31F6592201796B000340E50 /* Utils */,
 				D339210F20178C96003A5D48 /* Brain.swift */,
 				D33920F5201768CA003A5D48 /* AppDelegate.swift */,
-				D3DB31BA236B1AA7000F5468 /* Settings */,
+				D3AC29912353806E00B610C8 /* TabBar */,
 				D3F283E0202A1567002FC51E /* Signup */,
 				D3CA707723B9670100D30643 /* Worker */,
+				D3886D16242E0E2800EBC882 /* Camera */,
 				D3CA707823B9671500D30643 /* Customer */,
-				D3BA284323D0911F009FCCAB /* Review */,
-				D3AC29912353806E00B610C8 /* TabBar */,
 				D3D820D6235F5ABA00C805E5 /* Profile */,
+				D3BA284323D0911F009FCCAB /* Review */,
+				D3A58671242FBD8800B4A18B /* PhotosViewController */,
+				D3DB31BA236B1AA7000F5468 /* Settings */,
 				D3392100201768CA003A5D48 /* LaunchScreen.storyboard */,
 				D319628C22BAB9FB00339830 /* Localizable.strings */,
 				D3579D41230CDC720048774E /* assets.xcassets */,
@@ -269,10 +240,33 @@
 			path = GoRush;
 			sourceTree = "<group>";
 		};
+		D3886D15242D12D300EBC882 /* Bank */ = {
+			isa = PBXGroup;
+			children = (
+				D3C11E3423D341DC00915515 /* BankAccountViewController.swift */,
+			);
+			path = Bank;
+			sourceTree = "<group>";
+		};
+		D3886D16242E0E2800EBC882 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				D3A7E68923609DB9000F54E4 /* CameraViewController.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		D3A58671242FBD8800B4A18B /* PhotosViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D3A58672242FBD9E00B4A18B /* PhotosViewController.swift */,
+			);
+			path = PhotosViewController;
+			sourceTree = "<group>";
+		};
 		D3A7E69E2360A0EE000F54E4 /* Cam */ = {
 			isa = PBXGroup;
 			children = (
-				D3A7E6962360A0E3000F54E4 /* Merge.swift */,
 				D3A7E68F2360A0D8000F54E4 /* Orientation.swift */,
 				D3A7E6952360A0E1000F54E4 /* PreviewView.swift */,
 				D3A7E6912360A0DC000F54E4 /* SwiftyCamButton.swift */,
@@ -304,6 +298,7 @@
 		D3CA707723B9670100D30643 /* Worker */ = {
 			isa = PBXGroup;
 			children = (
+				D3886D15242D12D300EBC882 /* Bank */,
 				D3CA707B23B9673A00D30643 /* Skills */,
 				D3CA707A23B9673400D30643 /* Jobs */,
 				D3CA707923B9672C00D30643 /* Explore */,
@@ -314,7 +309,7 @@
 		D3CA707823B9671500D30643 /* Customer */ = {
 			isa = PBXGroup;
 			children = (
-				D3CA708C23B96B2B00D30643 /* Req */,
+				D3CA708C23B96B2B00D30643 /* Request */,
 				D3046B32239AFBC0000E4DEA /* PaymentMethod */,
 				D3D820CF235F591C00C805E5 /* NewRequest */,
 			);
@@ -348,7 +343,7 @@
 			path = Skills;
 			sourceTree = "<group>";
 		};
-		D3CA708C23B96B2B00D30643 /* Req */ = {
+		D3CA708C23B96B2B00D30643 /* Request */ = {
 			isa = PBXGroup;
 			children = (
 				D3CA708823B96AC600D30643 /* requestCollectionViewCell.swift */,
@@ -356,7 +351,7 @@
 				D3CA708623B96AC600D30643 /* RequestsViewController.swift */,
 				D3CA708723B96AC600D30643 /* RequestViewController.swift */,
 			);
-			path = Req;
+			path = Request;
 			sourceTree = "<group>";
 		};
 		D3D820CF235F591C00C805E5 /* NewRequest */ = {
@@ -366,7 +361,6 @@
 				D3D5F741236700F70073EA99 /* VideoViewController.swift */,
 				D3D820D3235F5A0E00C805E5 /* serviceCollectionViewCell.swift */,
 				D3D820D0235F598F00C805E5 /* SelectServiceViewController.swift */,
-				D3A7E68923609DB9000F54E4 /* CameraViewController.swift */,
 				D3D5F743236715540073EA99 /* WhereViewController.swift */,
 				D3D5F74723678A470073EA99 /* SendRequestViewController.swift */,
 				D3046B2F239A986A000E4DEA /* Mowing */,
@@ -396,17 +390,26 @@
 		D3F283E0202A1567002FC51E /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				D38944ED236F169200D34F2E /* SignupEmailViewController.swift */,
-				D3719CC5202911B0009EF788 /* SignupPhone2ViewController.swift */,
-				D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */,
-				D3719CC120290578009EF788 /* SignupPasswordViewController.swift */,
-				D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */,
-				D334506723ED812E00F11D84 /* SignupAddressViewController.swift */,
-				D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */,
 				D3239C0F2018FE0900E40A5A /* SignupViewController.swift */,
 				D38944EF236F186F00D34F2E /* SigninEmailViewController.swift */,
+				D38944ED236F169200D34F2E /* SignupEmailViewController.swift */,
+				D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */,
+				D3719CC120290578009EF788 /* SignupPasswordViewController.swift */,
+				D3719CC320290E75009EF788 /* SignupPhone1ViewController.swift */,
+				D3719CC5202911B0009EF788 /* SignupPhone2ViewController.swift */,
+				D3AC299D2353AAA300B610C8 /* SignupTypeWorkerViewController.swift */,
+				D334506723ED812E00F11D84 /* SignupAddressViewController.swift */,
 			);
 			path = Signup;
+			sourceTree = "<group>";
+		};
+		F7BFE2CC9C4C06616E192AF3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0FA5A2C4462BA5C09F8F7910 /* Pods-GoRush.debug.xcconfig */,
+				E4A4EA28505B996D363FB515 /* Pods-GoRush.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,12 +419,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3392106201768CA003A5D48 /* Build configuration list for PBXNativeTarget "GoRush" */;
 			buildPhases = (
-				42E7002AC365719C55A53C7E /* [CP] Check Pods Manifest.lock */,
+				332786F5C389791D893E8F2F /* [CP] Check Pods Manifest.lock */,
 				D33920EE201768CA003A5D48 /* Sources */,
 				D33920EF201768CA003A5D48 /* Frameworks */,
 				D33920F0201768CA003A5D48 /* Resources */,
-				54EEE4C9165E97DE135AC4D8 /* [CP] Embed Pods Frameworks */,
-				6E0AE6961767CCC65F16D7F4 /* [CP] Copy Pods Resources */,
+				B34C7229F32FC0D1F3DEBBB4 /* [CP] Embed Pods Frameworks */,
+				3E47B5C7B59472DC77D8EB8C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -494,16 +497,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		42E7002AC365719C55A53C7E /* [CP] Check Pods Manifest.lock */ = {
+		332786F5C389791D893E8F2F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-GoRush-checkManifestLockResult.txt",
 			);
@@ -512,90 +519,92 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		54EEE4C9165E97DE135AC4D8 /* [CP] Embed Pods Frameworks */ = {
+		3E47B5C7B59472DC77D8EB8C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GoRush/Pods-GoRush-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GoRush/Pods-GoRush-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/Intercom/Intercom/Intercom.framework/Versions/A/Resources/Intercom.bundle",
+				"${PODS_ROOT}/Intercom/Intercom/Intercom.framework/Versions/A/Resources/IntercomTranslations.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Intercom.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IntercomTranslations.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoRush/Pods-GoRush-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B34C7229F32FC0D1F3DEBBB4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoRush/Pods-GoRush-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts-Swift/BoltsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
-				"${BUILT_PRODUCTS_DIR}/DatePickerDialog/DatePickerDialog.framework",
-				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/KMPlaceholderTextView/KMPlaceholderTextView.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/29538FE3-EF92-3F4E-8387-E37D1ED304F4.bcsymbolmap",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/A927EC5D-2159-3CDB-B093-870116C5648E.bcsymbolmap",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/30826842-67C1-37CC-9078-660F37F80FCB.bcsymbolmap",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/A7E43BC5-8723-3536-923A-5E436F84DCCD.bcsymbolmap",
 				"${BUILT_PRODUCTS_DIR}/MapboxGeocoder.swift/MapboxGeocoder.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/NextLevelSessionExporter/NextLevelSessionExporter.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/ParseLiveQuery/ParseLiveQuery.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
-				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/PryntTrimmerView/PryntTrimmerView.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/UIView+draggable/UIView_draggable.framework",
-				"${BUILT_PRODUCTS_DIR}/WARangeSlider/WARangeSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/YPImagePicker/YPImagePicker.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoltsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DatePickerDialog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KMPlaceholderTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/29538FE3-EF92-3F4E-8387-E37D1ED304F4.bcsymbolmap",
+				"${BUILT_PRODUCTS_DIR}/A927EC5D-2159-3CDB-B093-870116C5648E.bcsymbolmap",
+				"${BUILT_PRODUCTS_DIR}/30826842-67C1-37CC-9078-660F37F80FCB.bcsymbolmap",
+				"${BUILT_PRODUCTS_DIR}/A7E43BC5-8723-3536-923A-5E436F84DCCD.bcsymbolmap",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxGeocoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NextLevelSessionExporter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseLiveQuery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PryntTrimmerView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIView_draggable.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WARangeSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YPImagePicker.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoRush/Pods-GoRush-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6E0AE6961767CCC65F16D7F4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GoRush/Pods-GoRush-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/Intercom/intercom/intercom.framework/versions/a/resources/intercom.bundle",
-				"${PODS_ROOT}/Intercom/intercom/intercom.framework/versions/a/resources/IntercomTranslations.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/intercom.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IntercomTranslations.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoRush/Pods-GoRush-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoRush/Pods-GoRush-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -605,7 +614,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D31911C8201FC1610083AB40 /* CountryCell.swift in Sources */,
 				D3719CC220290578009EF788 /* SignupPasswordViewController.swift in Sources */,
 				D38944EE236F169200D34F2E /* SignupEmailViewController.swift in Sources */,
 				D3A7E6992360A0E3000F54E4 /* SwiftyCamButton.swift in Sources */,
@@ -615,6 +623,7 @@
 				D3A7E68A23609DB9000F54E4 /* CameraViewController.swift in Sources */,
 				D3AC2995235380C700B610C8 /* ProfileViewController.swift in Sources */,
 				D3336B8A23F85BF200BC595B /* LandViewController.swift in Sources */,
+				D3A58670242F57C200B4A18B /* OptionsMowingViewController.swift in Sources */,
 				D3A7E6982360A0E3000F54E4 /* SwiftyCamViewController.swift in Sources */,
 				D3C11E3523D341DD00915515 /* BankAccountViewController.swift in Sources */,
 				D3CA707623B9129900D30643 /* editProfileTableViewCell.swift in Sources */,
@@ -633,7 +642,6 @@
 				D31A283722D51DE300CBE86D /* ParentLoadingViewController.swift in Sources */,
 				D3A7E69C2360A0E3000F54E4 /* PreviewView.swift in Sources */,
 				D31911CA201FC1610083AB40 /* Countries.swift in Sources */,
-				D329C742201CBD0E008EFF1E /* Utils.swift in Sources */,
 				D368A3502397078400286263 /* MowingAreaViewController.swift in Sources */,
 				D33920F6201768CA003A5D48 /* AppDelegate.swift in Sources */,
 				D3C11E3323D0C2AA00915515 /* reviewTableViewCell.swift in Sources */,
@@ -642,14 +650,14 @@
 				D3D820D1235F598F00C805E5 /* SelectServiceViewController.swift in Sources */,
 				D3046B31239A98B3000E4DEA /* grassHeightCollectionViewCell.swift in Sources */,
 				D3CA709223BA517100D30643 /* RequestWorkerViewController.swift in Sources */,
-				D31911C9201FC1610083AB40 /* Country.swift in Sources */,
-				D3A7E69D2360A0E3000F54E4 /* Merge.swift in Sources */,
+				D3886D14242CDF1900EBC882 /* Utils.swift in Sources */,
 				D3CBED3523CE9072007D50D6 /* requestAcceptedCollectionViewCell.swift in Sources */,
 				D3719CC02028FB50009EF788 /* SignupFirstNameViewController.swift in Sources */,
 				D3A7E69B2360A0E3000F54E4 /* SwiftyRecordButton.swift in Sources */,
 				D38944F0236F186F00D34F2E /* SigninEmailViewController.swift in Sources */,
 				D3046B2E239A9867000E4DEA /* GrassHeight.swift in Sources */,
 				D3CA708923B96AC600D30643 /* RequestsViewController.swift in Sources */,
+				D3A58673242FBD9E00B4A18B /* PhotosViewController.swift in Sources */,
 				D3CA708E23B9748D00D30643 /* exploreCollectionViewCell.swift in Sources */,
 				D3A7E69A2360A0E3000F54E4 /* SwiftyCamViewControllerDelegate.swift in Sources */,
 				D3AC299E2353AAA300B610C8 /* SignupTypeWorkerViewController.swift in Sources */,
@@ -657,13 +665,11 @@
 				D3CA708A23B96AC600D30643 /* RequestViewController.swift in Sources */,
 				D3CA708123B9679E00D30643 /* SkillsViewController.swift in Sources */,
 				D3D5F7462367677B0073EA99 /* addressTableViewCell.swift in Sources */,
-				D31911CB201FC1610083AB40 /* CountryList.swift in Sources */,
 				D3719CC420290E75009EF788 /* SignupPhone1ViewController.swift in Sources */,
 				D339211020178C96003A5D48 /* Brain.swift in Sources */,
 				D3CA707D23B9677500D30643 /* ExploreViewController.swift in Sources */,
 				D3A7E6972360A0E3000F54E4 /* Orientation.swift in Sources */,
-				D30D939A2308AD8D00471601 /* EmbedWebViewController.swift in Sources */,
-				D39127B5226941D7009D0582 /* JsonSerializer.swift in Sources */,
+				D30D939A2308AD8D00471601 /* WebViewController.swift in Sources */,
 				D3D5F744236715540073EA99 /* WhereViewController.swift in Sources */,
 				D3239C102018FE0900E40A5A /* SignupViewController.swift in Sources */,
 			);
@@ -809,15 +815,16 @@
 		};
 		D3392107201768CA003A5D48 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8BF3BA4460C89696C276857C /* Pods-GoRush.debug.xcconfig */;
+			baseConfigurationReference = 0FA5A2C4462BA5C09F8F7910 /* Pods-GoRush.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R7H3TYVKX8;
 				INFOPLIST_FILE = "$(SRCROOT)/GoRush/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Onone";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorush;
@@ -826,22 +833,23 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		D3392108201768CA003A5D48 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4BCA5DB2B273330C3B93BE98 /* Pods-GoRush.release.xcconfig */;
+			baseConfigurationReference = E4A4EA28505B996D363FB515 /* Pods-GoRush.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R7H3TYVKX8;
 				INFOPLIST_FILE = "$(SRCROOT)/GoRush/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Onone";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorush;
@@ -850,7 +858,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

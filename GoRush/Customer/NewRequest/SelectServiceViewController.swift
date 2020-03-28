@@ -8,7 +8,7 @@
 
 import Foundation
 import Parse
-
+import Intercom
 
 class SelectServiceViewController: ParentLoadingViewController , UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate{
     
@@ -65,7 +65,7 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
         
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0 , width: Brain.kLargeurIphone , height: self.view.h() ) , collectionViewLayout: layout)
         collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsetsMake(20, 0, 150, 0)
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 150, right: 0)
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
@@ -102,9 +102,9 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(false, animated: animated)
+
         navigationController?.navigationBar.barStyle = .black
 
-        
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
@@ -114,6 +114,8 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
         self.getServices()
         self.collectionView.reloadData()
        
+        Intercom.logEvent(withName: "customer_openSelectService")
+
         
     }
     
@@ -240,14 +242,14 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
             
             cell.service = self.services[indexPath.row]
             
-            if let cover = cell.service.object(forKey: Brain.kServiceCover) as? PFFile {
+            if let cover = cell.service.object(forKey: Brain.kServiceCover) as? PFFileObject {
                 
                 cell.cover.file = cover
                 cell.cover.loadInBackground()
                 
             }
             
-            if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFile {
+            if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFileObject {
                 
                 cell.icon.file = icon
                 cell.icon.loadInBackground()
@@ -292,16 +294,28 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
             
             if self.services[indexPath.row].object(forKey: Brain.kServiceComingSoon) as! Bool != true {
                 
-                let request = PFObject(className: Brain.kRequestClassName)
+                 let request = PFObject(className: Brain.kRequestClassName)
                  request.setObject("pending", forKey: Brain.kRequestState)
                  request.setObject(PFUser.current()!, forKey: Brain.kRequestCustomer)
                  request.setObject(self.services[indexPath.row], forKey: Brain.kRequestService)
-                request.setObject(self.services[indexPath.row].objectId!, forKey: Brain.kRequestServiceId)
+                 request.setObject(self.services[indexPath.row].objectId!, forKey: Brain.kRequestServiceId)
+                
+                if self.services[indexPath.row].object(forKey: Brain.kServiceMaximumTimeInHours) != nil {
 
+                    let hours = self.services[indexPath.row].object(forKey: Brain.kServiceMaximumTimeInHours) as! Int
+                    request.setObject(Date().adding(hours: hours), forKey: Brain.kRequestTimeLimit)
+                }
                              
                  let whereVC = WhereViewController(request: request)
                  self.navigationController?.pushViewController(whereVC, animated: true)
         
+                
+//                let options = OptionsMowingViewController(request:request)
+//                self.navigationController?.pushViewController(options, animated: true)
+
+                Intercom.logEvent(withName:  "customer_clickOnService", metaData: ["name":self.services[indexPath.row].object(forKey: Brain.kServicesName) as! String, "objectId":self.services[indexPath.row].objectId!])
+
+                
             }
             
          

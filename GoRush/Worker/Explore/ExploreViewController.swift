@@ -8,24 +8,25 @@
 
 import Foundation
 import Parse
-
+import ParseLiveQuery
+import Intercom
 
 class ExploreViewController: ParentLoadingViewController , UICollectionViewDataSource, UICollectionViewDelegate{
     
     
+    var subscriptionExplore: Subscription<PFObject>!
+    var liveQueryExplore : PFQuery<PFObject>!
+    
     var titleViewController = NSLocalizedString("Explore", comment:"")
     var requests = [PFObject]()
-
     var customTitle : UILabel!
-    
     var collectionView : UICollectionView!
 
-   
-    var timer: Timer?
-
-    
     var lightMode = false
     var currentLocation : PFGeoPoint?
+    
+    
+    
     
     deinit {
         
@@ -74,7 +75,6 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
         
       
     
-        ////////
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         layout.itemSize = CGSize(width: ( Brain.kLargeurIphone - 45 ) / 2, height: ( Brain.kLargeurIphone - 45 ) / 2)
@@ -83,40 +83,18 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
         layout.minimumLineSpacing = 15
         
         
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: customTitle.yBottom() + 10, width: Brain.kLargeurIphone , height: Brain.kHauteurIphone - customTitle.yBottom() - 10 ) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: customTitle.yBottom() + 10, width: Brain.kLargeurIphone , height: Brain.kHauteurIphone - customTitle.yBottom() - 90) , collectionViewLayout: layout)
         collectionView.dataSource = self
-//        collectionView.contentInset = UIEdgeInsetsMake(37, 0, 0, 0)
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
-        //        collectionView.backgroundColor = .yellow
-        //        collectionView.isScrollEnabled = false
         collectionView.register(exploreCollectionViewCell.self, forCellWithReuseIdentifier: "Request")
         collectionView.showsHorizontalScrollIndicator = false
         self.view.addSubview(collectionView)
         
-   
-       
-        
+      
         
     }
-    
-    
-  
-    func stopTimer() {
-        if timer != nil {
-            timer?.invalidate()
-            timer = nil
-        }
-    }
-
-    @objc func loop() {
-       
-        self.getRequests()
-        
-    }
-    
-    
     
     
     
@@ -124,6 +102,7 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
         
         print("become active App")
         self.getRequests()
+        self.checkPendingReviews()
 
     }
     
@@ -141,18 +120,15 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
         self.navigationController?.navigationBar.layoutIfNeeded()
         
         
-        
-       if timer == nil {
-           timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.loop), userInfo: nil, repeats: true)
-       }
-        
-        
         self.getRequests()
-            
+        self.checkPendingReviews()
+        self.updateLiveQueries()
+
         
         self.collectionView.reloadData()
 
-        
+        Intercom.logEvent(withName: "worker_openExploreView")
+
     }
     
  
@@ -183,7 +159,7 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
                               
             if geopoint != nil {
                 
-                PFUser.current()?.setObject(geopoint, forKey: Brain.kUserLocation)
+                PFUser.current()?.setObject(geopoint!, forKey: Brain.kUserLocation)
                 PFUser.current()?.saveInBackground()
 
                 self.currentLocation = geopoint
@@ -206,14 +182,29 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
             requests.order(byAscending: "createdAt")
             requests.findObjectsInBackground { (requestsQuery, error) in
 
-            if requestsQuery != nil {
-               
-               self.requests = requestsQuery!
-            
-            }else{
-               
-               self.requests = [PFObject]()
-            }
+                if requestsQuery != nil {
+                   
+                    if self.currentLocation != nil {
+                      
+                        self.requests = requestsQuery!.sorted(by: { (requestA: PFObject, requestB: PFObject) -> Bool in
+                        
+                                            let distanceA = self.currentLocation!.distanceInKilometers(to: requestA.object(forKey: Brain.kRequestCenter) as? PFGeoPoint)
+                                            let distanceB = self.currentLocation!.distanceInKilometers(to: requestB.object(forKey: Brain.kRequestCenter) as? PFGeoPoint)
+
+                                            return distanceA < distanceB
+                                       
+                                        })
+                        
+                    }else{
+                        
+                        self.requests = requestsQuery!
+
+                    }
+                
+                }else{
+                   
+                   self.requests = [PFObject]()
+                }
 
                 self.collectionView.reloadData()
 
@@ -224,6 +215,75 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
         
         
        
+        
+    }
+    
+    func updateLiveQueries(){
+           
+        print("GO LIVE QUERY")
+        liveQueryExplore = PFQuery(className: Brain.kRequestClassName)
+        liveQueryExplore.whereKey(Brain.kRequestState, equalTo: "pending")
+        liveQueryExplore.whereKey(Brain.kRequestCustomer, notEqualTo: PFUser.current()!.objectId!)
+        liveQueryExplore.whereKeyExists(Brain.kRequestPhoto)
+        liveQueryExplore.whereKey(Brain.kRequestRefuseWorkerId, notEqualTo: PFUser.current()!.objectId!)
+
+        subscriptionExplore = Client.shared.subscribe(self.liveQueryExplore).handleEvent { query, event in
+
+           print("live query Explore")
+
+           DispatchQueue.main.async {
+               self.getRequests()
+           }
+              
+        }
+
+    }
+    
+    
+    
+    
+    func checkPendingReviews(){
+        
+        
+        let requestPendingReviews = PFQuery(className: Brain.kRequestClassName)
+        requestPendingReviews.whereKey(Brain.kRequestWorker, equalTo: PFUser.current()!)
+        requestPendingReviews.whereKey(Brain.kRequestState, equalTo: "ended")
+        requestPendingReviews.whereKeyDoesNotExist(Brain.kRequestReviewFromWorker)
+        requestPendingReviews.includeKey(Brain.kRequestService)
+        requestPendingReviews.includeKey(Brain.kRequestCustomer)
+        requestPendingReviews.limit = 1000
+        requestPendingReviews.order(byDescending: "createdAt")
+        requestPendingReviews.findObjectsInBackground { (requestsEnded, error) in
+         
+            if requestsEnded != nil {
+                
+                if requestsEnded!.count > 0 {
+                    
+                    let request = requestsEnded![0]
+                    let customer = request.object(forKey: Brain.kRequestCustomer) as! PFUser
+                    let name = customer.object(forKey: Brain.kUserFirstName) as! String
+                    
+                    
+                    let alert = UIAlertController(title: NSLocalizedString("Pending review", comment: ""),
+                                                  message: String(format:NSLocalizedString("Congratulations %@ has completed your request, you can now add a review regarding his work", comment: ""), name), preferredStyle: .alert)
+
+                    let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
+
+                        let rateVC = NewReviewToUserViewController(user: customer, request : request , fromWorker: true)
+                        rateVC.hidesBottomBarWhenPushed = true
+                        self.navigationController?.pushViewController(rateVC, animated: true)
+                        
+                    })
+                    alert.addAction(yesAction)
+
+                    DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                    }
+                }
+            }
+          
+        }
+        
         
     }
     
@@ -245,14 +305,19 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
         
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
+        if self.liveQueryExplore != nil {
+           
+            Client.shared.unsubscribe(self.liveQueryExplore)
+
+        }
+        
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
         
-        self.stopTimer()
-
     }
     
     
@@ -323,8 +388,11 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
             cell.timeAgo.isHidden = true
             cell.name.isHidden = true
             cell.loading.stopAnimating()
-
-
+            cell.request = nil
+            cell.service = nil
+            cell.customer = nil
+            
+            
              if self.requests.count > indexPath.row  {
                  
                 cell.request = self.requests[indexPath.row]
@@ -338,7 +406,7 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
                     
                     
                     let distance = self.currentLocation!.distanceInKilometers(to: cell.request.object(forKey: Brain.kRequestCenter) as? PFGeoPoint)
-                    cell.timeAgo.text = String(format: NSLocalizedString("%.1fkm", comment: ""), distance)
+                    cell.timeAgo.text = String(format: NSLocalizedString("%.0fkm", comment: ""), distance)
                 
                 }else{
                     
@@ -356,7 +424,7 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
                 
                 if cell.customer.object(forKey: Brain.kUserProfilePicture) != nil {
                     
-                    cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFile
+                    cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
                     cell.profilePicture.loadInBackground()
                     
                 }else{
@@ -374,24 +442,20 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
                     
                     cell.name.text = ""
                 }
-                
 
                 
                 
-              
-
-                
-                 if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFile {
+                 if cell.service.object(forKey: Brain.kServiceIcon) != nil  {
                       
-                      cell.icon.file = icon
-                      cell.icon.loadInBackground()
+                    cell.icon.file =  cell.service.object(forKey: Brain.kServiceIcon) as? PFFileObject
+                    cell.icon.loadInBackground()
 
                   }
                   
                   
                  if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
                   
-                     cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFile
+                     cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
                      cell.cover.load { (image, error) in
                         
                         cell.cover.isHidden = false

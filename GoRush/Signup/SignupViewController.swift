@@ -18,9 +18,6 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
     
     
 
-   
-    var displayOriginY: CGFloat!
-
     var loginButtonFacebook:UIButton!
     var loginButton:UIButton!
     var signupButton:UIButton!
@@ -35,9 +32,6 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
     var player: AVPlayer!
 
 
-
-    
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -51,8 +45,6 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        displayOriginY = originY()
-
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
@@ -62,12 +54,13 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         
         
-        //// Video Background
+        //Video Background
         guard let path = Bundle.main.path(forResource: "videoGoRush", ofType:"mov") else {
             debugPrint("videoGoRush not found")
             return
         }
         self.player = AVPlayer(url: URL(fileURLWithPath: path))
+        self.player.isMuted = true
         self.videoLayer = AVPlayerLayer(player: self.player)
         self.videoLayer.frame = self.videoContainer.frame
         self.videoLayer.videoGravity = .resizeAspectFill
@@ -76,7 +69,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         
         
-        /// Overlay video
+        //Overlay video
         filter = UIImageView(frame: CGRect(x: 0, y: 0, width:  self.videoContainer.w(), height: self.videoContainer.h() ))
         filter.backgroundColor = UIColor.black
         filter.alpha = 0.5
@@ -84,11 +77,11 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
 
         
         
-        /// Logo
+        //Logo
         if isIphoneXFamily() {
-            logo = UIImageView(frame: CGRect(x: ( Brain.kL - 168 ) / 2, y: displayOriginY+170, width: 168, height: 210))
+            logo = UIImageView(frame: CGRect(x: ( Brain.kL - 168 ) / 2, y: yTop()+170, width: 168, height: 210))
         }else{
-            logo = UIImageView(frame: CGRect(x: ( Brain.kL - 168 ) / 2, y: displayOriginY+140, width: 168, height: 210))
+            logo = UIImageView(frame: CGRect(x: ( Brain.kL - 168 ) / 2, y: yTop()+140, width: 168, height: 210))
         }
 
         logo.image = UIImage.init(named:"logo")
@@ -96,22 +89,19 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
       
         
-        //// Login signup btns
+        //Login signup btns
         if isIphoneXFamily() {
-            
             loginButtonFacebook = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-328)/2, y: yBottom() - 160-15, width:328, height: 60))
-
         }else{
             
             loginButtonFacebook = UIButton(frame: CGRect(x:(Brain.kLargeurIphone-328)/2, y: yBottom()  - 160-25, width:328, height: 60))
-
         }
 
         loginButtonFacebook.layer.cornerRadius = 30
         loginButtonFacebook.clipsToBounds = true
-
-        loginButtonFacebook.setBackgroundImage(UIImage.init(named:NSLocalizedString("connectFb", comment: "")), for: UIControlState.normal)
-        loginButtonFacebook.setBackgroundImage(UIImage.init(named:NSLocalizedString("connectFbOn", comment: ""))?.alpha(0.6), for: UIControlState.highlighted)
+        loginButtonFacebook.layer.borderWidth = 1.3
+        loginButtonFacebook.layer.borderColor = Brain.kColorMain.cgColor
+        loginButtonFacebook.setBackgroundImage(UIImage.init(named:NSLocalizedString("connectFb", comment: "")), for: UIControl.State.normal)
         loginButtonFacebook.addTarget(self, action: #selector(touchLoginFacebook(_:)), for: .touchUpInside)
         view.addSubview(loginButtonFacebook)
         
@@ -134,7 +124,6 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
 
         signupButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         signupButton.setTitleColor(.white, for: .normal)
-        signupButton.setTitleColor(UIColor.white, for: .highlighted)
         view.addSubview(signupButton)
         
     
@@ -157,7 +146,6 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         loginButton.setTitleColor(Brain.kColorMain, for: .normal)
-        loginButton.setTitleColor(Brain.kColorMain, for: .highlighted)
         view.addSubview(loginButton)
         
         
@@ -197,18 +185,15 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         
         player?.play()
-        self.player.isMuted = true
-
-        
 
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appWillEnterForegroundNotification),
-                                               name: .UIApplicationWillEnterForeground, object: nil)
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appWillEnterBackground),
-                                               name: .UIApplicationWillResignActive, object: nil)
+                                               name: UIApplication.willResignActiveNotification, object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(loopVideo),
@@ -219,16 +204,14 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
     
   
     @objc func loopVideo() {
-        self.player.seek(to: kCMTimeZero)
+        self.player.seek(to: .zero)
         self.player.play()
-        self.player.isMuted = true
 
     }
   
     @objc func appWillEnterForegroundNotification() {
         
         player?.play()
-        self.player.isMuted = true
 
     }
     
@@ -259,13 +242,12 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         super.viewDidDisappear(animated)
         
-        player.isMuted = true
         player.pause()
         
         NotificationCenter.default.removeObserver(self)
         
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         
     }
@@ -284,13 +266,10 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         if PFConfig.current().object(forKey: Brain.kConfigTerms) as? String != nil {
             
             
-            let webview = EmbedWebViewController(link: PFConfig.current().object(forKey: Brain.kConfigTerms) as! String, title: NSLocalizedString("Terms & conditions", comment:""))
+            let webview = WebViewController(link: PFConfig.current().object(forKey: Brain.kConfigTerms) as! String)
             
-            let nav = UINavigationController(rootViewController: webview)
-            nav.isNavigationBarHidden = true
-            nav.navigationBar.isTranslucent = false
             
-            self.present(nav, animated: true) {
+            self.present(webview, animated: true) {
                 
                 
             }
@@ -298,155 +277,157 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         }
         
     }
-    
-    func loginfb(){
+   
+    @objc func touchLoginFacebook(_ sender: UIButton){
         
-        
-        
-        
-        
+        self.loginButtonFacebook.loadingIndicatorLetsgoButton(true, image: "connectFb")
+
+        self.loginButton.isEnabled = false
+        self.signupButton.isEnabled = false
+
         PFFacebookUtils.logInInBackground(withReadPermissions: Brain.kFacebookPermissions) { (user, error) in
-            
-            self.player.play()
-            self.player.isMuted = true
+               
+               
+                self.loginButton.isEnabled = true
+                self.signupButton.isEnabled = true
+                self.player.play()
 
             
-            if let error = error{
-                
-                print("ici123 \(error)")
-                
-            }else if let user = user{
-                
-                self.loginButtonFacebook.loadingIndicatorFbButton(true)
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                
-                
-                if user.isNew == true {
-                    
-                  
+               if  error != nil{
+                   
+                    self.loginButtonFacebook.loadingIndicatorLetsgoButton(false, image: "connectFb")
+
+               }else if let user = user{
+                   
+                   
+                if user.isNew == true || user.object(forKey: Brain.kUserPhone) == nil{
+                       
+                    self.player.play()
+                 
                     PFUser.current()?.acl = PFACL(user: PFUser.current()!)
                     PFUser.current()?.acl?.setReadAccess(true, forRoleWithName: "User")
-                    
-
                     PFUser.current()?.setObject(0, forKey: Brain.kUserReviewsWorkerNumber)
                     PFUser.current()?.setObject(0, forKey: Brain.kUserReviewsCustomerNumber)
                     PFUser.current()?.setObject(5, forKey: Brain.kUserRateWorker)
                     PFUser.current()?.setObject(5, forKey: Brain.kUserRateCustomer)
-                    
-                }
-                
-                if (!user.isNew) && Brain.kLoginFacebookGetDataEachTime == false {
-                    
-                    
-                    self.loginFacebookDone()
-                    
-                    return;
-                }
-                
-                FBSDKGraphRequest(graphPath: "me", parameters: ["fields": Brain.kFacebookData])
-                    .start(completionHandler: { (connection, result, error) -> Void in
-                        
-                        if let error = error {
-                            
-                            print("ici453 \(error)")
-                            
-                            print(error.localizedDescription)
-                            return
-                        }
-                        
-                        
-                        if let fields = result as? [String:Any] {
-                            
-                            
-                            if let firstName = fields["first_name"] as? String {
-                                
-                                PFUser.current()?.setObject(firstName, forKey: Brain.kUserFirstName)
-                            }
-                            
-                            if let lastName = fields["last_name"] as? String {
-                                
-                                PFUser.current()?.setObject(lastName, forKey: Brain.kUserLastName)
-                            }
-                            
-                            
-                            if let email = fields["email"] as? String {
-                                
-                                PFUser.current()?.setObject(email, forKey: Brain.kUserEmail)
-                            }
-                            
-                            if let fbId = fields["id"] as? String {
-                                
-                                PFUser.current()?.setObject(fbId, forKey: Brain.kUserFacebookId)
-                            }
-                            
+                   
+                   
+                    GraphRequest(graphPath: "me", parameters: ["fields": Brain.kFacebookData])
+                       .start(completionHandler: { (connection, result, error) -> Void in
                            
+                           if let error = error {
+                               
+                               print(error.localizedDescription)
+                               return
+                           }
+                           
+                           
+                        
+                        
+                           if let fields = result as? [String:Any] {
+                               
+                                            
                             
+                               if let firstName = fields["first_name"] as? String {
+                                   
+                                   PFUser.current()?.setObject(firstName, forKey: Brain.kUserFirstName)
+                               }
+                               
+                               if let lastName = fields["last_name"] as? String {
+                                   
+                                   PFUser.current()?.setObject(lastName, forKey: Brain.kUserLastName)
+                               }
+                               
+                               
+                               
+                               if let fbId = fields["id"] as? String {
+                                   
+                                   PFUser.current()?.setObject(fbId, forKey: Brain.kUserFacebookId)
+                               }
+                               
+                               
                             
-                            if let imageURL = ((fields["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String {
-                                
-                                
-                                let url = URL(string: imageURL)
-                                URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-                                    
-                                    
-                                    if let error = error {
-                                        
-                                        print(error)
-                                        
-                                    }else if let data = data {
-                                        
-                                        
-                                        
-                                        let file = PFFile(name:"profile.jpg", data:data)
-                                        
-                                        PFUser.current()?.setObject(file!, forKey: Brain.kUserProfilePicture)
-                                        
+                               
+                               if let imageURL = ((fields["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String {
+                                   
+                                   
+                                   let url = URL(string: imageURL)
+                                   URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                                       
+                                       
+                                       if let error = error {
+                                           
+                                           print(error)
+                                           
+                                       }else if let data = data {
+                                           
+                                           
+                                            DispatchQueue.main.async {
+                                             
+                                                let file = PFFileObject(name:"profile.jpg", data:data)
+                                                 
+                                                 PFUser.current()?.setObject(file!, forKey: Brain.kUserProfilePicture)
+                                                 PFUser.current()?.saveInBackground()
+                                              
+                                              
+                                                 if PFUser.current()?.object(forKey: Brain.kUserEmail) != nil {
+                                                     
+                                                     self.navigationController?.pushViewController(SignupPhone1ViewController(user: PFUser.current()!), animated: true)
+
+                                                 }else{
+                                                     
+                                                     self.navigationController?.pushViewController(SignupEmailViewController(), animated: true)
+
+                                                 }
+                                                
+                                            }
                                         
 
-                                        PFUser.current()?.saveInBackground(block: { (success:Bool, error:Error?) in
-                                            
-                                            self.loginFacebookDone()
-                                            
-                                        })
-                                        
-                                        
-                                    }
-                                    
-                                    
-                                    
-                                }).resume()
-                                
-                                
-                            }
+                                       }
+                                       
+                                       
+                                       
+                                   }).resume()
+                                   
+                                   
+                               }
+                               
                             
                             
-                        }
-                    })
+                               
+                                    
+                                    
+
+                           }
+                       })
+                   
                 
-                
-            }
+                    
+                }else{
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.loginDone()
+
+
+                }
+                   
+                  
+                   
+               }else{
+
+                    self.loginButtonFacebook.loadingIndicatorLetsgoButton(false, image: "connectFb")
+                    self.loginButton.isEnabled = true
+                    self.signupButton.isEnabled = true
+                    self.player.play()
+
+               }
         }
-        
-
+           
         
     }
     
     
     
-    @objc func touchLoginFacebook(_ sender: UIButton){
-        
-            self.loginfb()
-      
-    }
-    
-    func loginFacebookDone(){
-        
-        
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        SignupProcess.shared().nextProcess(navigationController: self.navigationController!)
-        loginButtonFacebook.loadingIndicatorFbButton(false)
-       
-    }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -462,19 +443,14 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
     
     @objc func touchSignup(_ sender: UIButton){
         
-        SignupProcess.shared().nextProcess(navigationController: self.navigationController!)
+        navigationController?.pushViewController(SignupEmailViewController(), animated: true)
+
     }
     
     @objc func touchSignin(_ sender: UIButton){
         
-        
-        let emailVC = SigninEmailViewController()
-        navigationController?.pushViewController(emailVC, animated: true)
-//
-//        let typeVC = SignupAddressViewController(firstname: "tst", lastname:  "test" , email:  "ss")
-//        
-//        self.navigationController!.pushViewController(typeVC, animated: true)
-        
+        navigationController?.pushViewController(SigninEmailViewController(), animated: true)
+
     }
     
    

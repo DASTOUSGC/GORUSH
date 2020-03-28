@@ -23,9 +23,12 @@ class reviewTableViewCell : UITableViewCell {
     var stars : CosmosView!
     
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.clipsToBounds = false
+        self.selectionStyle = .none
+        self.backgroundColor = .clear
         
         profile = PFImageView(frame: CGRect(x: 20, y: 0, width: 32, height: 32))
         profile.layer.cornerRadius = 16

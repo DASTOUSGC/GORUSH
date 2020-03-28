@@ -17,22 +17,18 @@ import FBSDKLoginKit
 class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate, UITextFieldDelegate{
     
     
-    var displayOriginY: CGFloat!
-    
     
     var textA: UILabel!
     var textB: UILabel!
-
     var textField: UITextField!
 
-    
-    
     var backButtonNav:UIButton!
     var nextButton:UIButton!
 
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
+    
     }
     
     
@@ -42,24 +38,20 @@ class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate,
        
         
         view.backgroundColor = .white
-
-       
-        displayOriginY = originY()
-        
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
 
         
-        self.backButtonNav = UIButton(frame:CGRect(x:10,y:displayOriginY + 35,width:40,height:40))
-        self.backButtonNav.setBackgroundImage(UIImage.init(named:"backButtonWithoutNav"), for: UIControlState.normal)
+        self.backButtonNav = UIButton(frame:CGRect(x:10,y:yTop() + 35,width:40,height:40))
+        self.backButtonNav.setBackgroundImage(UIImage.init(named:"backButtonWithoutNav"), for: UIControl.State.normal)
         self.backButtonNav.addTarget(self, action: #selector(touchBackNav(_:)), for: .touchUpInside)
         self.view.addSubview(self.backButtonNav)
     
         
-        textA = UILabel(frame: CGRect(x: 0, y: displayOriginY+80, width: Brain.kLargeurIphone, height: 30))
+        textA = UILabel(frame: CGRect(x: 0, y: yTop()+80, width: Brain.kLargeurIphone, height: 30))
         textA.textAlignment = .center
-        textA.font = UIFont.systemFont(ofSize: 21, weight: .bold)
+        textA.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         textA.textColor = .black
         textA.text = NSLocalizedString("What's your email?", comment: "")
         view.addSubview(textA)
@@ -73,13 +65,14 @@ class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         view.addSubview(textB)
         
         
-        textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 70, width: Brain.kLargeurIphone-40, height: 60))
+        textField = UITextField(frame: CGRect(x: 20, y: textB.yBottom() + 30, width: Brain.kLargeurIphone-40, height: 60))
         textField.textAlignment = .center
         textField.layer.cornerRadius = 30
         textField.backgroundColor = UIColor(hex: "FCFCFC")
         textField.textColor = UIColor.black
         textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         textField.delegate = self
+        textField.returnKeyType = .next
         textField.tintColor = Brain.kColorMain
         textField.keyboardType = .emailAddress
         textField.placeholder = NSLocalizedString("Email", comment: "")
@@ -88,13 +81,12 @@ class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         view.addSubview(textField)
 
-        nextButton = UIButton(frame: CGRect(x:20, y: Brain.kHauteurIphone-60-20, width:Brain.kLargeurIphone-40, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: textField.yBottom() + 10, width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
         nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         nextButton.setTitleColor(UIColor.white, for: .normal)
-        nextButton.setTitleColor(UIColor.gray, for: .highlighted)
         nextButton.addTarget(self, action: #selector(touchNext(_:)), for: .touchUpInside)
         nextButton.isEnabled = false
         nextButton.alpha = 0.5
@@ -107,67 +99,19 @@ class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
         textField.becomeFirstResponder()
-        
         
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         
-
         super.viewWillDisappear(animated)
-        
         textField.resignFirstResponder()
 
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
-
-       
     }
     
    
-    
-    
-    override func willMove(toParentViewController parent: UIViewController?) {
-        super.willMove(toParentViewController:parent)
-        if parent == nil {
-            SignupProcess.shared().email = nil
-            
-            if PFUser.current() != nil && self.navigationController!.viewControllers.count == 3{
-                
-                PFUser.logOut()
-            }
-            
-        }
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if nextButton.frame.origin.y == Brain.kHauteurIphone-60-20{
-                nextButton.frame = CGRect(x:20, y: Brain.kHauteurIphone-60-20 - keyboardSize.height, width:Brain.kLargeurIphone-40, height: 60)
-
-            }
-        }
-    }
-    
-  
-    
-    func pushViewController(_ viewcontroller:UIViewController, animated:Bool){
-        
-        navigationController?.pushViewController(viewcontroller, animated: animated)
-        
-    }
-    
-    
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
     @objc func touchBackNav(_ sender: UIButton){
         
         
@@ -178,68 +122,51 @@ class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     @objc func touchNext(_ sender: UIButton){
         
         
-        
-        nextButton.loadingIndicatorWhite(true)
-        self.backButtonNav.isHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        
+      next()
 
-//        
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-//
-//
-//            
-//            self.nextButton.loadingIndicator(false)
-//            self.backButtonNav.isHidden = false
-//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-//
-//            SignupProcess.shared().email = self.textField.text!.lowercased()
-//            SignupProcess.shared().nextProcess(navigationController: self.navigationController!)
-//
-//
-//        })
-//        
-//            
-
-
-        PFCloud.callFunction(inBackground: "checkEmail",
-                             withParameters:["email":textField.text!.lowercased()]) { (object:Any?, error:Error?) in
-
-        self.nextButton.loadingIndicator(false)
-        self.backButtonNav.isHidden = false
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-
-            if  error != nil{
-
-
-
-
-                let alert = UIAlertController(title: NSLocalizedString("Email already used", comment: ""), message: "Sorry, this email is already registered", preferredStyle: UIAlertControllerStyle.alert)
-                if let popoverController = alert.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.permittedArrowDirections = []
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                }
-
-                alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-
-
-            }else{
-
-
-                SignupProcess.shared().email = self.textField.text!.lowercased()
-                SignupProcess.shared().nextProcess(navigationController: self.navigationController!)
-
-
-            }
-
-        }
-        
 
     }
     
+    func next(){
+        
+        nextButton.loadingIndicatorWhite(true)
+
+        PFCloud.callFunction(inBackground: "checkEmail",
+                           withParameters:["email":textField.text!.lowercased()]) { (object:Any?, error:Error?) in
+
+        self.nextButton.loadingIndicator(false)
+
+          if  error != nil{
+
+              let alert = UIAlertController(title: NSLocalizedString("Email already used", comment: ""), message: "Sorry, this email is already registered", preferredStyle: .alert)
+             
+              alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
+              self.present(alert, animated: true, completion: nil)
+
+
+          }else{
+
+
+            if PFUser.current() != nil {
+                
+                PFUser.current()!.email = self.textField.text!.lowercased()
+                self.navigationController?.pushViewController(SignupPhone1ViewController(user: PFUser.current()!), animated: true)
+
+            }else{
+                
+                let user = PFUser()
+                user.username = self.textField.text!.lowercased()
+                user.email = self.textField.text!.lowercased()
+                self.navigationController?.pushViewController(SignupFirstNameViewController(user: user), animated: true)
+                
+                    
+            }
+             
+
+          }
+
+        }
+    }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
@@ -258,6 +185,27 @@ class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     }
     
     
+    
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+       let textTag = textField.tag+1
+       let nextResponder = textField.superview?.viewWithTag(textTag) as? UITextField
+       if(nextResponder != nil)
+       {
+           //textField.resignFirstResponder()
+           nextResponder!.becomeFirstResponder()
+       }
+       else{
+           // stop editing on pressing the done button on the last text field.
+
+           next()
+
+       }
+       return true
+   }
+       
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -265,10 +213,5 @@ class SignupEmailViewController: UIViewController , UIGestureRecognizerDelegate,
     
     
     
-    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-            }.resume()
-    }
     
 }

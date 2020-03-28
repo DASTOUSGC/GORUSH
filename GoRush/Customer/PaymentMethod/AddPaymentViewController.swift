@@ -12,7 +12,7 @@ import Foundation
 import UIKit
 import Parse
 import Stripe
-
+import Intercom
 
 
 
@@ -122,8 +122,8 @@ class AddPaymentViewController: ParentLoadingViewController , STPPaymentCardText
         self.view.addSubview(self.saveButton)
         
         
-        let attrs1 = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16, weight: .regular), NSAttributedStringKey.foregroundColor: Brain.kColorMain]
-        let attrs2 = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16, weight: .bold), NSAttributedStringKey.foregroundColor:Brain.kColorMain]
+        let attrs1 = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular), NSAttributedString.Key.foregroundColor: Brain.kColorMain]
+        let attrs2 = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold), NSAttributedString.Key.foregroundColor:Brain.kColorMain]
 
         let text1 = NSAttributedString(string:NSLocalizedString("Powered by ", comment: ""), attributes: attrs1)
         let text2 = NSAttributedString(string: NSLocalizedString("Stripe", comment: ""), attributes: attrs2)
@@ -147,12 +147,15 @@ class AddPaymentViewController: ParentLoadingViewController , STPPaymentCardText
         super.viewWillAppear(animated)
 
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.navigationBar.barStyle = .black
 
         
           self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
           self.navigationController?.navigationBar.shadowImage = UIImage()
           self.navigationController?.navigationBar.layoutIfNeeded()
           
+        Intercom.logEvent(withName: "customer_openAddPaymentView")
+
 
     }
     
@@ -234,6 +237,9 @@ class AddPaymentViewController: ParentLoadingViewController , STPPaymentCardText
 
                                     }else{
                                       
+                                        
+                                        Intercom.logEvent(withName: "customer_AddPaymentMethod")
+
 
                                         StripeCustomer.shared().refreshStripeAccount(completion: { (user) in
                                             
@@ -282,15 +288,10 @@ class AddPaymentViewController: ParentLoadingViewController , STPPaymentCardText
     
     func showAlertError(){
         
-        let alert = UIAlertController(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Sorry, an error occurred ", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Sorry, an error occurred ", comment: ""), preferredStyle: UIAlertController.Style.alert)
         
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.permittedArrowDirections = []
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-        }
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+       
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
         
         self.saveButton.isEnabled = true
@@ -300,7 +301,7 @@ class AddPaymentViewController: ParentLoadingViewController , STPPaymentCardText
     
     func paymentCardTextFieldDidBeginEditingCVC(_ textField: STPPaymentCardTextField) {
         
-        UIView.transition(with: self.card, duration: 0.25, options: UIViewAnimationOptions.transitionFlipFromRight, animations: {
+        UIView.transition(with: self.card, duration: 0.25, options: UIView.AnimationOptions.transitionFlipFromRight, animations: {
             
             self.card.image = self.backCard
             
@@ -309,7 +310,7 @@ class AddPaymentViewController: ParentLoadingViewController , STPPaymentCardText
     
     func paymentCardTextFieldDidEndEditingCVC(_ textField: STPPaymentCardTextField) {
         
-        UIView.transition(with: self.card, duration: 0.25, options: UIViewAnimationOptions.transitionFlipFromLeft, animations: {
+        UIView.transition(with: self.card, duration: 0.25, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
             
             self.card.image = self.frontCard
             

@@ -63,8 +63,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     override func viewDidLoad() {
+       
         super.viewDidLoad()
-        
+
         self.view.backgroundColor = .white
         self.tabBar.barTintColor =  UIColor.white
         self.tabBar.isTranslucent=false
@@ -78,14 +79,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.requestsViewController?.tabBarItem.selectedImage = UIImage(named: self.tabBarImageSelected1)?.withRenderingMode(.alwaysOriginal)
         if isIphoneXFamily() {
                                       
-              self.requestsViewController?.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+            self.requestsViewController?.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
 
         }
         self.requestsViewController?.tabBarItem.title = ""
 
 
         self.createRequestViewController = UIViewController()
-        
+
         if isIphoneXFamily(){
             
             self.createRequestViewController?.tabBarItem.image = UIImage(named: self.tabBarImage2)?.withRenderingMode(.alwaysOriginal)
@@ -99,21 +100,20 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
 
                                 
-        self.createRequestViewController?.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
-
+        self.createRequestViewController?.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         self.createRequestViewController?.tabBarItem.title = nil
-       
-        
+
+
         self.profileViewController = ProfilViewController()
         self.profileViewController?.tabBarItem.image = UIImage(named: self.tabBarImage3)?.withRenderingMode(.alwaysOriginal)
         self.profileViewController?.tabBarItem.selectedImage = UIImage(named: self.tabBarImageSelected3)?.withRenderingMode(.alwaysOriginal)
         if isIphoneXFamily() {
 
-            self.profileViewController?.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+            self.profileViewController?.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
 
         }
         self.profileViewController?.tabBarItem.title = ""
-        
+
         self.tabBar.unselectedItemTintColor = UIColor(hex:"A7A7A7")
         self.tabBar.tintColor = Brain.kColorMain
 
@@ -123,60 +123,58 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
         self.navigationViewController2 = UINavigationController(rootViewController: self.createRequestViewController!)
         self.navigationViewController2?.navigationBar.isTranslucent=false
-        
+
         self.navigationProfileViewController = UINavigationController(rootViewController: self.profileViewController!)
         self.navigationProfileViewController?.navigationBar.isTranslucent=false
 
-   
-        ////workers
+
+        //workers
         self.exploreViewController = ExploreViewController()
         self.exploreViewController?.tabBarItem.image = UIImage(named: self.tabBarWorkerImage1)?.withRenderingMode(.alwaysOriginal)
         self.exploreViewController?.tabBarItem.selectedImage = UIImage(named: self.tabBarWorkerImageSelected1)?.withRenderingMode(.alwaysOriginal)
-        
+
         if isIphoneXFamily() {
             
-            self.exploreViewController?.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+            self.exploreViewController?.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
 
         }
         self.exploreViewController?.tabBarItem.title = ""
 
         self.navigationWorkerViewController1 = UINavigationController(rootViewController: self.exploreViewController!)
         self.navigationWorkerViewController1?.navigationBar.isTranslucent=false
-        
-        
-        ///////
-        
+
+
+
+
         self.jobsViewController = JobsViewController()
         self.jobsViewController?.tabBarItem.image = UIImage(named: self.tabBarWorkerImage2)?.withRenderingMode(.alwaysOriginal)
         self.jobsViewController?.tabBarItem.selectedImage = UIImage(named: self.tabBarWorkerImageSelected2)?.withRenderingMode(.alwaysOriginal)
         if isIphoneXFamily() {
 
-        self.jobsViewController?.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+            self.jobsViewController?.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
 
         }
         self.jobsViewController?.tabBarItem.title = ""
 
         self.navigationWorkerViewController2 = UINavigationController(rootViewController: self.jobsViewController!)
         self.navigationWorkerViewController2?.navigationBar.isTranslucent=false
-        
-        
-        ///////
-         
+
+
          self.skillsViewController = SkillsViewController()
          self.skillsViewController?.tabBarItem.image = UIImage(named: self.tabBarWorkerImage3)?.withRenderingMode(.alwaysOriginal)
          self.skillsViewController?.tabBarItem.selectedImage = UIImage(named: self.tabBarWorkerImageSelected3)?.withRenderingMode(.alwaysOriginal)
         if isIphoneXFamily() {
                          
-             self.skillsViewController?.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+            self.skillsViewController?.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
 
          }
          self.skillsViewController?.tabBarItem.title = ""
 
          self.navigationWorkerViewController3 = UINavigationController(rootViewController: self.skillsViewController!)
          self.navigationWorkerViewController3?.navigationBar.isTranslucent=false
-        
 
-      
+
+
         self.updateMode()
       
     }
@@ -232,7 +230,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
        
         
-        let index = tabBarController.viewControllers?.index(of: viewController)
+        let index = tabBarController.viewControllers?.firstIndex(of: viewController)
 
         if index == 1 && PFUser.current()?.object(forKey: Brain.kUserType) as! String == "customer"{
             
@@ -246,30 +244,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
             
             
+            
             return false
         }
         
-        
-
-       
-        if self.previousController == viewController || self.previousController == nil {
-            
-            if self.selectedIndex == 0 {
-                
-//                self.feedViewController?.tableView.setContentOffset(.zero, animated: true)
-
-                
-            }else if selectedIndex == 1{
-                
-                
-              
-                        
-               
-            }else if selectedIndex == 2{
-             
-              
-            }
-        }
         self.previousController = viewController;
         return true
     }

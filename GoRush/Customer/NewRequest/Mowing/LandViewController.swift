@@ -27,6 +27,7 @@ class LandViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapV
     var request : PFObject!
     var service : PFObject!
     
+    var backButton : UIButton!
     
     var mapView : GMSMapView!
    
@@ -58,7 +59,6 @@ class LandViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapV
         
         self.request = request
         self.centerPosition = self.request.object(forKey: Brain.kRequestCenter) as? PFGeoPoint
-        
         self.service = self.request.object(forKey: Brain.kRequestService) as? PFObject
     }
     
@@ -82,7 +82,7 @@ class LandViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapV
         
     
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         tabBarItem.title = "";
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -95,40 +95,32 @@ class LandViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapV
 
         
         
+        
         let camera = GMSCameraPosition.camera(withLatitude: self.centerPosition.latitude, longitude: self.centerPosition.longitude, zoom: 19)
-        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone + 150), camera: camera)
         mapView.mapType = .hybrid
+        mapView.alpha = 0
+        
         mapView.setMinZoom(16, maxZoom: 32)
         mapView.isMyLocationEnabled = false
         mapView.delegate = self
         view.addSubview(mapView)
         
-        
+ 
+        self.backButton = UIButton(frame: CGRect(x: 13, y: yTop() + 8, width: 44, height: 42))
+        self.backButton.setBackgroundImage(UIImage(named: "backArrowWhite"), for: .normal)
+        self.backButton.addTarget(self, action: #selector(touchBackNav(_:)), for: .touchUpInside)
 
+        self.view.addSubview(backButton)
         
         
-        if PFUser.current()?.object(forKey: Brain.kRequestMowing) != nil {
+        
+        if self.request.object(forKey: Brain.kRequestMowing) != nil {
             
-            let mowingAreas = PFUser.current()?.object(forKey: Brain.kRequestMowing) as! [[String:Any]]
+            let mowingArea = self.request.object(forKey: Brain.kRequestMowing) as! [String:Any]
             var indexArea = -1
             
-            for i in 0..<mowingAreas.count {
-                
-                let mowingArea = mowingAreas[i]
-                let oldCenterArray = mowingArea[Brain.kUserMowingCenterPosition] as! [Double]
-                let oldCenter = PFGeoPoint(latitude: oldCenterArray[0], longitude: oldCenterArray[1])
-                if centerPosition.distanceInKilometers(to: oldCenter) < 0.1 {
-
-                    indexArea = i
-                }
-
-            }
             
-            if indexArea != -1 {
-                
-               
-                let mowingArea = mowingAreas[indexArea]
-                
                 let oldCenterArray = mowingArea[Brain.kUserMowingCenterPosition] as! [Double]
                 let camera = GMSCameraPosition.camera(withLatitude: oldCenterArray[0], longitude: oldCenterArray[1], zoom: 19)
                 mapView?.camera = camera
@@ -164,15 +156,18 @@ class LandViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapV
                   }
                 
                 
-
-
-            }
-            
             
         }
         
         
 //        self.enterEditMode(toZone:1)
+        
+    }
+    
+    @objc func touchBackNav(_ sender: UIButton){
+        
+        
+        self.navigationController?.popViewController(animated: true)
         
     }
     
@@ -264,17 +259,22 @@ class LandViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapV
         
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        
-               navigationController?.navigationBar.barStyle = .black
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.navigationBar.barStyle = .black
 
-               
-               self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
-               self.navigationController?.navigationBar.shadowImage = UIImage()
-               self.navigationController?.navigationBar.layoutIfNeeded()
-               self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.layoutIfNeeded()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
+        UIView.animate(withDuration: 0.4, animations: {
+            
+            self.mapView.alpha = 1
 
+        }) { (done) in
+            
+            
+        }
         
     }
     
@@ -289,7 +289,7 @@ class LandViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapV
         
         super.viewWillDisappear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         
     }
     

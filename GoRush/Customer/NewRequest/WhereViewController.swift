@@ -12,6 +12,8 @@ import UIKit
 import Mapbox
 import Parse
 import MapboxGeocoder
+import Intercom
+
 
 class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -227,12 +229,14 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
         
         if self.searchTextField.text!.count > 0 {
             
-            self.nextButton.isHidden = false
-            
+            self.nextButton.isEnabled = true
+            self.nextButton.loadingIndicatorWhite(false)
             
         }else{
             
-            self.nextButton.isHidden = true
+            self.nextButton.isEnabled = false
+            self.nextButton.loadingIndicatorWhite(true)
+            
             self.currentAnnotation.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
 
         }
@@ -265,12 +269,14 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
                     
                     if self.searchTextField.text!.count > 0 {
                         
-                        self.nextButton.isHidden = false
-                        
+                        self.nextButton.isEnabled = true
+                        self.nextButton.loadingIndicatorWhite(false)
+
                         
                     }else{
                         
-                        self.nextButton.isHidden = true
+                        self.nextButton.isEnabled = false
+                        self.nextButton.loadingIndicatorWhite(true)
                         self.currentAnnotation.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
 
                     }
@@ -291,12 +297,7 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
   
     @objc func touchNext(_ sender: UIButton){
         
-//
         self.request.setObject(self.searchTextField.text!, forKey: Brain.kRequestAddress)
-//
-//        let takeVideo = CameraViewController(request:request)
-        
-        
         
         let geopoint = PFGeoPoint(latitude: self.currentAnnotation.coordinate.latitude, longitude:  self.currentAnnotation.coordinate.longitude)
         self.request.setObject(geopoint, forKey: Brain.kRequestCenter)
@@ -315,14 +316,16 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        
+        navigationController?.navigationBar.barStyle = .black
+
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
         
         
-        
+        Intercom.logEvent(withName: "customer_openWhereView")
+
     }
     
     
@@ -392,12 +395,15 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
      
         if self.searchTextField.text!.count > 0 && self.tableView.isHidden == true{
             
-            self.nextButton.isHidden = false
-            
+            self.nextButton.isEnabled = true
+            self.nextButton.loadingIndicatorWhite(false)
+
             
         }else{
             
-            self.nextButton.isHidden = true
+            self.nextButton.isEnabled = false
+            self.nextButton.loadingIndicatorWhite(true)
+
             self.currentAnnotation.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
 
         }
@@ -413,11 +419,13 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
         
         if self.searchTextField.text!.count > 0 {
             
-            self.nextButton.isHidden = false
-            
+            self.nextButton.isEnabled = true
+            self.nextButton.loadingIndicatorWhite(false)
+
         }else{
             
-            self.nextButton.isHidden = true
+            self.nextButton.isEnabled = false
+            self.nextButton.loadingIndicatorWhite(true)
             self.currentAnnotation.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
             
         }
@@ -479,7 +487,8 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
             
             self.tableView.alpha = 0
             self.tableView.isHidden = false
-            self.nextButton.isHidden = true
+            self.nextButton.isEnabled = false
+            self.nextButton.loadingIndicatorWhite(true)
 
             UIView.animate(withDuration: 0.4) {
                 
@@ -499,12 +508,14 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
                 
                 if self.searchTextField.text!.count > 0 {
                    
-                    self.nextButton.isHidden = false
+                    self.nextButton.isEnabled = true
+                    self.nextButton.loadingIndicatorWhite(false)
 
                     
                 }else{
                     
-                    self.nextButton.isHidden = true
+                    self.nextButton.isEnabled = false
+                    self.nextButton.loadingIndicatorWhite(true)
 
                 }
 

@@ -76,25 +76,19 @@ class VideoViewController: UIViewController, UIGestureRecognizerDelegate {
 
         
         avPlayerLayer = AVPlayerLayer(player: player)
-
         avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
         if isIphoneXFamily() {
            
             avPlayerLayer.frame = CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height:  Brain.kHauteurIphone)
 
-
         }else{
             
             avPlayerLayer.frame = view.layer.bounds
-
         }
         view.backgroundColor = .black
         viewToCapture.layer.insertSublayer(avPlayerLayer, at: 0)
 
-
-        
-        
 
         
         self.filter = UIImageView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone))
@@ -117,7 +111,7 @@ class VideoViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(backButton)
         
         
-        nextButton = UIButton(frame: CGRect(x:20, y: originYBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
+        nextButton = UIButton(frame: CGRect(x:20, y: yTopBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
         nextButton.layer.cornerRadius = 30;
         nextButton.backgroundColor = Brain.kColorMain
         nextButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
@@ -159,17 +153,17 @@ class VideoViewController: UIViewController, UIGestureRecognizerDelegate {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appWillEnterForegroundNotification),
-                                               name: .UIApplicationWillEnterForeground, object: nil)
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(applicationWillResignActive),
-                                               name: NSNotification.Name.UIApplicationWillResignActive,
+                                               name: UIApplication.willResignActiveNotification,
                                                object: nil)
         
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appWillEnterForegroundNotification),
-                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                               name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
         
         
@@ -200,7 +194,7 @@ class VideoViewController: UIViewController, UIGestureRecognizerDelegate {
         
         // Allow background audio to continue to play
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.ambient)
         } catch let error as NSError {
             print(error)
         }
@@ -242,7 +236,7 @@ class VideoViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @objc fileprivate func playerItemDidReachEnd(_ notification: Notification) {
         if self.player != nil {
-            self.player!.seek(to: kCMTimeZero)
+            self.player!.seek(to: .zero)
             self.player!.play()
         }
     }

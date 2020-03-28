@@ -49,9 +49,6 @@ class exploreCollectionViewCell: UICollectionViewCell {
         self.addSubview(bg)
      
         
-        
-        
-        
         cover = PFImageView(frame: CGRect(x: 0, y: 0, width: self.w(), height: self.h()))
         cover.contentMode = .scaleAspectFill
         cover.layer.cornerRadius = 20
@@ -91,8 +88,7 @@ class exploreCollectionViewCell: UICollectionViewCell {
         timeAgo.textAlignment = .right
         bg.addSubview(timeAgo)
         
-        loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-//        loading.tintColor = .darkGray
+        loading = UIActivityIndicatorView(style: .gray)
         loading.center = bg.center
         loading.hidesWhenStopped = true
         bg.addSubview(loading)

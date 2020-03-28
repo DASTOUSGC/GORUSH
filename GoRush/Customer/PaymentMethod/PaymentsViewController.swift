@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Intercom
 import UIKit
 import Parse
 
@@ -87,7 +87,7 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
         tableView.separatorStyle = .none
         view.addSubview(tableView)
         
-//        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+//        activityIndicatorView = UIActivityIndicatorView(style: .gray)
 //        activityIndicatorView.center = self.view.center
 //        activityIndicatorView.hidesWhenStopped = true
 //        self.view.addSubview(activityIndicatorView)
@@ -129,20 +129,20 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
         
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.barStyle = .black
-
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
         
 
-        
+        navigationController?.navigationBar.barStyle = .black
+
         
         self.checkPaymentsMethod(forceRefresh: false)
 
         navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        Intercom.logEvent(withName: "customer_openPaymentsView")
 
     }
     
@@ -384,18 +384,10 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
             
             let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
             
-            if let popoverController = alert.popoverPresentationController {
-                popoverController.sourceView = self.view
-                popoverController.permittedArrowDirections = []
-                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            }
-            
             
             let defaultA = UIAlertAction(title: NSLocalizedString("Set default card", comment: ""), style: .default, handler: { action in
                 
                 
-                
-//                self.activityIndicatorView.startAnimating()
                 self.nextButton.loadingIndicatorWhite(true)
 
                 self.tableView.isHidden = true
@@ -406,8 +398,6 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
                 }
                 
                 PFCloud.callFunction(inBackground: "SetDefaultPaymentMethodCustomerAccount", withParameters: ["customerId":StripeCustomer.shared().stripeId!, "cardId": card["id"]!], block: { (object, error) in
-                    
-                    
                     
                     if object != nil {
                         
@@ -421,7 +411,6 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
                 
                 
             })
-            defaultA.setValue(UIColor.black, forKey: "titleTextColor")
             alert.addAction(defaultA)
             
             
@@ -433,20 +422,7 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
                 
                 let alert = UIAlertController(title: NSLocalizedString("Delete card", comment: ""), message: NSLocalizedString("Are you sure you want to delete this card?", comment: ""), preferredStyle: .alert)
                 
-                if let popoverController = alert.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.permittedArrowDirections = []
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                }
-                
-                
-                if let popoverController = alert.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.permittedArrowDirections = []
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                }
-                
-                
+             
                 let yesAction = UIAlertAction(title: "Yes", style: .destructive, handler:  { action in
                     
 //                    self.activityIndicatorView.startAnimating()
@@ -479,15 +455,12 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
                     
                     
                 })
-                yesAction.setValue(UIColor.red, forKey: "titleTextColor")
-
                 alert.addAction(yesAction)
                 
                 
                 let noAction = UIAlertAction(title: "No", style: .cancel, handler:  { action in
                     
                 })
-                noAction.setValue(UIColor.black, forKey: "titleTextColor")
                 alert.addAction(noAction)
                 
                 self.present(alert, animated: true)
@@ -496,12 +469,10 @@ class PaymentsViewController: ParentLoadingViewController , UITableViewDelegate,
             })
             
             
-            delete.setValue(UIColor.black, forKey: "titleTextColor")
             alert.addAction(delete)
             
             
             let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
-            cancel.setValue(UIColor.black, forKey: "titleTextColor")
             alert.addAction(cancel)
             
             DispatchQueue.main.async {

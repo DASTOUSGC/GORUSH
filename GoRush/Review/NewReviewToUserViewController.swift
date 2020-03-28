@@ -12,6 +12,7 @@ import AVFoundation
 import Parse
 import KMPlaceholderTextView
 import Cosmos
+import Intercom
 
 
 class NewReviewToUserViewController: UIViewController, UIGestureRecognizerDelegate, UITextViewDelegate {
@@ -87,7 +88,7 @@ class NewReviewToUserViewController: UIViewController, UIGestureRecognizerDelega
 
 
 
-        sendButton = UIButton(frame: CGRect(x:20, y: originYBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
+        sendButton = UIButton(frame: CGRect(x:20, y: yTopBottomButtonCTA(), width:Brain.kLargeurIphone-40, height: 60))
         sendButton.layer.cornerRadius = 30;
         sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         sendButton.setTitleColor(UIColor.white, for: .normal)
@@ -133,18 +134,18 @@ class NewReviewToUserViewController: UIViewController, UIGestureRecognizerDelega
         self.sendButton.loadingIndicatorWhite(true)
         
         let review = PFObject(className: Brain.kReviewClassName)
-        review.setObject(self.request, forKey: Brain.kReviewRequest)
+        review.setObject(self.request!, forKey: Brain.kReviewRequest)
         review.setObject(self.request.objectId!, forKey: Brain.kReviewRequestId)
         review.setObject(true, forKey: Brain.kReviewAvailable)
 
    
         review.setObject(self.review.rating, forKey: Brain.kReviewRate)
-        review.setObject(self.textView.text, forKey: Brain.kReviewReview)
+        review.setObject(self.textView.text!, forKey: Brain.kReviewReview)
 
         if self.fromWorker == true {
             
             review.setObject("worker", forKey: Brain.kReviewFrom)
-            review.setObject(self.user, forKey: Brain.kReviewCustomer)
+            review.setObject(self.user!, forKey: Brain.kReviewCustomer)
             review.setObject(self.user.objectId!, forKey: Brain.kReviewCustomerId)
             review.setObject(PFUser.current()!, forKey: Brain.kReviewWorker)
             review.setObject(PFUser.current()!.objectId!, forKey: Brain.kReviewWorkerId)
@@ -153,7 +154,7 @@ class NewReviewToUserViewController: UIViewController, UIGestureRecognizerDelega
         }else{
             
             review.setObject("customer", forKey: Brain.kReviewFrom)
-            review.setObject(self.user, forKey: Brain.kReviewWorker)
+            review.setObject(self.user!, forKey: Brain.kReviewWorker)
             review.setObject(self.user.objectId!, forKey: Brain.kReviewWorkerId)
             review.setObject(PFUser.current()!, forKey: Brain.kReviewCustomer)
             review.setObject(PFUser.current()!.objectId!, forKey: Brain.kReviewCustomerId)
@@ -195,7 +196,7 @@ class NewReviewToUserViewController: UIViewController, UIGestureRecognizerDelega
        
     @objc func keyboardWillShow(notification: NSNotification) {
 
-      if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+      if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
 
 
        if isIphoneXFamily() {
@@ -267,19 +268,22 @@ class NewReviewToUserViewController: UIViewController, UIGestureRecognizerDelega
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(false, animated: animated)
+
         navigationController?.navigationBar.barStyle = .black
 
-        
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
         
         self.navigationController?.navigationBar.prefersLargeTitles = false
 
-         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-         NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillHide),name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillHide),name:UIResponder.keyboardWillHideNotification, object: nil)
 
         textView.becomeFirstResponder()
+        
+        Intercom.logEvent(withName: "customer_openNewReview")
+
 
     }
     

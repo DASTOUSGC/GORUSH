@@ -11,6 +11,8 @@ import UIKit
 import Parse
 import GoogleMaps
 import MapKit
+import Intercom
+
 
 
 class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapViewDelegate, GrassHeightDelegate {
@@ -80,7 +82,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         self.request = request
         self.centerPosition = self.request.object(forKey: Brain.kRequestCenter) as? PFGeoPoint
         
-        self.service = self.request.object(forKey: Brain.kRequestService) as! PFObject
+        self.service = self.request.object(forKey: Brain.kRequestService) as? PFObject
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -339,13 +341,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
             let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("Click on the Total button to start drawing the total area of ​​your land to be mowed.\n\nYou can include the area of ​​your home if it's in the center of the land. Indeed you can remove the area of ​​your home after", comment: ""), preferredStyle: .alert)
                        
                        
-                       if let popoverController = alert.popoverPresentationController {
-                           popoverController.sourceView = self.view
-                           popoverController.permittedArrowDirections = []
-                           popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                       }
-                       
-                       
+                    
                        let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
                            
                        })
@@ -368,6 +364,8 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
     
   func updateSelectedHeight(height: String) {
     
+    Intercom.logEvent(withName: "customer_selectHeightGrass", metaData: ["height":height])
+
     self.currentHeighGrass = Int(height.replacingOccurrences(of: "″", with: ""))!
         
   }
@@ -416,15 +414,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
             self.showInformationsDrawing = false
          
             let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("Now click on the screen to add points to draw your mowing area.\n\nYou can click on Undo to delete your last point and click on Done to place your last point", comment: ""), preferredStyle: .alert)
-                                 
-             
-             if let popoverController = alert.popoverPresentationController {
-                 popoverController.sourceView = self.view
-                 popoverController.permittedArrowDirections = []
-                 popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-             }
-             
-             
+           
              let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
                  
              })
@@ -559,6 +549,9 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
 
         if self.currentEditZone == 1 {
             
+            Intercom.logEvent(withName: "customer_drawAreaTotal")
+
+            
             if self.totalCoordinates.count > 0  && self.totalMarkers.count > 0 {
 
                    totalCoordinates.append(totalCoordinates[0])
@@ -573,14 +566,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
                     self.showInformations = false
                  
                     let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("Now click on the Home button if you ever want to delete the area of ​​your home in the middle of your land", comment: ""), preferredStyle: .alert)
-                                         
-                     
-                     if let popoverController = alert.popoverPresentationController {
-                         popoverController.sourceView = self.view
-                         popoverController.permittedArrowDirections = []
-                         popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                     }
-                     
+                   
                      
                      let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
                          
@@ -601,6 +587,8 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         
         }else if self.currentEditZone == 2 {
             
+            Intercom.logEvent(withName: "customer_drawAreaHome")
+
             if self.homeCoordinates.count > 0  && self.homeMarkers.count > 0 {
 
                      homeCoordinates.append(homeCoordinates[0])
@@ -910,7 +898,6 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
     @objc func touchNext(_ sender: UIButton){
   
         
-        self.nextButton.loadingIndicatorWhite(true)
         
         var mowingData = [String:Any]()
          
@@ -960,7 +947,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         mowingData[Brain.kUserMowingHeightGrass] = self.currentHeighGrass
         
         
-        
+        // On save le terrain du user
         if PFUser.current()?.object(forKey: Brain.kUserMowing) != nil {
             
             
@@ -996,54 +983,50 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         }
        
         
+        //Area & grass height
         self.request.setObject(mowingData, forKey: Brain.kRequestMowing)
         self.request.setObject(self.currentHeighGrass, forKey: Brain.kRequestMowingHeightGrass)
 
         
+        //Price calcul
         let surface = mowingData[Brain.kUserMowingAreaResult] as! Int
-
-        
-        
-        
-        
-        var price =  Double(self.service.object(forKey: Brain.kServiceMinPrice) as! Int)
-
-        if surface > Int(truncating: self.service.object(forKey: Brain.kServiceLimitUpArea) as! NSNumber) {
-          
-          
-          let difference = surface - Int(truncating: self.service.object(forKey: Brain.kServiceLimitUpArea) as! NSNumber)
-          let malus = Double(difference) * Double(truncating: self.service.object(forKey: Brain.kServicePriceByPi2) as! NSNumber)
-
-          price = price + malus
        
-        
+        var fixedPrice = Double(0)
+        if self.service.object(forKey: Brain.kServiceFixedPrice) != nil {
+            
+            fixedPrice =  Double(self.service.object(forKey: Brain.kServiceFixedPrice) as! Int)
         }
+        
+        
+        var variablePrice = Double(0)
+        if self.service.object(forKey: Brain.kServiceVariablePrice) != nil {
+            
+            variablePrice = Double(surface) * Double(truncating: self.service.object(forKey: Brain.kServiceVariablePrice) as! NSNumber)
+        }
+        
+        var price = fixedPrice + variablePrice
+       
+        //Grass height factor
+        if self.service.object(forKey: Brain.kServicePercentFactor) != nil {
+            
+            let percentByGrassHeight = Double(truncating: self.service.object(forKey: Brain.kServicePercentFactor) as! NSNumber)
+            let percent = Double(self.service.object(forKey: Brain.kServicePercentFactor) as! Int - 5) * percentByGrassHeight
+            price = price + (price * percent/100)
+        }
+      
 
-
-        ///Hauteur du gazon
-        let percentByGrassHeight = Double(truncating: self.service.object(forKey: Brain.kServicePercentByGraassHeight) as! NSNumber)
-        let percent = Double(self.request.object(forKey: Brain.kRequestMowingHeightGrass) as! Int - 5) * percentByGrassHeight
-
-
-        price = price + (price * percent/100)
-
+        //Worker price
         self.request.setObject(price.rounded(toPlaces: 2), forKey: Brain.kRequestPriceWorker)
         price = price + (price * Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100)
 
-        
-        
+        //Customer price
         self.request.setObject(price.rounded(toPlaces: 2), forKey: Brain.kRequestPriceCustomer)
         self.request.setObject(surface, forKey: Brain.kRequestSurface)
 
-        
-            
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-
-            let takeVideo = CameraViewController(request:self.request)
-            self.navigationController?.pushViewController(takeVideo, animated: true)
-
-        })
-       
+    
+        let options = OptionsMowingViewController(request:self.request)
+        self.navigationController?.pushViewController(options, animated: true)
+    
         
     }
     
@@ -1052,7 +1035,8 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        
+        navigationController?.navigationBar.barStyle = .black
+
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -1060,7 +1044,8 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         
         self.nextButton.loadingIndicator(false)
 
-        
+        Intercom.logEvent(withName: "customer_openMowingAreaView")
+
     }
     
     
@@ -1172,7 +1157,7 @@ extension UIButton {
         flash.duration = 0.2
         flash.fromValue = 1
         flash.toValue = 0.1
-        flash.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         flash.autoreverses = true
         flash.repeatCount = 3
 

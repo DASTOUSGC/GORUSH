@@ -13,6 +13,7 @@ import UIKit
 import UserNotifications
 //import YPImagePicker
 import PhoneNumberKit
+import Intercom
 
 
 class EditProfileViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
@@ -51,6 +52,8 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
     
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
+        
+        print("GOOO")
         return .lightContent
     }
     
@@ -65,7 +68,7 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
         tabBarItem.title = "";
         
         
-        activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: .white)
+        activityIndicator = UIActivityIndicatorView.init(style: .white)
         let refreshBarButton: UIBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         self.navigationItem.leftBarButtonItem = refreshBarButton
 
@@ -148,8 +151,8 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
             if self.initValueNewPassword != self.initValueConfirmPassword {
                 
              
-                let alert = UIAlertController(title: NSLocalizedString("Password error", comment: ""), message: "Sorry, your password confirmation is different from your new password", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
+                let alert = UIAlertController(title: NSLocalizedString("Password error", comment: ""), message: "Sorry, your password confirmation is different from your new password", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 
                 
@@ -188,8 +191,8 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
 
                                             self.activityIndicator.stopAnimating()
 
-                                            let alert = UIAlertController(title: NSLocalizedString("Email already used", comment: ""), message: "Sorry, this email is already registered", preferredStyle: UIAlertControllerStyle.alert)
-                                            alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
+                                            let alert = UIAlertController(title: NSLocalizedString("Email already used", comment: ""), message: "Sorry, this email is already registered", preferredStyle: UIAlertController.Style.alert)
+                                            alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
                                             self.present(alert, animated: true, completion: nil)
 
                                             if PFUser.current()?.object(forKey: Brain.kUserEmail) != nil {
@@ -213,19 +216,19 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
                                             }
                                             if self.initValueFirst != PFUser.current()!.object(forKey: Brain.kUserFirstName) as? String {
                                                 
-                                                PFUser.current()?.setObject(self.initValueFirst, forKey: Brain.kUserFirstName)
+                                                PFUser.current()?.setObject(self.initValueFirst!, forKey: Brain.kUserFirstName)
                                                 
                                             }
                                             
                                             
                                             if self.initValueLast != PFUser.current()!.object(forKey: Brain.kUserLastName) as? String {
 
-                                                PFUser.current()?.setObject(self.initValueLast, forKey: Brain.kUserLastName)
+                                                PFUser.current()?.setObject(self.initValueLast!, forKey: Brain.kUserLastName)
 
                                             }
 
 
-                                            PFUser.current()?.setObject(self.initValueEmail, forKey: Brain.kUserEmail)
+                                            PFUser.current()?.setObject(self.initValueEmail!, forKey: Brain.kUserEmail)
                                             
                                             if PFUser.current()?.object(forKey: Brain.kUserFacebookId) == nil {
                                                 
@@ -270,14 +273,14 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
                 
                 if self.initValueFirst != PFUser.current()!.object(forKey: Brain.kUserFirstName) as? String {
 
-                    PFUser.current()?.setObject(self.initValueFirst, forKey: Brain.kUserFirstName)
+                    PFUser.current()?.setObject(self.initValueFirst!, forKey: Brain.kUserFirstName)
 
                 }
 
                 
                 if self.initValueLast != PFUser.current()!.object(forKey: Brain.kUserLastName) as? String {
 
-                    PFUser.current()?.setObject(self.initValueLast, forKey: Brain.kUserLastName)
+                    PFUser.current()?.setObject(self.initValueLast!, forKey: Brain.kUserLastName)
 
                 }
 
@@ -356,44 +359,24 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
                     self.activityIndicator.stopAnimating()
 
 
-                      let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: "Sorry, this phone number is already registered", preferredStyle: UIAlertControllerStyle.alert)
-                      if let popoverController = alert.popoverPresentationController {
-                          popoverController.sourceView = self.view
-                          popoverController.permittedArrowDirections = []
-                          popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                      }
-
-                      alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: UIAlertActionStyle.default, handler: nil))
+                      let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: "Sorry, this phone number is already registered", preferredStyle: UIAlertController.Style.alert)
+                     
+                      alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
                       self.present(alert, animated: true, completion: nil)
 
 
                   }else{
 
-
-                      var name = ""
-
-                      if PFUser.current() != nil {
-
-                          name = PFUser.current()!.object(forKey: Brain.kUserFirstName)! as! String
-
-                      }else{
-
-                          if SignupProcess.shared().firstname != nil {
-
-                              name = SignupProcess.shared().firstname!
-                          }
-                      }
-
                       PFCloud.callFunction(inBackground: "sendSMSVerificationNumber",
                                            withParameters:["code":code,
                                                            "to":self.initValuePhone.trimmingCharacters(in: .whitespacesAndNewlines),
-                                                           "firstName":name]) { (object:Any?, error:Error?) in
+                                                           "firstName":PFUser.current()!.object(forKey: Brain.kUserFirstName)! as! String]) { (object:Any?, error:Error?) in
 
                               self.activityIndicator.stopAnimating()
 
                               if  error != nil {
 
-                                print("err \(error)")
+                                print("err \(error!)")
                               }else{
 
                                   print("code \(code)")
@@ -419,8 +402,8 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
         
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.barStyle = .black
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.navigationBar.barStyle = .black
 
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
@@ -472,7 +455,8 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
         }
         
       
-        
+        Intercom.logEvent(withName: "customer_openEditProfileView")
+
         
         tableView.reloadData()
         

@@ -8,10 +8,14 @@
 
 import Foundation
 import Parse
-
+import ParseLiveQuery
+import Intercom
 
 class JobsViewController: ParentLoadingViewController , UICollectionViewDataSource, UICollectionViewDelegate{
     
+    var subscriptionJobs: Subscription<PFObject>!
+    var liveQueryJobs : PFQuery<PFObject>!
+
     
     var titleViewController = NSLocalizedString("Jobs", comment:"")
     var requests = [PFObject]()
@@ -33,7 +37,6 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
     
     var currentLocation : PFGeoPoint?
 
-    var timer: Timer?
 
     
     var lightMode = false
@@ -102,7 +105,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
         
         collectionViewUpcoming = UICollectionView(frame: CGRect(x: 0, y: customTitle.yBottom() + 5 + 18.5, width: Brain.kLargeurIphone , height: Brain.kHauteurIphone - customTitle.yBottom() - 5 - 18.5 ) , collectionViewLayout: layout)
         collectionViewUpcoming.dataSource = self
-        collectionViewUpcoming.contentInset = UIEdgeInsetsMake(37, 0, 150, 0)
+        collectionViewUpcoming.contentInset = UIEdgeInsets(top: 37, left: 0, bottom: 150, right: 0)
         collectionViewUpcoming.backgroundColor = .clear
         collectionViewUpcoming.delegate = self
         collectionViewUpcoming.showsVerticalScrollIndicator = false
@@ -124,7 +127,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
         
         collectionViewPast = UICollectionView(frame: CGRect(x: Brain.kL, y: customTitle.yBottom() + 5 + 18.5, width: Brain.kLargeurIphone , height: Brain.kHauteurIphone - customTitle.yBottom() - 5 - 18.5 ) , collectionViewLayout: layoutPast)
         collectionViewPast.dataSource = self
-        collectionViewPast.contentInset = UIEdgeInsetsMake(37, 0, 150, 0)
+        collectionViewPast.contentInset = UIEdgeInsets(top: 37, left: 0, bottom: 150, right: 0)
         collectionViewPast.backgroundColor = .clear
         collectionViewPast.delegate = self
         collectionViewPast.showsVerticalScrollIndicator = false
@@ -164,21 +167,6 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
         
     }
     
-    
-    
-    func stopTimer() {
-          if timer != nil {
-              timer?.invalidate()
-              timer = nil
-          }
-      }
-
-      @objc func loop() {
-         
-          self.getRequests()
-          
-      }
-      
     
     
   
@@ -246,19 +234,15 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
         self.navigationController?.navigationBar.layoutIfNeeded()
         
         
-        
-            if timer == nil {
-                timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.loop), userInfo: nil, repeats: true)
-            }
-             
-        
         self.getRequests()
-            
+        self.updateLiveQueries()
+
         
         self.collectionViewUpcoming.reloadData()
         self.collectionViewPast.reloadData()
 
-        
+        Intercom.logEvent(withName: "worker_openJobsView")
+
     }
     
     
@@ -273,9 +257,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
             
             self.mainScroll.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             
-            self.upcomingButton.setTitleColor(.white, for: .normal)
-            self.pastButton.setTitleColor(UIColor(hex: "BDBDBD"), for: .normal)
-            
+           
             
         }) { (done) in
             
@@ -292,8 +274,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
             
             self.mainScroll.setContentOffset(CGPoint(x: Brain.kL, y: 0), animated: true)
             
-            self.upcomingButton.setTitleColor(UIColor(hex: "BDBDBD"), for: .normal)
-            self.pastButton.setTitleColor(.white, for: .normal)
+          
             
         }) { (done) in
             
@@ -310,7 +291,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
             
             if geopoint != nil {
                 
-                PFUser.current()?.setObject(geopoint, forKey: Brain.kUserLocation)
+                PFUser.current()?.setObject(geopoint!, forKey: Brain.kUserLocation)
                 PFUser.current()?.saveInBackground()
 
                 self.currentLocation = geopoint
@@ -321,18 +302,18 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
             }
             
             
-            
-            let requests = PFQuery(className: Brain.kRequestClassName)
-                 requests.whereKey(Brain.kRequestWorker, equalTo: PFUser.current()!)
-                 requests.whereKey(Brain.kRequestState, notContainedIn: ["canceled","pending","ended"])
-                 requests.whereKeyExists(Brain.kRequestPhoto)
-                 requests.includeKey(Brain.kRequestService)
-                 requests.includeKey(Brain.kRequestCustomer)
-                 requests.limit = 1000
-               requests.cachePolicy = .cacheThenNetwork
-                 requests.order(byDescending: "createdAt")
 
-                 requests.findObjectsInBackground { (requestsQuery, error) in
+            let requests = PFQuery(className: Brain.kRequestClassName)
+            requests.whereKey(Brain.kRequestWorker, equalTo: PFUser.current()!)
+            requests.whereKey(Brain.kRequestState, notContainedIn: ["canceled","pending","ended"])
+            requests.whereKeyExists(Brain.kRequestPhoto)
+            requests.includeKey(Brain.kRequestService)
+            requests.includeKey(Brain.kRequestCustomer)
+            requests.limit = 1000
+            requests.cachePolicy = .cacheThenNetwork
+            requests.order(byDescending: "createdAt")
+
+            requests.findObjectsInBackground { (requestsQuery, error) in
                      
                      
                      if requestsQuery != nil {
@@ -390,6 +371,24 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
         
     }
     
+    func updateLiveQueries(){
+           
+        print("GO LIVE QUERY")
+        liveQueryJobs = PFQuery(className: Brain.kRequestClassName)
+        liveQueryJobs.whereKey(Brain.kRequestWorker, equalTo: PFUser.current()!)
+
+        subscriptionJobs = Client.shared.subscribe(self.liveQueryJobs).handleEvent { query, event in
+
+           print("live query Requests")
+
+           DispatchQueue.main.async {
+               self.getRequests()
+           }
+              
+        }
+
+    }
+    
   
     
     override func viewDidAppear(_ animated: Bool) {
@@ -400,17 +399,20 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        if self.liveQueryJobs != nil {
+              
+          Client.shared.unsubscribe(self.liveQueryJobs)
+
+        }
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        
-        self.stopTimer()
-        
+                
     }
     
     
@@ -512,7 +514,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
                 
                 if cell.customer.object(forKey: Brain.kUserProfilePicture) != nil {
                     
-                    cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFile
+                    cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
                     cell.profilePicture.loadInBackground()
                     
                 }else{
@@ -543,7 +545,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
                  
                  if cell.customer.object(forKey: Brain.kUserProfilePicture) != nil {
                      
-                     cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFile
+                     cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
                      cell.profilePicture.loadInBackground()
                      
                  }else{
@@ -563,7 +565,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
                  }
                 
                   
-                   if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFile {
+                   if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFileObject {
                         
                         cell.icon.file = icon
                         cell.icon.loadInBackground()
@@ -573,7 +575,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
                     
                     if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
                                    
-                                      cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFile
+                                      cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
                                       cell.cover.load { (image, error) in
                                          
                                          cell.cover.isHidden = false
@@ -647,7 +649,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
                    
                    if cell.customer.object(forKey: Brain.kUserProfilePicture) != nil {
                        
-                       cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFile
+                       cell.profilePicture.file = cell.customer.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
                        cell.profilePicture.loadInBackground()
                        
                    }else{
@@ -670,7 +672,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
                    
                 
                 
-                   if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFile {
+                   if let icon = cell.service.object(forKey: Brain.kServiceIcon) as? PFFileObject {
                         
                         cell.icon.file = icon
                         cell.icon.loadInBackground()
@@ -680,7 +682,7 @@ class JobsViewController: ParentLoadingViewController , UICollectionViewDataSour
                     
                      if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
                                    
-                              cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFile
+                              cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
                               cell.cover.load { (image, error) in
                                  
                                  cell.cover.isHidden = false
