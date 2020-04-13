@@ -1468,8 +1468,14 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
 
             sender.loadingIndicatorWhite(false)
 
-            let takeVideo = CameraViewController(videoToStartJob: true, requestWorkerVC: self)
+            
+            #if targetEnvironment(simulator)
+              self.viewToStartJob(photo: UIImage(named:"imageTest2.png"), video: nil)
+            #else
+              let takeVideo = CameraViewController(videoToStartJob: true, requestWorkerVC: self)
             self.navigationController?.pushViewController(takeVideo, animated: true)
+            #endif
+
 
 
         })
@@ -1486,8 +1492,13 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
 
            sender.loadingIndicatorWhite(false)
 
-           let takeVideo = CameraViewController(videoToFinishJob: true, requestWorkerVC: self)
-           self.navigationController?.pushViewController(takeVideo, animated: true)
+
+            #if targetEnvironment(simulator)
+             self.viewToFinishJob(photo: UIImage(named:"imageTest3.png"), video: nil)
+            #else
+             let takeVideo = CameraViewController(videoToFinishJob: true, requestWorkerVC: self)
+             self.navigationController?.pushViewController(takeVideo, animated: true)
+            #endif
 
 
         })

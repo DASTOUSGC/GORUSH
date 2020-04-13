@@ -27,6 +27,9 @@
 		D339211020178C96003A5D48 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D339210F20178C96003A5D48 /* Brain.swift */; };
 		D3579D42230CDC720048774E /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3579D41230CDC720048774E /* assets.xcassets */; };
 		D36224B02444746D00B4BE31 /* videoGoRush.mov in Resources */ = {isa = PBXBuildFile; fileRef = D36224AF2444746D00B4BE31 /* videoGoRush.mov */; };
+		D36224B22444A7D800B4BE31 /* imageTest.png in Resources */ = {isa = PBXBuildFile; fileRef = D36224B12444A7D700B4BE31 /* imageTest.png */; };
+		D36224B52444ADE300B4BE31 /* imageTest2.png in Resources */ = {isa = PBXBuildFile; fileRef = D36224B32444ADE300B4BE31 /* imageTest2.png */; };
+		D36224B62444ADE300B4BE31 /* imageTest3.png in Resources */ = {isa = PBXBuildFile; fileRef = D36224B42444ADE300B4BE31 /* imageTest3.png */; };
 		D368A3502397078400286263 /* MowingAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D368A34F2397078400286263 /* MowingAreaViewController.swift */; };
 		D3719CC02028FB50009EF788 /* SignupFirstNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */; };
 		D3719CC220290578009EF788 /* SignupPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC120290578009EF788 /* SignupPasswordViewController.swift */; };
@@ -97,6 +100,9 @@
 		D3579D41230CDC720048774E /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 		D36224AC2443497300B4BE31 /* GoRush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoRush.entitlements; sourceTree = "<group>"; };
 		D36224AF2444746D00B4BE31 /* videoGoRush.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = videoGoRush.mov; sourceTree = "<group>"; };
+		D36224B12444A7D700B4BE31 /* imageTest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageTest.png; sourceTree = "<group>"; };
+		D36224B32444ADE300B4BE31 /* imageTest2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageTest2.png; sourceTree = "<group>"; };
+		D36224B42444ADE300B4BE31 /* imageTest3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageTest3.png; sourceTree = "<group>"; };
 		D368A34F2397078400286263 /* MowingAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MowingAreaViewController.swift; sourceTree = "<group>"; };
 		D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFirstNameViewController.swift; sourceTree = "<group>"; };
 		D3719CC120290578009EF788 /* SignupPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPasswordViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +226,9 @@
 		D33920F4201768CA003A5D48 /* GoRush */ = {
 			isa = PBXGroup;
 			children = (
+				D36224B32444ADE300B4BE31 /* imageTest2.png */,
+				D36224B42444ADE300B4BE31 /* imageTest3.png */,
+				D36224B12444A7D700B4BE31 /* imageTest.png */,
 				D36224AF2444746D00B4BE31 /* videoGoRush.mov */,
 				D36224AC2443497300B4BE31 /* GoRush.entitlements */,
 				D31F6592201796B000340E50 /* Utils */,
@@ -491,8 +500,11 @@
 			files = (
 				D3392102201768CA003A5D48 /* LaunchScreen.storyboard in Resources */,
 				D319628A22BAB9FB00339830 /* Localizable.strings in Resources */,
+				D36224B52444ADE300B4BE31 /* imageTest2.png in Resources */,
+				D36224B62444ADE300B4BE31 /* imageTest3.png in Resources */,
 				D36224B02444746D00B4BE31 /* videoGoRush.mov in Resources */,
 				D3579D42230CDC720048774E /* assets.xcassets in Resources */,
+				D36224B22444A7D800B4BE31 /* imageTest.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

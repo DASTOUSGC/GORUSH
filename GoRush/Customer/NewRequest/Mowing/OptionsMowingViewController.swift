@@ -402,10 +402,14 @@ class OptionsMowingViewController: UIViewController, UIGestureRecognizerDelegate
             
            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
 
+            #if targetEnvironment(simulator)
+                let newVC = SendRequestViewController(photoTmp: UIImage(named:"imageTest.png"), videoTmp: nil, frontCamera: true, request: self.request)
+                self.navigationController?.pushViewController(newVC, animated: true)
+            #else
                 let takeVideo = CameraViewController(request:self.request)
                 self.navigationController?.pushViewController(takeVideo, animated: true)
-            
-               
+            #endif
+
                self.nextButton.loadingIndicatorWhite(false)
 
            })
