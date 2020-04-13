@@ -314,7 +314,7 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
                        
                    }
                    
-                   cell.name.text = cell.service.object(forKey: Brain.kServicesName) as? String
+                cell.name.text = Utils.returnCodeLangageEnFr() == "fr" ? cell.service.object(forKey: Brain.kServicesNameFr) as? String : cell.service.object(forKey: Brain.kServicesName) as? String
                    
                    
                    if let comingSoon = cell.service.object(forKey: Brain.kServiceComingSoon) as? Bool {

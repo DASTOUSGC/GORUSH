@@ -106,7 +106,7 @@ class OptionsMowingViewController: UIViewController, UIGestureRecognizerDelegate
         
         if !isIphoneXFamily() {
             
-            heightImage = CGFloat(140)
+            heightImage = CGFloat(130)
         }
         
      
@@ -401,9 +401,10 @@ class OptionsMowingViewController: UIViewController, UIGestureRecognizerDelegate
             
             
            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-               
+
                 let takeVideo = CameraViewController(request:self.request)
                 self.navigationController?.pushViewController(takeVideo, animated: true)
+            
                
                self.nextButton.loadingIndicatorWhite(false)
 

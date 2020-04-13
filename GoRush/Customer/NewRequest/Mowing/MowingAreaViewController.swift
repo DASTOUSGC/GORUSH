@@ -19,7 +19,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
     
     
     
-    let titleViewController = NSLocalizedString("Select your mowing area", comment:"")
+    let titleViewController = NSLocalizedString("Select your area", comment:"")
     
     let kEarthRadius = 6378137.0
     let kM2toPi2 = 10.76391041671
@@ -27,6 +27,8 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
     var centerPosition : PFGeoPoint!
     var request : PFObject!
     var service : PFObject!
+    
+    var target : UIImageView!
     
     
     var mapView : GMSMapView!
@@ -59,6 +61,8 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
     var titleZone2 : UILabel!
     var subtitleZone2 : UILabel!
       
+    
+    var addPoint : UIButton!
     
     var equalLabel : UILabel!
     var minusLabel : UILabel!
@@ -143,13 +147,37 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         nextButton.alpha = 0
         view.addSubview(nextButton)
 
+        
+        if isIphoneXFamily() {
+          
+          addPoint = UIButton(frame: CGRect(x:20, y: Brain.kHauteurIphone - 90 - 85, width:Brain.kLargeurIphone-40, height: 60))
+
+          
+        }else{
+          
+          addPoint = UIButton(frame: CGRect(x:20, y: Brain.kHauteurIphone - 55 - 85, width:Brain.kLargeurIphone-40, height: 60))
+
+        }
+        addPoint.layer.cornerRadius = 30;
+        addPoint.backgroundColor = Brain.kColorMain
+        addPoint.setTitle(NSLocalizedString("Add point", comment: ""), for: .normal)
+        addPoint.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        addPoint.setTitleColor(UIColor.white, for: .normal)
+        addPoint.setTitleColor(UIColor.gray, for: .highlighted)
+        addPoint.addTarget(self, action: #selector(touchAddPoint(_:)), for: .touchUpInside)
+        addPoint.applyGradient()
+        addPoint.alpha = 0
+        view.addSubview(addPoint)
 
 
 
-        undoButton = UIButton(frame: CGRect(x:7, y: 5, width:70, height: 60))
+
+
+
+        undoButton = UIButton(frame: CGRect(x:15, y: 5, width:70, height: 60))
         undoButton.setTitle(NSLocalizedString("Undo", comment: ""), for: .normal)
         undoButton.layer.applySketchShadow()
-        undoButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        undoButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         undoButton.setTitleColor(UIColor.white, for: .normal)
         undoButton.setTitleColor(UIColor.gray, for: .highlighted)
         undoButton.addTarget(self, action: #selector(touchUndo(_:)), for: .touchUpInside)
@@ -157,10 +185,10 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         view.addSubview(undoButton)
 
 
-        doneButton = UIButton(frame: CGRect(x: Brain.kLargeurIphone - 77, y: 5, width:70, height: 60))
+        doneButton = UIButton(frame: CGRect(x: Brain.kLargeurIphone - 85, y: 5, width:70, height: 60))
         doneButton.setTitle(NSLocalizedString("Done", comment: ""), for: .normal)
         doneButton.layer.applySketchShadow()
-        doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         doneButton.setTitleColor(UIColor.white, for: .normal)
         doneButton.setTitleColor(UIColor.gray, for: .highlighted)
         doneButton.addTarget(self, action: #selector(touchDone(_:)), for: .touchUpInside)
@@ -251,6 +279,13 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         view.addSubview(grassHeight)
         
         
+        
+        target = UIImageView(frame: CGRect(x: Brain.kL / 2 - 20, y:  Brain.kH / 2 - 70, width: 40, height: 40))
+        target.image = UIImage(named: "target")
+        target.alpha = 0
+        view.addSubview(target)
+
+        
         if PFUser.current()?.object(forKey: Brain.kUserMowing) != nil {
             
             let mowingAreas = PFUser.current()?.object(forKey: Brain.kUserMowing) as! [[String:Any]]
@@ -338,7 +373,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
             self.showInformationsDrawing = true
             
             //Popup init tuto
-            let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("Click on the Total button to start drawing the total area of ​​your land to be mowed.\n\nYou can include the area of ​​your home if it's in the center of the land. Indeed you can remove the area of ​​your home after", comment: ""), preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("Click on the Total button to start drawing the total area of ​​your land for the selected service.\n\nYou can include the area of ​​your home if it's in the center of the land. Indeed you can remove the area of ​​your home", comment: ""), preferredStyle: .alert)
                        
                        
                     
@@ -358,6 +393,13 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         
         
 //        self.enterEditMode(toZone:1)
+        
+        
+        if self.service.object(forKey: Brain.kServiceCode) as! String != "lawnmower"{
+            
+            self.grassHeight.isHidden = true
+            self.grassHeightLabel.isHidden = true
+        }
         
     }
     
@@ -413,7 +455,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
             
             self.showInformationsDrawing = false
          
-            let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("Now click on the screen to add points to draw your mowing area.\n\nYou can click on Undo to delete your last point and click on Done to place your last point", comment: ""), preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("Now click on the screen to add points to draw your area for the selected service.\n\nYou can click on Undo to delete your last point and click on Done to place your last point", comment: ""), preferredStyle: .alert)
            
              let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
                  
@@ -453,6 +495,9 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
               
               self.undoButton.alpha = 1
               self.doneButton.alpha = 1
+            self.target.alpha = 1
+            self.addPoint.alpha = 1
+
               
               self.totalView.alpha = 0
               self.zone1View.alpha = 0
@@ -681,14 +726,16 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         
         
         self.currentEditZone = 0
-        self.title = NSLocalizedString("Select your mowing area", comment: "")
+        self.title = NSLocalizedString("Select your area", comment: "")
 
         
         UIView.animate(withDuration: 0.3, animations: {
             
             self.undoButton.alpha = 0
             self.doneButton.alpha = 0
-            
+            self.target.alpha = 0
+            self.addPoint.alpha = 0
+
             self.totalView.alpha = 1
             self.zone1View.alpha = 1
             self.zone2View.alpha = 1
@@ -770,28 +817,42 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
     }
     
     
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
-        
+    @objc func touchAddPoint(_ sender: UIButton){
+
+          
         if currentEditZone == 0 {
-           
-            return
+             
+              return
+          
+          }else if currentEditZone == 1 {
+              
+              totalCoordinates.append(self.mapView.projection.coordinate(for: self.target.center))
+              totalMarkers.append(createMarker(point: self.mapView.projection.coordinate(for: self.target.center)))
+              drawPolyline()
         
-        }else if currentEditZone == 1 {
-            
-            totalCoordinates.append(coordinate)
-            totalMarkers.append(createMarker(point: coordinate))
-            drawPolyline()
-      
-        }else if currentEditZone == 2 {
-            
-            homeCoordinates.append(coordinate)
-            homeMarkers.append(createMarker(point: coordinate))
-            drawPolyline()
-        }
+          }else if currentEditZone == 2 {
+              
+              homeCoordinates.append(self.mapView.projection.coordinate(for: self.target.center))
+              homeMarkers.append(createMarker(point: self.mapView.projection.coordinate(for: self.target.center)))
+              drawPolyline()
+          }
         
-        
-     
+    
     }
+    
+//
+//    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//    }
   
     func createMarker(point: CLLocationCoordinate2D) -> GMSMarker{
         let marker = GMSMarker()
@@ -894,7 +955,7 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
     
     
     
-    
+  
     @objc func touchNext(_ sender: UIButton){
   
         
@@ -985,8 +1046,14 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         
         //Area & grass height
         self.request.setObject(mowingData, forKey: Brain.kRequestMowing)
-        self.request.setObject(self.currentHeighGrass, forKey: Brain.kRequestMowingHeightGrass)
 
+        if self.service.object(forKey: Brain.kServiceCode) as! String == "lawnmower"{
+
+            self.request.setObject(self.currentHeighGrass, forKey: Brain.kRequestMowingHeightGrass)
+
+                  
+        }
+        
         
         //Price calcul
         let surface = mowingData[Brain.kUserMowingAreaResult] as! Int
@@ -1006,13 +1073,19 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         
         var price = fixedPrice + variablePrice
        
-        //Grass height factor
-        if self.service.object(forKey: Brain.kServicePercentFactor) != nil {
+        
+        if self.service.object(forKey: Brain.kServiceCode) as! String == "lawnmower"{
+
+            //Grass height factor
+                   if self.service.object(forKey: Brain.kServicePercentFactor) != nil {
+                       
+                       let percentByGrassHeight = Double(truncating: self.service.object(forKey: Brain.kServicePercentFactor) as! NSNumber)
+                       let percent = Double(self.currentHeighGrass - 5) * percentByGrassHeight
+                       price = price + (price * percent/100)
+                   }
             
-            let percentByGrassHeight = Double(truncating: self.service.object(forKey: Brain.kServicePercentFactor) as! NSNumber)
-            let percent = Double(self.service.object(forKey: Brain.kServicePercentFactor) as! Int - 5) * percentByGrassHeight
-            price = price + (price * percent/100)
         }
+       
       
 
         //Worker price

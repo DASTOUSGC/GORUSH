@@ -122,29 +122,35 @@ extension UIButton {
     }
               
    func loadingIndicatorWhite(_ show: Bool) {
-          let tag = 808404
-          if show {
-              self.isEnabled = false
-              let indicator = UIActivityIndicatorView()
-              indicator.color = .white
-              
-              
-              let buttonHeight = self.bounds.size.height
-              let buttonWidth = self.bounds.size.width
-              indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
-              indicator.tag = tag
-              self.addSubview(indicator)
-              self.titleLabel?.alpha = 0
-              indicator.startAnimating()
-          } else {
-              self.isEnabled = true
-              self.titleLabel?.alpha = 1
-              
-              if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
-                  indicator.stopAnimating()
-                  indicator.removeFromSuperview()
-              }
-              }
+        let tag = 808404
+               if show {
+                   self.isEnabled = false
+                   let indicator = UIActivityIndicatorView()
+                   indicator.color = .white
+                   
+                   
+                if let indicatorOld = self.viewWithTag(tag) as? UIActivityIndicatorView {
+                                    indicatorOld.stopAnimating()
+                                    indicatorOld.removeFromSuperview()
+                                }
+                
+                   let buttonHeight = self.bounds.size.height
+                   let buttonWidth = self.bounds.size.width
+                   indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
+                   indicator.tag = tag
+                   self.addSubview(indicator)
+                   self.titleLabel?.alpha = 0
+                   indicator.startAnimating()
+               } else {
+                   self.isEnabled = true
+                   self.titleLabel?.alpha = 1
+                   
+                   if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
+                       indicator.stopAnimating()
+                       indicator.removeFromSuperview()
+                   }
+                
+            }
       }
                                                     
                                                                              

@@ -1,1 +1,529 @@
 
+/* No comment provided by engineer. */
+"%.0fkm" = "%.0fkm";
+
+/* No comment provided by engineer. */
+"%.1fkm" = "%.1fkm";
+
+/* No comment provided by engineer. */
+"%.2f$" = "%.2f$";
+
+/* No comment provided by engineer. */
+"%@'s Reviews" = "%@'s Reviews";
+
+/* No comment provided by engineer. */
+"%d day ago" = "%d day ago";
+
+/* No comment provided by engineer. */
+"%d days ago" = "%d days ago";
+
+/* No comment provided by engineer. */
+"%d hour ago" = "%d hour ago";
+
+/* No comment provided by engineer. */
+"%d hours ago" = "%d hours ago";
+
+/* No comment provided by engineer. */
+"%d min ago" = "%d min ago";
+
+/* No comment provided by engineer. */
+"%d secs ago" = "%d secs ago";
+
+/* No comment provided by engineer. */
+"%dpi²" = "%dpi²";
+
+/* No comment provided by engineer. */
+"-" = "-";
+
+/* No comment provided by engineer. */
+"0pi²" = "0pi²";
+
+/* No comment provided by engineer. */
+"=" = "=";
+
+/* No comment provided by engineer. */
+"A worker has already accepted your request. So you will have to pay %.2f$, %d%% of the request. The rest will be refunded to you.\n\nAre you sure you want to cancel this request?" = "A worker has already accepted your request. So you will have to pay %1$.2f$, %2$d%% of the request. The rest will be refunded to you.\n\nAre you sure you want to cancel this request?";
+
+/* No comment provided by engineer. */
+"Accept request" = "Accept request";
+
+/* No comment provided by engineer. */
+"Account number" = "Account number";
+
+/* No comment provided by engineer. */
+"Add" = "Add";
+
+/* No comment provided by engineer. */
+"Add bank account" = "Add bank account";
+
+/* No comment provided by engineer. */
+"Add New Card" = "Add New Card";
+
+/* No comment provided by engineer. */
+"Add payment method" = "Add payment method";
+
+/* No comment provided by engineer. */
+"Add Payment Method" = "Add Payment Method";
+
+/* No comment provided by engineer. */
+"Address" = "Address";
+
+/* No comment provided by engineer. */
+"Are you sure you want to accept this request?" = "Are you sure you want to accept this request?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to cancel this request?" = "Are you sure you want to cancel this request?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this card?" = "Are you sure you want to delete this card?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to log out?" = "Are you sure you want to log out?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to refuse this request?" = "Are you sure you want to refuse this request?";
+
+/* No comment provided by engineer. */
+"Bank account" = "Bank account";
+
+/* No comment provided by engineer. */
+"Bank Account" = "Bank Account";
+
+/* No comment provided by engineer. */
+"Birth date" = "Birth date";
+
+/* No comment provided by engineer. */
+"Boost mode" = "Boost mode";
+
+/* Alert message when the user has denied access to the camera */
+"Buzzy doesn't have permission to use the camera, please change privacy settings" = "GoRush doesn't have permission to use the camera, please change privacy settings";
+
+/* No comment provided by engineer. */
+"By refusing too many requests already accepted, you reduce the probability of receiving future requests.\n\nAre you sure you want to refuse this request?" = "By refusing too many requests already accepted, you reduce the probability of receiving future requests.\n\nAre you sure you want to refuse this request?";
+
+/* No comment provided by engineer. */
+"By signing up, you agree to our Terms and Conditions" = "By signing up, you agree to our Terms and Conditions";
+
+/* No comment provided by engineer. */
+"Can't sign in? Reset Password" = "Can't sign in? Reset Password";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"Cancel request" = "Cancel request";
+
+/* No comment provided by engineer. */
+"Change" = "Change";
+
+/* No comment provided by engineer. */
+"Choose the type of user you want" = "Choose the type of user you want";
+
+/* No comment provided by engineer. */
+"City" = "City";
+
+/* No comment provided by engineer. */
+"Click on the Total button to start drawing the total area of ​​your land for the selected service.\n\nYou can include the area of ​​your home if it's in the center of the land. Indeed you can remove the area of ​​your home" = "Click on the Total button to start drawing the total area of ​​your land for the selected service.\n\nYou can include the area of ​​your home if it's in the center of the land. Indeed you can remove the area of ​​your home";
+
+/* No comment provided by engineer. */
+"Code" = "Code";
+
+/* No comment provided by engineer. */
+"Code not received?" = "Code not received?";
+
+/* No comment provided by engineer. */
+"Coming soon" = "Coming soon";
+
+/* No comment provided by engineer. */
+"Confirm" = "Confirm";
+
+/* No comment provided by engineer. */
+"Confirm new password" = "Confirm new password";
+
+/* No comment provided by engineer. */
+"Confirm Password" = "Confirm Password";
+
+/* No comment provided by engineer. */
+"Confirmation code" = "Confirmation code";
+
+/* No comment provided by engineer. */
+"Congratulations" = "Congratulations";
+
+/* No comment provided by engineer. */
+"Congratulations %@ has completed your request, you can now add a review regarding his work" = "Congratulations %@ has completed your request, you can now add a review regarding his work";
+
+/* No comment provided by engineer. */
+"connectFb" = "connectFb";
+
+/* No comment provided by engineer. */
+"connectFbOn" = "connectFbOn";
+
+/* No comment provided by engineer. */
+"Continue" = "Continue";
+
+/* No comment provided by engineer. */
+"Current bank account %@\n**** %@ | %@ \nThis bank account will allow you to receive your weekly transfers from GoRush. 4 working days delay." = "Current bank account %1$@\n**** %2$@ | %3$@ \nThis bank account will allow you to receive your weekly transfers from GoRush. 4 working days delay.";
+
+/* No comment provided by engineer. */
+"Current grass height of your area" = "Current grass height of your area";
+
+/* No comment provided by engineer. */
+"Delete card" = "Delete card";
+
+/* No comment provided by engineer. */
+"Delete current profile picture" = "Delete current profile picture";
+
+/* No comment provided by engineer. */
+"Done" = "Done";
+
+/* No comment provided by engineer. */
+"Draw your total area" = "Draw your total area";
+
+/* No comment provided by engineer. */
+"Edit Profile" = "Edit Profile";
+
+/* No comment provided by engineer. */
+"Email" = "Email";
+
+/* No comment provided by engineer. */
+"Email already used" = "Email already used";
+
+/* No comment provided by engineer. */
+"Ended request" = "Ended request";
+
+/* No comment provided by engineer. */
+"Enter your email" = "Enter your email";
+
+/* No comment provided by engineer. */
+"Error" = "Error";
+
+/* No comment provided by engineer. */
+"Explore" = "Explore";
+
+/* No comment provided by engineer. */
+"Find out when you get\na match or message" = "Find out when you get\na match or message";
+
+/* No comment provided by engineer. */
+"Finish request" = "Finish request";
+
+/* No comment provided by engineer. */
+"First name" = "First name";
+
+/* No comment provided by engineer. */
+"Go Rush" = "Go Rush";
+
+/* No comment provided by engineer. */
+"Go Rush!" = "Go Rush!";
+
+/* No comment provided by engineer. */
+"GoRush" = "GoRush";
+
+/* Alert message when the user has denied access to the camera */
+"GoRush doesn't have permission to use the camera, please change privacy settings" = "GoRush doesn't have permission to use the camera, please change privacy settings";
+
+/* No comment provided by engineer. */
+"Home" = "Home";
+
+/* No comment provided by engineer. */
+"In order to become a GoRush worker" = "In order to become a GoRush worker";
+
+/* No comment provided by engineer. */
+"Information" = "Information";
+
+/* No comment provided by engineer. */
+"Institution number" = "Institution number";
+
+/* No comment provided by engineer. */
+"Invite friends" = "Invite friends";
+
+/* No comment provided by engineer. */
+"Jobs" = "Jobs";
+
+/* No comment provided by engineer. */
+"Keep me posted" = "Keep me posted";
+
+/* No comment provided by engineer. */
+"Keep your account safe" = "Keep your account safe";
+
+/* No comment provided by engineer. */
+"Last Name" = "Last Name";
+
+/* No comment provided by engineer. */
+"Last name" = "Last name";
+
+/* No comment provided by engineer. */
+"Let's get to know you" = "Let's get to know you";
+
+/* No comment provided by engineer. */
+"Let's go" = "Let's go";
+
+/* No comment provided by engineer. */
+"Log out" = "Log out";
+
+/* No comment provided by engineer. */
+"Mowing area" = "Mowing area";
+
+/* No comment provided by engineer. */
+"Need help?" = "Need help?";
+
+/* No comment provided by engineer. */
+"New password" = "New password";
+
+/* No comment provided by engineer. */
+"New Request" = "New Request";
+
+/* No comment provided by engineer. */
+"New review..." = "New review...";
+
+/* No comment provided by engineer. */
+"No" = "No";
+
+/* No comment provided by engineer. */
+"Not yet" = "Not yet";
+
+/* No comment provided by engineer. */
+"Notifications" = "Notifications";
+
+/* No comment provided by engineer. */
+"Now click on the Home button if you ever want to delete the area of ​​your home in the middle of your land" = "Now click on the Home button if you ever want to delete the area of ​​your home in the middle of your land";
+
+/* No comment provided by engineer. */
+"Now click on the screen to add points to draw your area for the selected service.\n\nYou can click on Undo to delete your last point and click on Done to place your last point" = "Now click on the screen to add points to draw your area for the selected service.\n\nYou can click on Undo to delete your last point and click on Done to place your last point";
+
+/* Alert OK button */
+"Ok" = "Ok";
+
+/* Alert Ok button */
+"Okay" = "Okay";
+
+/* No comment provided by engineer. */
+"Open in Google Maps" = "Open in Google Maps";
+
+/* No comment provided by engineer. */
+"Open in Maps" = "Open in Maps";
+
+/* No comment provided by engineer. */
+"Options" = "Options";
+
+/* No comment provided by engineer. */
+"Password" = "Password";
+
+/* No comment provided by engineer. */
+"Password error" = "Password error";
+
+/* No comment provided by engineer. */
+"Past" = "Past";
+
+/* No comment provided by engineer. */
+"Payment" = "Payment";
+
+/* No comment provided by engineer. */
+"Payment Method" = "Payment Method";
+
+/* No comment provided by engineer. */
+"Payment Methods" = "Payment Methods";
+
+/* No comment provided by engineer. */
+"Pending" = "Pending";
+
+/* No comment provided by engineer. */
+"Pending request" = "Pending request";
+
+/* No comment provided by engineer. */
+"Pending Request" = "Pending Request";
+
+/* No comment provided by engineer. */
+"Pending review" = "Pending review";
+
+/* No comment provided by engineer. */
+"Phone number" = "Phone number";
+
+/* No comment provided by engineer. */
+"Phone number already used" = "Phone number already used";
+
+/* No comment provided by engineer. */
+"Photos" = "Photos";
+
+/* No comment provided by engineer. */
+"Postal code" = "Postal code";
+
+/* No comment provided by engineer. */
+"Powered by " = "Powered by ";
+
+/* No comment provided by engineer. */
+"Precise request" = "Precise request";
+
+/* No comment provided by engineer. */
+"Profil" = "Profile";
+
+/* No comment provided by engineer. */
+"Rate us!" = "Rate us!";
+
+/* No comment provided by engineer. */
+"Refuse" = "Refuse";
+
+/* No comment provided by engineer. */
+"Refuse request" = "Refuse request";
+
+/* No comment provided by engineer. */
+"Remove your home area" = "Remove your home area";
+
+/* No comment provided by engineer. */
+"Request not available" = "Request not available";
+
+/* No comment provided by engineer. */
+"Requests" = "Requests";
+
+/* No comment provided by engineer. */
+"Reset password" = "Reset password";
+
+/* No comment provided by engineer. */
+"Review %@" = "Review %@";
+
+/* No comment provided by engineer. */
+"Réglages" = "Réglages";
+
+/* No comment provided by engineer. */
+"Save Card" = "Save Card";
+
+/* No comment provided by engineer. */
+"Select your address" = "Select your address";
+
+/* No comment provided by engineer. */
+"Select your address..." = "Select your address...";
+
+/* No comment provided by engineer. */
+"Select your area" = "Select your area";
+
+/* No comment provided by engineer. */
+"Select Your Service" = "Select Your Service";
+
+/* No comment provided by engineer. */
+"Send" = "Send";
+
+/* No comment provided by engineer. */
+"Send a short video to your client showing them that the quality work you have provided" = "Send a short video to your client showing them that the quality work you have provided";
+
+/* No comment provided by engineer. */
+"Send a short video to your client to let him know you are getting started the job at his place" = "Send a short video to your client to let him know you are getting started the job at his place";
+
+/* No comment provided by engineer. */
+"Send Request" = "Send Request";
+
+/* No comment provided by engineer. */
+"Set default card" = "Set default card";
+
+/* Alert button to open Settings */
+"Settings" = "Settings";
+
+/* No comment provided by engineer. */
+"Settingss" = "Settingss";
+
+/* No comment provided by engineer. */
+"Sign in" = "Sign in";
+
+/* No comment provided by engineer. */
+"Sign in error" = "Sign in error";
+
+/* No comment provided by engineer. */
+"Sign in" = "Sign in";
+
+/* No comment provided by engineer. */
+"Sign up" = "Sign up";
+
+/* No comment provided by engineer. */
+"Skills" = "Skills";
+
+/* No comment provided by engineer. */
+"Some more information" = "Some more information";
+
+/* No comment provided by engineer. */
+"Sorry, an error occurred " = "Sorry, an error occurred ";
+
+/* No comment provided by engineer. */
+"Sorry, this request is unfortunately no longer available" = "Sorry, this request is unfortunately no longer available";
+
+/* No comment provided by engineer. */
+"Specify your request taking a photo or video of your land, or a video explaining the request in few seconds" = "Specify your request taking a photo or video of your land, or a video explaining the request in few seconds";
+
+/* No comment provided by engineer. */
+"Start request" = "Start request";
+
+/* No comment provided by engineer. */
+"Started request" = "Started request";
+
+/* No comment provided by engineer. */
+"Stripe" = "Stripe";
+
+/* No comment provided by engineer. */
+"Switch To Customer" = "Switch To Customer";
+
+/* No comment provided by engineer. */
+"Switch To Worker" = "Switch To Worker";
+
+/* No comment provided by engineer. */
+"Terms & Privacy Policy" = "Terms & Privacy Policy";
+
+/* No comment provided by engineer. */
+"This bank account will allow you to receive your weekly transfers from GoRush. 4 working days delay. The bank account must be a Canadian account. GoRush uses Stripe to secure bank payments. Powered by Stripe.com" = "This bank account will allow you to receive your weekly transfers from GoRush. 4 working days delay. The bank account must be a Canadian account. GoRush uses Stripe to secure bank payments. Powered by Stripe.com";
+
+/* No comment provided by engineer. */
+"This will confirm your identity" = "This will confirm your identity";
+
+/* No comment provided by engineer. */
+"This will let you sign in to GoRush" = "This will let you sign in to GoRush";
+
+/* No comment provided by engineer. */
+"Total" = "Total";
+
+/* No comment provided by engineer. */
+"Transit number" = "Transit number";
+
+/* Alert message when something goes wrong during capture session configuration */
+"Unable to take video" = "Unable to take video";
+
+/* No comment provided by engineer. */
+"Undo" = "Undo";
+
+/* No comment provided by engineer. */
+"Upcoming" = "Upcoming";
+
+/* No comment provided by engineer. */
+"Update" = "Update";
+
+/* No comment provided by engineer. */
+"Update profile picture" = "Update profile picture";
+
+/* No comment provided by engineer. */
+"User type" = "User type";
+
+/* No comment provided by engineer. */
+"What" = "What";
+
+/* No comment provided by engineer. */
+"What's your email?" = "What's your email?";
+
+/* No comment provided by engineer. */
+"What's your name?" = "What's your name?";
+
+/* No comment provided by engineer. */
+"What's your phone number?" = "What's your phone number?";
+
+/* No comment provided by engineer. */
+"Yes" = "Yes";
+
+/* No comment provided by engineer. */
+"You will receive a code by text message" = "You will receive a code by text message";
+
+/* No comment provided by engineer. */
+"You will receive an email to reset your password." = "You will receive an email to reset your password.";
+
+/* No comment provided by engineer. */
+"Your bank account has been updated. You will now receive all your paid jobs on this one" = "Your bank account has been updated. You will now receive all your paid jobs on this one";
+
+/* No comment provided by engineer. */
+"Your Request" = "Your Request";
+
+/* No comment provided by engineer. */
+"≅%dpi²" = "≅%dpi²";
+

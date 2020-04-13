@@ -176,6 +176,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
        
         let center  = UNUserNotificationCenter.current()
         center.delegate = self
+        
+        
+        self.getNotificationSettings()
+        
 
 
     
@@ -373,13 +377,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            print("Notification settings: \(settings)")
             guard settings.authorizationStatus == .authorized else { return }
             
             PFInstallation.current()?.setObject(true, forKey: Brain.kInstallationNotifications)
             PFInstallation.current()?.saveInBackground()
             
         
+            print("Go on register les pushss..")
             
             DispatchQueue.main.async(execute: {
                 UIApplication.shared.registerForRemoteNotifications()
@@ -452,6 +456,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
       
+        
+        print("GET DEVICE \(deviceToken)")
+        
         
         let installation = PFInstallation.current()
         installation?.setDeviceTokenFrom(deviceToken)

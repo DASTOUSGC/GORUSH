@@ -256,7 +256,12 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
                 
             }
             
-            cell.name.text = cell.service.object(forKey: Brain.kServicesName) as? String
+            cell.name.text = Utils.returnCodeLangageEnFr() == "fr" ? cell.service.object(forKey: Brain.kServicesNameFr) as? String : cell.service.object(forKey: Brain.kServicesName) as? String
+            
+            cell.name.sizeToFit()
+            
+            cell.name.frame = CGRect(x: 5, y: cell.icon.yBottom() - 2, width: cell.w() - 10, height: cell.name.frame.height)
+
             
             
             if let comingSoon = cell.service.object(forKey: Brain.kServiceComingSoon) as? Bool {

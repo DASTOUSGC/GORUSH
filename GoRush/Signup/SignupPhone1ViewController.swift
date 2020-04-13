@@ -165,14 +165,14 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
 
 
          PFCloud.callFunction(inBackground: "checkPhoneNumber",
-                          withParameters:["phoneNumber":phone]) { (object:Any?, error:Error?) in
+                              withParameters:["phoneNumber":phone]) { (object:Any?, error:Error?) in
 
                              
              if  error != nil   {
 
                 self.nextButton.loadingIndicator(false)
 
-                 let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: "Sorry, this phone number is already registered", preferredStyle: .alert)
+                 let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: NSLocalizedString("Sorry, this phone number is already registered", comment: ""), preferredStyle: UIAlertController.Style.alert)
                  alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
                  
                  self.present(alert, animated: true, completion: nil)
@@ -184,7 +184,8 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
                  PFCloud.callFunction(inBackground: "sendSMSVerificationNumber",
                   withParameters:["code":code,
                                   "to":self.textField.text!.trimmingCharacters(in: .whitespacesAndNewlines),
-                                  "firstName":self.user.object(forKey: Brain.kUserFirstName)!]) { (object:Any?, error:Error?) in
+                                  "firstName":self.user.object(forKey: Brain.kUserFirstName)!,
+                                  "lang":Utils.returnCodeLangageEnFr()]) { (object:Any?, error:Error?) in
 
                      self.nextButton.loadingIndicator(false)
 

@@ -191,8 +191,8 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
        
         let attrs1 = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium), NSAttributedString.Key.foregroundColor : UIColor(hex:"B7B7B7")]
         let attrs2 = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .bold), NSAttributedString.Key.foregroundColor : Brain.kColorMain]
-        let attributedString1 = NSMutableAttributedString(string:"I wish to register as a ", attributes:attrs1)
-        let attributedString2 = NSMutableAttributedString(string:"Customer", attributes:attrs2)
+        let attributedString1 = NSMutableAttributedString(string:NSLocalizedString("I wish to register as a ", comment: ""), attributes:attrs1)
+        let attributedString2 = NSMutableAttributedString(string:NSLocalizedString("Customer", comment: ""), attributes:attrs2)
         attributedString1.append(attributedString2)
         customer.attributedText = attributedString1
         
@@ -218,8 +218,8 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
         
         let attrs3 = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium), NSAttributedString.Key.foregroundColor : UIColor(hex:"B7B7B7")]
         let attrs4 = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .bold), NSAttributedString.Key.foregroundColor : Brain.kColorMain]
-        let attributedString3 = NSMutableAttributedString(string:"I wish to register as a  ", attributes:attrs3)
-        let attributedString4 = NSMutableAttributedString(string:"Worker", attributes:attrs4)
+        let attributedString3 = NSMutableAttributedString(string:NSLocalizedString("I wish to register as a ", comment: ""), attributes:attrs3)
+        let attributedString4 = NSMutableAttributedString(string:NSLocalizedString("Worker", comment: ""), attributes:attrs4)
         attributedString3.append(attributedString4)
         worker.attributedText = attributedString3
         

@@ -72,7 +72,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         //Overlay video
         filter = UIImageView(frame: CGRect(x: 0, y: 0, width:  self.videoContainer.w(), height: self.videoContainer.h() ))
         filter.backgroundColor = UIColor.black
-        filter.alpha = 0.5
+        filter.alpha = 0.1
         videoContainer.addSubview(filter)
 
         
@@ -280,7 +280,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
    
     @objc func touchLoginFacebook(_ sender: UIButton){
         
-        self.loginButtonFacebook.loadingIndicatorLetsgoButton(true, image: "connectFb")
+        self.loginButtonFacebook.loadingIndicatorLetsgoButton(true, image: NSLocalizedString("connectFb", comment: ""))
 
         self.loginButton.isEnabled = false
         self.signupButton.isEnabled = false
@@ -295,7 +295,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
             
                if  error != nil{
                    
-                    self.loginButtonFacebook.loadingIndicatorLetsgoButton(false, image: "connectFb")
+                    self.loginButtonFacebook.loadingIndicatorLetsgoButton(false, image: NSLocalizedString("connectFb", comment: ""))
 
                }else if let user = user{
                    
@@ -415,7 +415,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
                    
                }else{
 
-                    self.loginButtonFacebook.loadingIndicatorLetsgoButton(false, image: "connectFb")
+                    self.loginButtonFacebook.loadingIndicatorLetsgoButton(false, image: NSLocalizedString("connectFb", comment: ""))
                     self.loginButton.isEnabled = true
                     self.signupButton.isEnabled = true
                     self.player.play()

@@ -26,7 +26,7 @@
 		D339210C20176A85003A5D48 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D339210B20176A85003A5D48 /* TabBarController.swift */; };
 		D339211020178C96003A5D48 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D339210F20178C96003A5D48 /* Brain.swift */; };
 		D3579D42230CDC720048774E /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3579D41230CDC720048774E /* assets.xcassets */; };
-		D361490E236B17BA009ADC35 /* videoGoRush.mov in Resources */ = {isa = PBXBuildFile; fileRef = D361490D236B17BA009ADC35 /* videoGoRush.mov */; };
+		D36224B02444746D00B4BE31 /* videoGoRush.mov in Resources */ = {isa = PBXBuildFile; fileRef = D36224AF2444746D00B4BE31 /* videoGoRush.mov */; };
 		D368A3502397078400286263 /* MowingAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D368A34F2397078400286263 /* MowingAreaViewController.swift */; };
 		D3719CC02028FB50009EF788 /* SignupFirstNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */; };
 		D3719CC220290578009EF788 /* SignupPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3719CC120290578009EF788 /* SignupPasswordViewController.swift */; };
@@ -92,11 +92,11 @@
 		D33920F2201768CA003A5D48 /* GoRush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoRush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33920F5201768CA003A5D48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3392101201768CA003A5D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D3392103201768CA003A5D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D339210B20176A85003A5D48 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../Tabbar/TabBarController.swift; sourceTree = "<group>"; };
 		D339210F20178C96003A5D48 /* Brain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
 		D3579D41230CDC720048774E /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
-		D361490D236B17BA009ADC35 /* videoGoRush.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = videoGoRush.mov; sourceTree = "<group>"; };
+		D36224AC2443497300B4BE31 /* GoRush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoRush.entitlements; sourceTree = "<group>"; };
+		D36224AF2444746D00B4BE31 /* videoGoRush.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = videoGoRush.mov; sourceTree = "<group>"; };
 		D368A34F2397078400286263 /* MowingAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MowingAreaViewController.swift; sourceTree = "<group>"; };
 		D3719CBF2028FB50009EF788 /* SignupFirstNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFirstNameViewController.swift; sourceTree = "<group>"; };
 		D3719CC120290578009EF788 /* SignupPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPasswordViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +120,7 @@
 		D3C11E3023D0BCF600915515 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		D3C11E3223D0C2AA00915515 /* reviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reviewTableViewCell.swift; sourceTree = "<group>"; };
 		D3C11E3423D341DC00915515 /* BankAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountViewController.swift; sourceTree = "<group>"; };
+		D3C299DB2441F01400F30D2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3CA707323B9129800D30643 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		D3CA707423B9129900D30643 /* editProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = editProfileTableViewCell.swift; sourceTree = "<group>"; };
 		D3CA707C23B9677400D30643 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -219,7 +220,8 @@
 		D33920F4201768CA003A5D48 /* GoRush */ = {
 			isa = PBXGroup;
 			children = (
-				D361490D236B17BA009ADC35 /* videoGoRush.mov */,
+				D36224AF2444746D00B4BE31 /* videoGoRush.mov */,
+				D36224AC2443497300B4BE31 /* GoRush.entitlements */,
 				D31F6592201796B000340E50 /* Utils */,
 				D339210F20178C96003A5D48 /* Brain.swift */,
 				D33920F5201768CA003A5D48 /* AppDelegate.swift */,
@@ -233,9 +235,9 @@
 				D3A58671242FBD8800B4A18B /* PhotosViewController */,
 				D3DB31BA236B1AA7000F5468 /* Settings */,
 				D3392100201768CA003A5D48 /* LaunchScreen.storyboard */,
+				D3C299DB2441F01400F30D2E /* Info.plist */,
 				D319628C22BAB9FB00339830 /* Localizable.strings */,
 				D3579D41230CDC720048774E /* assets.xcassets */,
-				D3392103201768CA003A5D48 /* Info.plist */,
 			);
 			path = GoRush;
 			sourceTree = "<group>";
@@ -489,7 +491,7 @@
 			files = (
 				D3392102201768CA003A5D48 /* LaunchScreen.storyboard in Resources */,
 				D319628A22BAB9FB00339830 /* Localizable.strings in Resources */,
-				D361490E236B17BA009ADC35 /* videoGoRush.mov in Resources */,
+				D36224B02444746D00B4BE31 /* videoGoRush.mov in Resources */,
 				D3579D42230CDC720048774E /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -819,15 +821,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R7H3TYVKX8;
+				DEVELOPMENT_TEAM = HX67JXABJ9;
 				INFOPLIST_FILE = "$(SRCROOT)/GoRush/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Onone";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorush;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorushios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -844,15 +846,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R7H3TYVKX8;
+				DEVELOPMENT_TEAM = HX67JXABJ9;
 				INFOPLIST_FILE = "$(SRCROOT)/GoRush/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Onone";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorush;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorushios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;

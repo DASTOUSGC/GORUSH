@@ -53,7 +53,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textA = UILabel(frame: CGRect(x: 0, y: yTop()+80, width: Brain.kLargeurIphone, height: 30))
         textA.textAlignment = .center
         textA.font = UIFont.systemFont(ofSize: 21, weight: .bold)
-        textA.text = NSLocalizedString("Sign in with email", comment: "")
+        textA.text = NSLocalizedString("Sign in", comment: "")
         textA.textColor = .black
         view.addSubview(textA)
         
@@ -63,7 +63,7 @@ class SigninEmailViewController: UIViewController , UIGestureRecognizerDelegate,
         textB.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textB.text = NSLocalizedString("Enter your email", comment: "")
         textB.textColor = UIColor(hex:"ADADAD")
-        view.addSubview(textB)
+//        view.addSubview(textB)
         
         
         textField = UITextField(frame: CGRect(x: 20, y: textB.frame.origin.y + 30, width: Brain.kLargeurIphone-40, height: 60))

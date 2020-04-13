@@ -64,9 +64,10 @@ class serviceCollectionViewCell: UICollectionViewCell {
         
         
       
-        name = UILabel(frame: CGRect(x: 0, y: icon.yBottom() - 2, width: self.w(), height: 24))
+        name = UILabel(frame: CGRect(x: 5, y: icon.yBottom() - 2, width: self.w() - 10, height: 24))
         name.textColor = .white
         name.textAlignment = .center
+        name.numberOfLines = 0
         name.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         self.addSubview(name)
         

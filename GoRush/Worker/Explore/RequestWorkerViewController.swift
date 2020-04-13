@@ -644,7 +644,7 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
             return
         }
         
-        self.titleVC.text = String(format: "%@'s request", self.customer.object(forKey: Brain.kUserFirstName) as! String)
+        self.titleVC.text = String(format: NSLocalizedString("%@'s request", comment: ""), self.customer.object(forKey: Brain.kUserFirstName) as! String)
 
         if self.customer.object(forKey: Brain.kUserProfilePicture) != nil {
             
@@ -673,7 +673,9 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
             if self.medias.count > self.currentMedia {
                      
                      self.photoView.file = self.medias[self.currentMedia][0]
-                     self.photoView.loadInBackground()
+                
+                
+//                     self.photoView.loadInBackground()
                      
                      
                      if self.medias[self.currentMedia].count > 1 {
@@ -800,7 +802,9 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
         self.iconService.loadInBackground()
 
 
-        self.labelService.text = self.service.object(forKey: Brain.kServicesName) as? String
+        self.labelService.text = Utils.returnCodeLangageEnFr() == "fr" ? self.service.object(forKey: Brain.kServicesNameFr) as? String : self.service.object(forKey: Brain.kServicesName) as? String
+        
+
         self.labelWhere.text = self.request.object(forKey: Brain.kRequestAddress) as? String
 
 
@@ -918,7 +922,7 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
             //Static
             let dateFormat = DateFormatter()
             dateFormat.dateFormat = "EEEE dd MMMM"
-            self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.object(forKey: Brain.kRequestTimeEnd) as! Date))
+            self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.object(forKey: Brain.kRequestTimeEnd) as! Date)).firstCapitalized
 
             
         }else if self.request.object(forKey: Brain.kRequestTimeStart) != nil {
@@ -950,7 +954,7 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
                 //Static
                 let dateFormat = DateFormatter()
                 dateFormat.dateFormat = "EEEE dd MMMM"
-                self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.createdAt!))
+                self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.createdAt!)).firstCapitalized
 
             }
          
@@ -1592,7 +1596,7 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
             
         }
 
-        let alert = UIAlertController(title: NSLocalizedString(adress, comment: ""), message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title:adress, message: nil, preferredStyle: .actionSheet)
 
         adress = adress.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
 

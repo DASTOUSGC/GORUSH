@@ -263,7 +263,7 @@ class SignupAddressViewController: UIViewController , UIGestureRecognizerDelegat
                    if (business != nil) {
                     
                             
-                    Intercom.logEvent(withName: "worker_createWorkerModeSuccess", metaData: ["error":error!.localizedDescription])
+                    Intercom.logEvent(withName: "worker_createWorkerModeSuccess")
 
                           
                             let stripeWorker =  PFUser.current()?.object(forKey: Brain.kUserStripeCustomer) as! PFObject

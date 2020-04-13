@@ -359,7 +359,7 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
                     self.activityIndicator.stopAnimating()
 
 
-                      let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: "Sorry, this phone number is already registered", preferredStyle: UIAlertController.Style.alert)
+                      let alert = UIAlertController(title: NSLocalizedString("Phone number already used", comment: ""), message: NSLocalizedString("Sorry, this phone number is already registered", comment: ""), preferredStyle: UIAlertController.Style.alert)
                      
                       alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
                       self.present(alert, animated: true, completion: nil)

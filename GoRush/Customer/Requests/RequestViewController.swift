@@ -354,7 +354,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
 
         }
 
-        let alert = UIAlertController(title: NSLocalizedString(adress, comment: ""), message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: adress, message: nil, preferredStyle: .actionSheet)
         adress = adress.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
 
         let maps = UIAlertAction(title: NSLocalizedString("Open in Maps", comment: ""), style: .default, handler: { action in
@@ -716,7 +716,10 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.iconService.loadInBackground()
 
 
-        self.labelService.text = self.service.object(forKey: Brain.kServicesName) as? String
+        self.labelService.text = Utils.returnCodeLangageEnFr() == "fr" ?  self.service.object(forKey: Brain.kServicesNameFr) as? String : self.service.object(forKey: Brain.kServicesName) as? String
+        
+        
+        
         self.labelWhere.text = self.request.object(forKey: Brain.kRequestAddress) as? String
 
 
@@ -785,7 +788,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
 
             if self.worker != nil {
                
-               self.titleVC.text = String(format: "Accepted by %@", self.worker!.object(forKey: Brain.kUserFirstName) as! String)
+               self.titleVC.text = String(format: NSLocalizedString("Accepted by %@", comment: ""), self.worker!.object(forKey: Brain.kUserFirstName) as! String)
 
            }else{
                
@@ -799,7 +802,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
            
             if self.worker != nil {
                          
-                 self.titleVC.text = String(format: "Started by %@", self.worker!.object(forKey: Brain.kUserFirstName) as! String)
+                 self.titleVC.text = String(format: NSLocalizedString("Started by %@", comment: ""), self.worker!.object(forKey: Brain.kUserFirstName) as! String)
 
              }else{
                  
@@ -812,7 +815,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
             
             if self.worker != nil {
                          
-                 self.titleVC.text = String(format: "Ended by %@", self.worker!.object(forKey: Brain.kUserFirstName) as! String)
+                 self.titleVC.text = String(format: NSLocalizedString("Ended by %@", comment: ""), self.worker!.object(forKey: Brain.kUserFirstName) as! String)
                  self.reviewButton.setTitle(String(format: "Review %@", self.worker!.object(forKey: Brain.kUserFirstName) as! String), for: .normal)
                 
                 if self.request.object(forKey: Brain.kRequestReviewFromCustomer) != nil {
@@ -861,7 +864,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
              //Static
              let dateFormat = DateFormatter()
              dateFormat.dateFormat = "EEEE dd MMMM"
-             self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.object(forKey: Brain.kRequestTimeEnd) as! Date))
+             self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.object(forKey: Brain.kRequestTimeEnd) as! Date)).firstCapitalized
 
              
          }else if self.request.object(forKey: Brain.kRequestTimeStart) != nil {
@@ -893,7 +896,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
                  //Static
                  let dateFormat = DateFormatter()
                  dateFormat.dateFormat = "EEEE dd MMMM"
-                 self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.createdAt!))
+                self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.createdAt!)).firstCapitalized
 
              }
           
@@ -903,7 +906,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
              //Static
              let dateFormat = DateFormatter()
              dateFormat.dateFormat = "EEEE dd MMMM"
-             self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.createdAt!))
+             self.labelWhen.text = String(format: "%@", dateFormat.string(from: self.request.createdAt!)).firstCapitalized
 
 
          }

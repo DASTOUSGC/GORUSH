@@ -34,8 +34,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
 	<key>FacebookAppID</key>
 	<string>475145379878206</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
 	<key>FacebookDisplayName</key>
 	<string>GoRush</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -60,13 +64,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>In order to put your photos in competition</string>
+	<string>In order to specify your requests</string>
 	<key>NSContactsUsageDescription</key>
 	<string>To sync your contacts with GoRush</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To be able to get your location</string>
+	<string>In order to specify your requests</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To be able to get your location</string>
+	<string>In order to specify your requests</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Access to the microphone is needed to take video for your request</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -106,9 +110,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-    <key>FacebookAutoLogAppEventsEnabled</key>
-    <true/>
-    <key>FacebookAdvertiserIDCollectionEnabled</key>
-    <true/>
 </dict>
 </plist>

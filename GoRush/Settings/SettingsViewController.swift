@@ -15,7 +15,7 @@ import Intercom
 class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate {
     
     
-    var titleViewController = NSLocalizedString("Settingss", comment:"")
+    var titleViewController = NSLocalizedString("Settings", comment:"")
 
     var objects: NSMutableArray = NSMutableArray(array: [])
 
@@ -82,7 +82,7 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         textA.textAlignment = .center
         textA.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         textA.textColor = UIColor(hex: "4D4D4D")
-        textA.text = NSLocalizedString("Réglages", comment:"")
+        textA.text = NSLocalizedString("Settings", comment:"")
         view.addSubview(textA)
       
         

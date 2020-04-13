@@ -1,1 +1,553 @@
 
+
+
+NSCameraUsageDescription = "Afin de préciser vos demandes";
+NSContactsUsageDescription = "Pour synchroniser vos contacts avec GoRush";
+NSLocationAlwaysUsageDescription = "Afin de préciser vos demandes";
+NSLocationWhenInUseUsageDescription = "Afin de préciser vos demandes";
+NSMicrophoneUsageDescription = "L'accès au microphone est nécessaire pour prendre une vidéo pour votre demande";
+NSPhotoLibraryUsageDescription = "Pour mettre à jour votre photo de profil";
+
+
+"Add point"="Ajouter un point";
+
+
+"Customer" = "Client";
+"Worker" = "Travailleur";
+"I wish to register as a " = "Je m'inscris en tant que ";
+
+
+
+"Sorry, this phone number is already registered" = "Désolé, ce numéro de téléphone est déjà enregistré";
+
+
+"%@'s request"="Demande de %@";
+
+"Ended by %@"="Terminé par %@";
+
+"Review %@"="Avis de %@";
+
+"Started by %@"="Commencé par %@";
+
+"Accepted by %@"= "Accepté par %@";
+
+
+/* No comment provided by engineer. */
+"%.0fkm" = "%.0fkm";
+
+/* No comment provided by engineer. */
+"%.1fkm" = "%.1fkm";
+
+/* No comment provided by engineer. */
+"%.2f$" = "%.2f$";
+
+/* No comment provided by engineer. */
+"%@'s Reviews" = "%@'s Commentaires";
+
+/* No comment provided by engineer. */
+"%d day ago" = "Il y a %d jour";
+
+/* No comment provided by engineer. */
+"%d days ago" = "Il y a %d jours";
+
+/* No comment provided by engineer. */
+"%d hour ago" = "Il y a %d heure";
+
+/* No comment provided by engineer. */
+"%d hours ago" = "Il y a %d heures";
+
+/* No comment provided by engineer. */
+"%d min ago" = "Il y a %d min";
+
+/* No comment provided by engineer. */
+"%d secs ago" = "Il y a %d secs";
+
+/* No comment provided by engineer. */
+"%dpi²" = "%dpi²";
+
+/* No comment provided by engineer. */
+"-" = "-";
+
+/* No comment provided by engineer. */
+"0pi²" = "0pi²";
+
+/* No comment provided by engineer. */
+"=" = "=";
+
+/* No comment provided by engineer. */
+"A worker has already accepted your request. So you will have to pay %.2f$, %d%% of the request. The rest will be refunded to you.\n\nAre you sure you want to cancel this request?" = "Un travailleur a déjà accepté votre demande. Vous devrez donc payer %.2f$, %d%% de la demande. Le reste vous sera remboursé.\n\nVoulez-vous vraiment annuler cette demande?";
+
+/* No comment provided by engineer. */
+"Accept request" = "Accepter";
+
+/* No comment provided by engineer. */
+"Account number" = "Numéro de compte";
+
+/* No comment provided by engineer. */
+"Add" = "Ajouter";
+
+/* No comment provided by engineer. */
+"Add bank account" = "Ajouter un compte bancaire";
+
+/* No comment provided by engineer. */
+"Add New Card" = "Ajouter une nouvelle carte";
+
+/* No comment provided by engineer. */
+"Add payment method" = "Ajouter un mode de paiement";
+
+/* No comment provided by engineer. */
+"Add Payment Method" = "Ajouter un mode de paiement";
+
+/* No comment provided by engineer. */
+"Address" = "Adresse";
+
+/* No comment provided by engineer. */
+"Are you sure you want to accept this request?" = "Voulez-vous vraiment accepter cette demande ?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to cancel this request?" = "Voulez-vous vraiment annuler cette demande ?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this card?" = "Voulez-vous vraiment supprimer cette carte ?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to log out?" = "Êtes-vous sûr de vouloir vous déconnecter ?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to refuse this request?" = "Voulez-vous vraiment refuser cette demande ?";
+
+/* No comment provided by engineer. */
+"Bank account" = "Compte bancaire";
+
+/* No comment provided by engineer. */
+"Birth date" = "Date de naissance";
+
+/* No comment provided by engineer. */
+"Boost mode" = "Mode Boost";
+
+/* Alert message when the user has denied access to the camera */
+"Buzzy doesn't have permission to use the camera, please change privacy settings" = "GoRush n'est pas autorisé à utiliser la caméra, veuillez modifier les paramètres de confidentialité";
+
+/* No comment provided by engineer. */
+"By refusing too many requests already accepted, you reduce the probability of receiving future requests.\n\nAre you sure you want to refuse this request?" = "En refusant trop de demandes déjà acceptées, vous réduisez la probabilité de recevoir de futures demandes.\n\nVoulez-vous vraiment refuser cette demande ?";
+
+/* No comment provided by engineer. */
+"By signing up, you agree to our Terms and Conditions" = "En vous inscrivant, vous acceptez nos Termes et Conditions";
+
+/* No comment provided by engineer. */
+"Can't sign in? Reset Password" = "Vous ne pouvez pas vous connecter?";
+
+/* No comment provided by engineer. */
+"Cancel" = "Annuler";
+
+/* No comment provided by engineer. */
+"Cancel request" = "Annuler la demande";
+
+/* No comment provided by engineer. */
+"Change" = "Changer";
+
+/* No comment provided by engineer. */
+"Choose the type of user you want" = "Êtes-vous un client ou un travailleur ?";
+
+/* No comment provided by engineer. */
+"City" = "Ville";
+
+/* No comment provided by engineer. */
+"Click on the Total button to start drawing the total area of ​​your land for the selected service.\n\nYou can include the area of ​​your home if it's in the center of the land. Indeed you can remove the area of ​​your home" = "Cliquez sur le bouton Total pour commencer à dessiner la surface totale de votre terrain pour le service selectionné. \n\nVous pouvez inclure la surface de votre maison si elle est au centre du terrain et la supprimer dans un second temps";
+
+/* No comment provided by engineer. */
+"Code" = "Code";
+
+/* No comment provided by engineer. */
+"Code not received?" = "Code non reçu ?";
+
+/* No comment provided by engineer. */
+"Coming soon" = "Bientôt disponible";
+
+/* No comment provided by engineer. */
+"Confirm" = "Confirmer";
+
+/* No comment provided by engineer. */
+"Confirm new password" = "Confirmer le nouveau mot de passe";
+
+/* No comment provided by engineer. */
+"Confirm Password" = "Confirmez le mot de passe";
+
+/* No comment provided by engineer. */
+"Confirmation code" = "Code de confirmation";
+
+/* No comment provided by engineer. */
+"Congratulations" = "Toutes nos félicitations";
+
+/* No comment provided by engineer. */
+"Congratulations %@ has completed your request, you can now add a review regarding his work" = "Félicitations %@ a terminé votre demande, vous pouvez maintenant ajouter un avis sur son travail";
+
+/* No comment provided by engineer. */
+"connectFb" = "connectFbFr";
+
+/* No comment provided by engineer. */
+"connectFbOn" = "connectFbOnFr";
+
+/* No comment provided by engineer. */
+"Continue" = "Continuer";
+
+/* No comment provided by engineer. */
+"Current bank account %@\n**** %@ | %@ \nThis bank account will allow you to receive your weekly transfers from GoRush. 4 working days delay." = "Compte bancaire actuel %@\n**** %@ | %@ \n Ce compte bancaire vous permettra de recevoir vos virements hebdomadaires de GoRush. Délai de 4 jours ouvrables.";
+
+/* No comment provided by engineer. */
+"Current grass height of your area" = "Hauteur actuelle de l'herbe";
+
+/* No comment provided by engineer. */
+"Delete card" = "Supprimer la carte";
+
+/* No comment provided by engineer. */
+"Delete current profile picture" = "Supprimer la photo de profil actuelle";
+
+/* No comment provided by engineer. */
+"Done" = "Terminé";
+
+/* No comment provided by engineer. */
+"Draw your total area" = "Dessinez votre surface totale";
+
+/* No comment provided by engineer. */
+"Edit Profile" = "Editer le profil";
+
+/* No comment provided by engineer. */
+"Email" = "Email";
+
+/* No comment provided by engineer. */
+"Email already used" = "Adresse e-Mail déjà utilisée";
+
+/* No comment provided by engineer. */
+"Ended request" = "Demande terminée";
+
+/* No comment provided by engineer. */
+"Enter your email" = "";
+
+/* No comment provided by engineer. */
+"Error" = "Erreur";
+
+/* No comment provided by engineer. */
+"Explore" = "Explorer";
+
+
+/* No comment provided by engineer. */
+"Finish request" = "Terminer la demande";
+
+/* No comment provided by engineer. */
+"First name" = "Prénom";
+
+/* No comment provided by engineer. */
+"Go Rush" = "Go Rush";
+
+/* No comment provided by engineer. */
+"Go Rush!" = "Go Rush !";
+
+/* No comment provided by engineer. */
+"GoRush" = "GoRush";
+
+/* Alert message when the user has denied access to the camera */
+"GoRush doesn't have permission to use the camera, please change privacy settings" = "GoRush n'est pas autorisé à utiliser la caméra, veuillez modifier les paramètres de confidentialité";
+
+/* No comment provided by engineer. */
+"Home" = "Maison";
+
+/* No comment provided by engineer. */
+"In order to become a GoRush worker" = "Pour devenir un travailleur GoRush";
+
+/* No comment provided by engineer. */
+"Information" = "Information";
+
+/* No comment provided by engineer. */
+"Institution number" = "Numéro d'institution";
+
+/* No comment provided by engineer. */
+"Invite friends" = "Inviter des amis";
+
+/* No comment provided by engineer. */
+"Jobs" = "Demandes";
+
+/* No comment provided by engineer. */
+"Keep me posted" = "Tenez moi au courant";
+
+/* No comment provided by engineer. */
+"Keep your account safe" = "Gardez votre compte en sécurité";
+
+/* No comment provided by engineer. */
+"Last Name" = "Nom de famille";
+
+/* No comment provided by engineer. */
+"Last name" = "Nom de famille";
+
+/* No comment provided by engineer. */
+"Let's get to know you" = "Apprenons à vous connaître";
+
+/* No comment provided by engineer. */
+"Let's go" = "C'est parti";
+
+/* No comment provided by engineer. */
+"Log out" = "Se déconnecter";
+
+/* No comment provided by engineer. */
+"Mowing area" = "Zone de tonte";
+
+/* No comment provided by engineer. */
+"Need help?" = "Besoin d'aide ?";
+
+/* No comment provided by engineer. */
+"New password" = "Nouveau mot de passe";
+
+/* No comment provided by engineer. */
+"New Request" = "Nouvelle demande";
+
+/* No comment provided by engineer. */
+"New review..." = "Nouvel avis...";
+
+/* No comment provided by engineer. */
+"No" = "Non";
+
+/* No comment provided by engineer. */
+"Not yet" = "Pas encore";
+
+/* No comment provided by engineer. */
+"Notifications" = "Notifications";
+
+/* No comment provided by engineer. */
+"Now click on the Home button if you ever want to delete the area of ​​your home in the middle of your land" = "Maintenant, cliquez sur le bouton Maison si vous souhaitez supprimer la surface de votre maison au milieu de votre terrain";
+
+/* No comment provided by engineer. */
+"Now click on the screen to add points to draw your area for the selected service.\n\nYou can click on Undo to delete your last point and click on Done to place your last point" = "Maintenant, cliquez sur l'écran pour ajouter des points afin de dessiner la surface de votre terrain pour le service selectionné.\n\nVous pouvez cliquer sur Annuler pour supprimer votre dernier point et cliquez sur Terminé pour placer votre dernier point";
+
+/* Alert OK button */
+"Ok" = "Ok";
+
+/* Alert Ok button */
+"Okay" = "D'accord";
+
+/* No comment provided by engineer. */
+"Open in Google Maps" = "Ouvrir dans Google Maps";
+
+/* No comment provided by engineer. */
+"Open in Maps" = "Ouvrir dans Maps";
+
+/* No comment provided by engineer. */
+"Options" = "Options";
+
+/* No comment provided by engineer. */
+"Password" = "Mot de passe";
+
+/* No comment provided by engineer. */
+"Password error" = "Erreur de mot de passe";
+
+/* No comment provided by engineer. */
+"Past" = "Passé";
+
+/* No comment provided by engineer. */
+"Payment" = "Paiement";
+
+/* No comment provided by engineer. */
+"Payment Method" = "Mode de paiement";
+
+/* No comment provided by engineer. */
+"Payment Methods" = "Mode de paiement";
+
+/* No comment provided by engineer. */
+"Pending" = "En attente";
+
+/* No comment provided by engineer. */
+"Pending request" = "Demande en attente";
+
+/* No comment provided by engineer. */
+"Pending Request" = "Demande en attente";
+
+/* No comment provided by engineer. */
+"Pending review" = "Avis en attente";
+
+/* No comment provided by engineer. */
+"Phone number" = "Numéro de téléphone";
+
+/* No comment provided by engineer. */
+"Phone number already used" = "Numéro de téléphone";
+
+/* No comment provided by engineer. */
+"Photos" = "Photos";
+
+/* No comment provided by engineer. */
+"Postal code" = "Code postal";
+
+/* No comment provided by engineer. */
+"Powered by " = "Propulsé par ";
+
+/* No comment provided by engineer. */
+"Precise request" = "Précisez votre demande";
+
+/* No comment provided by engineer. */
+"Profil" = "Profil";
+
+/* No comment provided by engineer. */
+"Rate us!" = "Évaluez nous !";
+
+/* No comment provided by engineer. */
+"Refuse" = "Refuser";
+
+/* No comment provided by engineer. */
+"Refuse request" = "Demande de refus";
+
+/* No comment provided by engineer. */
+"Remove your home area" = "Supprimez votre maison";
+
+/* No comment provided by engineer. */
+"Request not available" = "Demande non disponible";
+
+/* No comment provided by engineer. */
+"Requests" = "Demandes";
+
+/* No comment provided by engineer. */
+"Reset password" = "Réinitialiser le mot de passe";
+
+/* No comment provided by engineer. */
+"Review %@" = "Avis %@";
+
+/* No comment provided by engineer. */
+"Settings" = "Paramètres";
+
+/* No comment provided by engineer. */
+"Save Card" = "Enregistrer la carte";
+
+/* No comment provided by engineer. */
+"Select your address" = "Sélectionnez votre adresse";
+
+/* No comment provided by engineer. */
+"Select your address..." = "Sélectionnez votre adresse ...";
+
+/* No comment provided by engineer. */
+"Select your area" = "Sélectionnez votre surface";
+
+/* No comment provided by engineer. */
+"Select Your Service" = "Sélectionnez votre service";
+
+/* No comment provided by engineer. */
+"Send" = "Envoyer";
+
+/* No comment provided by engineer. */
+"Send a short video to your client showing them that the quality work you have provided" = "Envoyez une courte vidéo à votre client pour lui montrer  le travail de qualité que vous avez fourni";
+
+/* No comment provided by engineer. */
+"Send a short video to your client to let him know you are getting started the job at his place" = "Envoyez une courte vidéo à votre client pour l'avertir que vous commencez le travail à son domicile";
+
+/* No comment provided by engineer. */
+"Send Request" = "Envoyer une demande";
+
+/* No comment provided by engineer. */
+"Set default card" = "Définir la carte par défaut";
+
+
+
+/* No comment provided by engineer. */
+"Sign in" = "Se connecter";
+
+/* No comment provided by engineer. */
+"Sign in error" = "Erreur de connexion";
+
+/* No comment provided by engineer. */
+"Sign in" = "Connexion";
+
+/* No comment provided by engineer. */
+"Sign up" = "S'inscrire";
+
+/* No comment provided by engineer. */
+"Skills" = "Compétences";
+
+/* No comment provided by engineer. */
+"Some more information" = "Informations supplémentaires";
+
+/* No comment provided by engineer. */
+"Sorry, an error occurred " = "Désolé, une erreur s'est produite";
+
+/* No comment provided by engineer. */
+"Sorry, this request is unfortunately no longer available" = "Désolé, cette demande n'est malheureusement plus disponible";
+
+/* No comment provided by engineer. */
+"Specify your request taking a photo or video of your land, or a video explaining the request in few seconds" = "Précisez votre demande en prenant une photo, une vidéo de votre terrain, ou une vidéo expliquant la demande en quelques secondes";
+
+/* No comment provided by engineer. */
+"Start request" = "C'est parti";
+
+/* No comment provided by engineer. */
+"Started request" = "Demande commencée";
+
+/* No comment provided by engineer. */
+"Stripe" = "Stripe";
+
+/* No comment provided by engineer. */
+"Switch To Customer" = "Passer en mode client";
+
+/* No comment provided by engineer. */
+"Switch To Worker" = "Passer en mode travailleur";
+
+/* No comment provided by engineer. */
+"Terms & Privacy Policy" = "Termes et politique de confidentialité";
+
+/* No comment provided by engineer. */
+"This bank account will allow you to receive your weekly transfers from GoRush. 4 working days delay. The bank account must be a Canadian account. GoRush uses Stripe to secure bank payments. Powered by Stripe.com" = "Ce compte bancaire vous permettra de recevoir vos virements hebdomadaires de GoRush. Délai de 4 jours ouvrables. Le compte bancaire doit être un compte Canadien. GoRush utilise Stripe pour sécuriser les paiements bancaires. Propulsé par Stripe.com";
+
+/* No comment provided by engineer. */
+"This will confirm your identity" = "Cela confirmera votre identité";
+
+/* No comment provided by engineer. */
+"This will let you sign in to GoRush" = "Cela vous permettra de vous connecter";
+
+/* No comment provided by engineer. */
+"Total" = "Total";
+
+/* No comment provided by engineer. */
+"Transit number" = "Numéro de transit";
+
+/* Alert message when something goes wrong during capture session configuration */
+"Unable to take video" = "Impossible de prendre une vidéo";
+
+/* No comment provided by engineer. */
+"Undo" = "Annuler";
+
+/* No comment provided by engineer. */
+"Upcoming" = "A venir";
+
+/* No comment provided by engineer. */
+"Update" = "Mise à jour";
+
+/* No comment provided by engineer. */
+"Update profile picture" = "Mettre à jour la photo de profil";
+
+/* No comment provided by engineer. */
+"User type" = "Type d'utilisateur";
+
+/* No comment provided by engineer. */
+"What" = "Quoi";
+
+/* No comment provided by engineer. */
+"What's your email?" = "Quel est votre e-mail ?";
+
+/* No comment provided by engineer. */
+"What's your name?" = "Quel est votre nom ?";
+
+/* No comment provided by engineer. */
+"What's your phone number?" = "Numéro de téléphone";
+
+/* No comment provided by engineer. */
+"Yes" = "Oui";
+
+/* No comment provided by engineer. */
+"You will receive a code by text message" = "Vous recevrez un code par SMS";
+
+/* No comment provided by engineer. */
+"You will receive an email to reset your password." = "Vous recevrez un e-mail pour réinitialiser votre mot de passe";
+
+/* No comment provided by engineer. */
+"Your bank account has been updated. You will now receive all your paid jobs on this one" = "Votre compte bancaire a été mis à jour. Vous recevrez désormais tous vos emplois rémunérés sur celui-ci";
+
+/* No comment provided by engineer. */
+"Your Request" = "Votre demande";
+
+/* No comment provided by engineer. */
+"≅%dpi²" = "≅%dpi²";
+

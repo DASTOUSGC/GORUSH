@@ -279,7 +279,7 @@ class ProfilViewController: ParentLoadingViewController {
         }else{
             
             self.review.rating = Double(truncating: PFUser.current()?.object(forKey: Brain.kUserRateWorker) as! NSNumber)
-            payments.setTitle(NSLocalizedString("Bank Account", comment: ""), for: .normal)
+            payments.setTitle(NSLocalizedString("Bank account", comment: ""), for: .normal)
 
         }
         

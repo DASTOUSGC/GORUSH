@@ -222,9 +222,7 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
 
         }
       
-        
-        
-        
+    
         
         
         self.filter = UIImageView(frame: CGRect(x: 0, y: 0, width: Brain.kLargeurIphone, height: Brain.kHauteurIphone))
@@ -403,7 +401,7 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
             let d2 = Date()
             let components = cal.dateComponents([.hour,.minute,.second], from: d2, to: d1)
             
-            self.labelWhen.text = String(format: "%.2d:%.2d:%.2d", components.hour!,components.minute!,components.second!)
+            self.labelWhen.text = String(format: "%.2d:%.2d:%.2d", components.hour!,components.minute!,components.second!).firstCapitalized
 
         }else{
 
@@ -411,7 +409,7 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
             //Static
             let dateFormat = DateFormatter()
             dateFormat.dateFormat = "EEEE dd MMMM"
-            self.labelWhen.text = String(format: "%@", dateFormat.string(from: Date()))
+            self.labelWhen.text = String(format: "%@", dateFormat.string(from: Date())).firstCapitalized
 
         }
 
@@ -501,10 +499,10 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.iconService.loadInBackground()
 
         
-        self.labelService.text = self.service.object(forKey: Brain.kServicesName) as? String
+        self.labelService.text = Utils.returnCodeLangageEnFr() == "fr" ?  self.service.object(forKey: Brain.kServicesNameFr) as? String : self.service.object(forKey: Brain.kServicesName) as? String
+
         self.labelWhere.text = self.request.object(forKey: Brain.kRequestAddress) as? String
 
-        
         
         self.labelSize.setTitle(String(format: NSLocalizedString("≅%dpi²", comment: ""), self.request.object(forKey: Brain.kRequestSurface) as! Int), for: .normal)
 
@@ -524,7 +522,6 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
               
         
     }
-    
     
     
     @objc func updatePaymentMethod(_ sender: UIButton){
@@ -593,7 +590,8 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
             
             let serviceName = (self.request.object(forKey: Brain.kRequestService) as! PFObject).object(forKey: Brain.kServicesName) as! String
             let serviceId = (self.request.object(forKey: Brain.kRequestService) as! PFObject).objectId!
-
+            
+            
             
             Intercom.logEvent(withName: "customer_purchase", metaData:
                 [   "service":serviceName,

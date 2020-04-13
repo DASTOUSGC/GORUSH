@@ -293,7 +293,7 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
         
         super.viewDidAppear(animated)
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
              appDelegate.registerForPushNotifications()
 
 
