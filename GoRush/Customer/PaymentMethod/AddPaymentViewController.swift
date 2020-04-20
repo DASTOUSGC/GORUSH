@@ -214,6 +214,8 @@ class AddPaymentViewController: ParentLoadingViewController , STPPaymentCardText
                 
             }else{
                 
+                print("Token \(token)")
+                
                         if PFUser.current()?.object(forKey: Brain.kUserStripeCustomer) != nil {
                             
                             let stripeCustomer =  PFUser.current()?.object(forKey: Brain.kUserStripeCustomer) as! PFObject

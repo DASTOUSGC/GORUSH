@@ -459,6 +459,7 @@ class SignupTypeWorkerViewController: UIViewController , UIGestureRecognizerDele
             PFUser.current()!.setObject(0, forKey: Brain.kUserReviewsCustomerNumber)
             PFUser.current()!.setObject(5, forKey: Brain.kUserRateWorker)
             PFUser.current()!.setObject(5, forKey: Brain.kUserRateCustomer)
+            PFUser.current()?.setObject("ios", forKey: Brain.kUserPlatform)
 
 
            //Update ACL

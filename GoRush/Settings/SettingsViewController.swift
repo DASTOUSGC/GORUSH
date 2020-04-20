@@ -357,16 +357,6 @@ class SettingsViewController: ParentLoadingViewController, UITableViewDelegate, 
         
         }else if (content[0] as! String == NSLocalizedString("Need help?", comment:"")) {
 
-//
-//            let composeVC = MFMailComposeViewController()
-//            composeVC.mailComposeDelegate = self
-//            // Configure the fields of the interface.
-////            composeVC.setToRecipients([PFConfig.current().object(forKey: Brain.kConfigEmail) as! String ])
-//            composeVC.setSubject("JMFC Contact : ")
-//            // Present the view controller modally.
-//            self.present(composeVC, animated: true, completion: nil)
-//
-            
             Intercom.presentMessenger()
             
         }else if (content[0] as! String == NSLocalizedString("Rate us!", comment:"")) {

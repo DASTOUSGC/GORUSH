@@ -510,12 +510,13 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedString.Key.foregroundColor : UIColor.white]
         let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.white]
          
-        //Worker price
-        var workerPrice = self.request.object(forKey: Brain.kRequestPriceWorker) as! Double + priceBoost
-        workerPrice = workerPrice + (workerPrice * Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100)
         
-        let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", workerPrice), attributes:attrs1)
-        let attributedString2 = NSMutableAttributedString(string:"$", attributes:attrs2)
+        print("priceBoos \(priceBoost)")
+        //Worker price
+        let customerPrice = self.request.object(forKey: Brain.kRequestPriceCustomer) as! Double + priceBoost
+        
+        let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", customerPrice), attributes:attrs1)
+        let attributedString2 = NSMutableAttributedString(string:"$ + tx", attributes:attrs2)
 
         attributedString1.append(attributedString2)
         self.labelPrice.attributedText = attributedString1
@@ -574,15 +575,17 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
                     
                 }
                 
-                //Worker price
-                let priceWithoutBoost = Double(truncating: self.request.object(forKey: Brain.kRequestPriceWorker) as! NSNumber)
+                //Customer price
+                let priceWithoutBoost = Double(truncating: self.request.object(forKey: Brain.kRequestPriceCustomer) as! NSNumber)
                 var priceWithBoost = priceWithoutBoost + priceBoost
                 
-                self.request.setObject(priceWithBoost.rounded(toPlaces: 2), forKey: Brain.kRequestPriceWorker)
-                priceWithBoost = priceWithBoost + (priceWithBoost * Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100)
-
-                //Customer price
                 self.request.setObject(priceWithBoost.rounded(toPlaces: 2), forKey: Brain.kRequestPriceCustomer)
+              
+                
+                //Worker price
+                priceWithBoost = priceWithBoost * (1 - (Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100))
+                self.request.setObject(priceWithBoost.rounded(toPlaces: 2), forKey: Brain.kRequestPriceWorker)
+
             }
             
           

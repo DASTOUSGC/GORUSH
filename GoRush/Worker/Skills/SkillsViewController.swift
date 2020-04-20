@@ -262,6 +262,7 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
                        
                        cell.cover.file = cover
                     
+                    
                        cell.cover.load { (image, error) in
 
                         if PFUser.current()?.object(forKey: Brain.kUserSkills) as? [PFObject] != nil {

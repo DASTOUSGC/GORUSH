@@ -186,7 +186,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.backButton.addTarget(self, action: #selector(touchBackNav(_:)), for: .touchUpInside)
         self.view.addSubview(backButton)
 
-        self.loadingVideo = UIActivityIndicatorView(style: .white)
+        self.loadingVideo = UIActivityIndicatorView(style: .medium)
         self.loadingVideo.center = CGPoint(x: Brain.kLargeurIphone - 34, y: yTop() + 34)
         self.view.addSubview(loadingVideo)
 
@@ -732,7 +732,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
 
 
         let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", self.request.object(forKey: Brain.kRequestPriceCustomer) as! Double), attributes:attrs1)
-        let attributedString2 = NSMutableAttributedString(string:"$", attributes:attrs2)
+        let attributedString2 = NSMutableAttributedString(string:"$ + tx", attributes:attrs2)
 
         attributedString1.append(attributedString2)
         self.labelPrice.attributedText = attributedString1

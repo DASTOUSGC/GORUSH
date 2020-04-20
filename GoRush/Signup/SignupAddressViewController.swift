@@ -275,7 +275,7 @@ class SignupAddressViewController: UIViewController , UIGestureRecognizerDelegat
                                 
                                 
                                 
-
+                                PFUser.current()?.setObject("ios", forKey: Brain.kUserPlatform)
                                 PFUser.current()?.setObject("worker", forKey: Brain.kUserType)
                                 PFUser.current()?.saveInBackground()
                                 

@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -33,7 +33,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAdvertiserIDCollectionEnabled</key>
 	<true/>
 	<key>FacebookAppID</key>
@@ -64,17 +64,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>In order to specify your requests</string>
-	<key>NSContactsUsageDescription</key>
-	<string>To sync your contacts with GoRush</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>In order to specify your requests</string>
+	<string>We need to have access to your camera to precize your request </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>In order to specify your requests</string>
+	<string>We need your location to find workers closest to your request, so that you get the best possible service</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Access to the microphone is needed to take video for your request</string>
+	<string>We need to have access to your microphone to precize your request </string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>To update profile picture</string>
+	<string>We need to have access to your library to upload your profile picture</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

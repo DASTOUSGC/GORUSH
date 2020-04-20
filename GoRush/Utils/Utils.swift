@@ -54,7 +54,7 @@ extension UIButton {
                 let buttonWidth = self.bounds.size.width
                 indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
                 indicator.tag = tag
-                indicator.color = Brain.kColorMain
+                indicator.color = .white
                 self.addSubview(indicator)
                 self.setBackgroundImage(nil, for: UIControl.State.normal)
     //            self.layer.borderWidth = 0.0

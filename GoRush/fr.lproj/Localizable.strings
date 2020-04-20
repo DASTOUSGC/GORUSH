@@ -1,5 +1,10 @@
 
 
+"Sorry, your customer has a problem with their payment method. Please try again later"="Désolé, votre client a un problème avec son mode de paiement. Veuillez réessayer plus tard";
+
+
+"Payment error"="Erreur de paiement";
+
 
 NSCameraUsageDescription = "Afin de préciser vos demandes";
 NSContactsUsageDescription = "Pour synchroniser vos contacts avec GoRush";
@@ -39,6 +44,7 @@ NSPhotoLibraryUsageDescription = "Pour mettre à jour votre photo de profil";
 "%.1fkm" = "%.1fkm";
 
 /* No comment provided by engineer. */
+"%.2f$ + tx" = "%.2f$ + tx";
 "%.2f$" = "%.2f$";
 
 /* No comment provided by engineer. */
@@ -406,7 +412,7 @@ NSPhotoLibraryUsageDescription = "Pour mettre à jour votre photo de profil";
 "Reset password" = "Réinitialiser le mot de passe";
 
 /* No comment provided by engineer. */
-"Review %@" = "Avis %@";
+"Review %@" = "Donner un avis sur %@";
 
 /* No comment provided by engineer. */
 "Settings" = "Paramètres";

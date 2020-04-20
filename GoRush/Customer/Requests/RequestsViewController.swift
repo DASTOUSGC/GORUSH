@@ -554,23 +554,60 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
                         cell.loading.startAnimating()
 
                         
-                        if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
-                                                          
-                                cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
-                                cell.cover.load { (image, error) in
-                                cell.cover.isHidden = false
-                                cell.icon.isHidden = false
-                                cell.profilePicture.isHidden = false
-                                cell.filter.isHidden = false
-                                cell.timeAgo.isHidden = false
-                                cell.name.isHidden = false
+                        
+                        
+                        
+                        
+                       
+                        
+                        if (cell.request.object(forKey: Brain.kRequestPhotoEnd) != nil) {
+                                                                           
+                                 cell.cover.file = cell.request.object(forKey: Brain.kRequestPhotoEnd)  as? PFFileObject
+                                 cell.cover.load { (image, error) in
+                                 cell.cover.isHidden = false
+                                 cell.icon.isHidden = false
+                                 cell.profilePicture.isHidden = false
+                                 cell.filter.isHidden = false
+                                 cell.timeAgo.isHidden = false
+                                 cell.name.isHidden = false
 
-                                cell.loading.stopAnimating()
-
+                                 cell.loading.stopAnimating()
 
                             }
 
-                         }
+                        }else  if (cell.request.object(forKey: Brain.kRequestPhotoStart) != nil) {
+                                                                            
+                                  cell.cover.file = cell.request.object(forKey: Brain.kRequestPhotoStart)  as? PFFileObject
+                                  cell.cover.load { (image, error) in
+                                  cell.cover.isHidden = false
+                                  cell.icon.isHidden = false
+                                  cell.profilePicture.isHidden = false
+                                  cell.filter.isHidden = false
+                                  cell.timeAgo.isHidden = false
+                                  cell.name.isHidden = false
+
+                                  cell.loading.stopAnimating()
+
+                            }
+
+                        }else if (cell.request.object(forKey: Brain.kRequestPhoto) != nil) {
+                                                         
+                               cell.cover.file = cell.request.object(forKey: Brain.kRequestPhoto)  as? PFFileObject
+                               cell.cover.load { (image, error) in
+                               cell.cover.isHidden = false
+                               cell.icon.isHidden = false
+                               cell.profilePicture.isHidden = false
+                               cell.filter.isHidden = false
+                               cell.timeAgo.isHidden = false
+                               cell.name.isHidden = false
+
+                               cell.loading.stopAnimating()
+
+                           }
+
+                        }
+
+
                         
                    
                                      

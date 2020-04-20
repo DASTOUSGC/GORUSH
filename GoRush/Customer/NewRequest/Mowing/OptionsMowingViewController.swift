@@ -274,14 +274,12 @@ class OptionsMowingViewController: UIViewController, UIGestureRecognizerDelegate
                 price = price + Double(area) * Double(truncating: boost[Brain.kBoostVariablePrice]  as! NSNumber)
             }
             
-            price = price + (price * Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100)
-
             
             let boostPrice = UILabel(frame: CGRect(x: 20, y: boostDescription.yBottom() , width: Brain.kL - 80, height: 17))
             boostPrice.font = UIFont.systemFont(ofSize: 13, weight: .bold)
             boostPrice.textColor = .black
             boostPrice.numberOfLines = 0
-            boostPrice.text = String(format: NSLocalizedString("%.2f$", comment: ""), price)
+            boostPrice.text = String(format: NSLocalizedString("%.2f$ + tx", comment: ""), price)
             view.addSubview(boostPrice)
 
             let switchBoost = UISwitch()

@@ -1,4 +1,9 @@
 
+"Sorry, your customer has a problem with their payment method. Please try again later"="Sorry, your customer has a problem with their payment method. Please try again later";
+
+"Payment error"="Payment error";
+
+
 /* No comment provided by engineer. */
 "%.0fkm" = "%.0fkm";
 
@@ -6,7 +11,8 @@
 "%.1fkm" = "%.1fkm";
 
 /* No comment provided by engineer. */
-"%.2f$" = "%.2f$";
+"%.2f$ + tx" = "%.2f$ + tx";
+"%.2f$" = "%.2f$a";
 
 /* No comment provided by engineer. */
 "%@'s Reviews" = "%@'s Reviews";

@@ -836,10 +836,12 @@
 				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.03;
 				DEVELOPMENT_TEAM = HX67JXABJ9;
 				INFOPLIST_FILE = "$(SRCROOT)/GoRush/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.03;
 				OTHER_SWIFT_FLAGS = "-Onone";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorushios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -861,10 +863,12 @@
 				CODE_SIGN_ENTITLEMENTS = GoRush/GoRush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.03;
 				DEVELOPMENT_TEAM = HX67JXABJ9;
 				INFOPLIST_FILE = "$(SRCROOT)/GoRush/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.03;
 				OTHER_SWIFT_FLAGS = "-Onone";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorush.gorushios;
 				PRODUCT_NAME = "$(TARGET_NAME)";

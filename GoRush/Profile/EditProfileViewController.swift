@@ -68,7 +68,7 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
         tabBarItem.title = "";
         
         
-        activityIndicator = UIActivityIndicatorView.init(style: .white)
+        activityIndicator = UIActivityIndicatorView.init(style: .medium)
         let refreshBarButton: UIBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         self.navigationItem.leftBarButtonItem = refreshBarButton
 

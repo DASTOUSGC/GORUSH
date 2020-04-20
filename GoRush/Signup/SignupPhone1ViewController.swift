@@ -197,7 +197,6 @@ class SignupPhone1ViewController: UIViewController , UIGestureRecognizerDelegate
                             print("set phone...")
                             
                             PFUser.current()!.setObject(phone, forKey: Brain.kUserPhone)
-                            PFUser.current()?.saveInBackground()
                             
                             
                         }else{

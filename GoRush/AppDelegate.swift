@@ -47,12 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         
         
+    
         //Init des settings de design
         updateAppSettings()
         
         //Init Parse - Backend
         initParse()
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
+        
         
         
         //Config

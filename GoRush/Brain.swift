@@ -79,6 +79,7 @@ class Brain: NSObject {
     static let kUserRateCustomer = "rateCustomer"
     static let kUserReviewsCustomerNumber = "reviewsCustomerNumber"
     static let kUserReviewsWorkerNumber = "reviewsWorkerNumber"
+    static let kUserPlatform = "platform"
 
 
 
@@ -114,6 +115,7 @@ class Brain: NSObject {
     static let kServiceMaximumTimeInHours = "maximumTimeInHours"
     static let kServiceCancellationFee = "cancellationFee"
     static let kServiceBoost = "boost"
+    static let kServiceTaxes = "taxes"
 
     //Services->Mowing
     static let kServiceFixedPrice = "fixedPrice"
@@ -194,6 +196,9 @@ class Brain: NSObject {
     static let kConfigGoogleMap = "GoogleMapsApiKey"
     static let kConfigIntecomApiKey = "intercomApiKey"
     static let kConfigIntercomAppId = "intercomAppId"
+    static let kConfigHideFacebookLogin = "hideFacebookLogin"
+    static let kConfigHideFacebookLoginVersion = "version"
+    static let kConfigHideFacebookLoginHide = "hide"
 
 }
 

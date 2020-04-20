@@ -49,7 +49,7 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
      
-        videoContainer = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kL, height: Brain.kH - 230 ))
+        videoContainer = UIView(frame: CGRect(x: 0, y: 0, width: Brain.kL, height: Brain.kH  ))
         view.addSubview(videoContainer)
         
         
@@ -99,8 +99,9 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
 
         loginButtonFacebook.layer.cornerRadius = 30
         loginButtonFacebook.clipsToBounds = true
-        loginButtonFacebook.layer.borderWidth = 1.3
-        loginButtonFacebook.layer.borderColor = Brain.kColorMain.cgColor
+        loginButtonFacebook.isHidden = true
+        loginButtonFacebook.layer.borderWidth = 1.5
+        loginButtonFacebook.layer.borderColor = UIColor.white.cgColor
         loginButtonFacebook.setBackgroundImage(UIImage.init(named:NSLocalizedString("connectFb", comment: "")), for: UIControl.State.normal)
         loginButtonFacebook.addTarget(self, action: #selector(touchLoginFacebook(_:)), for: .touchUpInside)
         view.addSubview(loginButtonFacebook)
@@ -139,13 +140,12 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         loginButton.layer.cornerRadius = 30
         loginButton.backgroundColor = UIColor.clear
-        loginButton.layer.borderColor = Brain.kColorMain.cgColor
-        loginButton.layer.borderWidth = 1.2
+        loginButton.layer.borderColor = UIColor.white.cgColor
+        loginButton.layer.borderWidth = 1.5
         loginButton.setTitle(NSLocalizedString("Sign in", comment: ""), for: .normal)
         loginButton.addTarget(self, action: #selector(touchSignin(_:)), for: .touchUpInside)
-        
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        loginButton.setTitleColor(Brain.kColorMain, for: .normal)
+        loginButton.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(loginButton)
         
         
@@ -162,16 +162,81 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         
         terms.setTitle(NSLocalizedString("By signing up, you agree to our Terms and Conditions", comment: ""), for: .normal)
         terms.titleLabel?.font = UIFont.systemFont(ofSize: 9)
-        terms.setTitleColor(UIColor.gray, for: .normal)
-        terms.setTitleColor(UIColor(hex:"4A4A4A"), for: .highlighted)
+        terms.setTitleColor(UIColor.white, for: .normal)
+        terms.setTitleColor(Brain.kColorMain, for: .highlighted)
         terms.addTarget(self, action: #selector(touchTerms(_:)), for: .touchUpInside)
         terms?.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         terms?.titleLabel?.textAlignment = NSTextAlignment.center
         view.addSubview(terms)
         
+        
+        
      
+        
+        
 
+        loginButtonFacebook.alpha = 0
+        signupButton.alpha = 0
+        loginButton.alpha = 0
+        terms.alpha = 0
+        
+        
     
+          if PFConfig.current().object(forKey: Brain.kConfigHideFacebookLogin) != nil {
+              
+             
+            self.updateButtonsWithConfig()
+
+              
+          }else{
+              
+              
+              PFConfig.getInBackground { (config, error) in
+                  
+                  
+                  self.updateButtonsWithConfig()
+             
+              
+              }
+         
+          
+          }
+         
+        
+    }
+    
+    
+    
+    func updateButtonsWithConfig(){
+        
+        
+        
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                           
+            let hideFb = PFConfig.current().object(forKey: Brain.kConfigHideFacebookLogin) as! [String:Any]
+
+            if  hideFb[Brain.kConfigHideFacebookLoginVersion] as! String == version && hideFb[Brain.kConfigHideFacebookLoginHide] as! Bool == true{
+                
+                self.loginButtonFacebook.isHidden = true
+
+            }else{
+                
+                
+                self.loginButtonFacebook.isHidden = false
+            }
+
+            print("YOOO \(version) \( hideFb[Brain.kConfigHideFacebookLoginVersion] as! String)")
+
+            UIView.animate(withDuration: 0.4) {
+                
+                self.loginButtonFacebook.alpha = 1
+                self.signupButton.alpha = 1
+                self.loginButton.alpha = 1
+                self.terms.alpha = 1
+            }
+        }
+            
+            
     }
     
     
@@ -181,8 +246,8 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
         super.viewWillAppear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        loginButtonFacebook.loadingIndicatorFbButton(false)
-        
+        self.loginButtonFacebook.loadingIndicatorLetsgoButton(false, image: NSLocalizedString("connectFb", comment: ""))
+
         
         player?.play()
 
@@ -226,6 +291,9 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
+        
+        
+       
 
     }
     
@@ -310,6 +378,9 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
                     PFUser.current()?.setObject(0, forKey: Brain.kUserReviewsCustomerNumber)
                     PFUser.current()?.setObject(5, forKey: Brain.kUserRateWorker)
                     PFUser.current()?.setObject(5, forKey: Brain.kUserRateCustomer)
+                    PFUser.current()?.setObject("ios", forKey: Brain.kUserPlatform)
+
+                    
                    
                    
                     GraphRequest(graphPath: "me", parameters: ["fields": Brain.kFacebookData])
