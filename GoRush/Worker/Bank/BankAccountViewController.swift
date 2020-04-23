@@ -150,6 +150,9 @@ class BankAccountViewController: UIViewController , STPPaymentCardTextFieldDeleg
         PFCloud.callFunction(inBackground: "RetreiveAccountBusinessAccount", withParameters: ["userId":PFUser.current()!.objectId!], block: { (object, error) in
             
             self.nextButton.loadingIndicatorWhite(false)
+            
+            
+            print("ooooo \(object)")
 
             if error != nil {
                 

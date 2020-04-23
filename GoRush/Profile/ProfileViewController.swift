@@ -53,7 +53,6 @@ class ProfilViewController: ParentLoadingViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         
         
-        print("GOOOO 11")
 
         if lightMode == false {
             

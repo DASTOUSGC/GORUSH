@@ -553,9 +553,35 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
           self.labelSize.frame.origin.y = self.labelWhen.yBottom() + 12
 
         }
+        
+    
+
+       
+       if self.request.object(forKey: Brain.kRequestSurface) != nil {
+
+           self.labelPrice.frame.origin.y = self.labelSize.yBottom() + 10
+
+       }else{
+           
+           
+           self.labelSize.isHidden = true
+           
+           if self.labelPhotos.isHidden == true {
+               
+               self.labelPrice.frame.origin.y = self.labelWhen.yBottom() + 5
+
+               
+           }else{
+               
+               self.labelPrice.frame.origin.y = self.labelPhotos.yBottom() + 5
+
+           }
+           
+
+       }
+       
 
            
-        self.labelPrice.frame.origin.y = self.labelSize.yBottom() + 10
 
         self.mediaButton.frame.origin.y = self.labelPrice.yBottom() + 10
 
@@ -723,19 +749,49 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.labelWhere.text = self.request.object(forKey: Brain.kRequestAddress) as? String
 
 
+        
+        
+        if self.request.object(forKey: Brain.kRequestSurface) != nil {
+            
+            self.labelSize.setTitle(String(format: NSLocalizedString("≅%dpi²", comment: ""), self.request.object(forKey: Brain.kRequestSurface) as! Int), for: .normal)
 
-        self.labelSize.setTitle(String(format: NSLocalizedString("≅%dpi²", comment: ""), self.request.object(forKey: Brain.kRequestSurface) as! Int), for: .normal)
+            
+        }
+
+        
+        
+
 
 
         let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedString.Key.foregroundColor : UIColor.white]
         let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.white]
 
 
-        let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", self.request.object(forKey: Brain.kRequestPriceCustomer) as! Double), attributes:attrs1)
+        var price = Double(0)
+        
+        
+        if self.request.object(forKey: Brain.kRequestPriceCustomer) != nil {
+            
+          
+            price = self.request.object(forKey: Brain.kRequestPriceCustomer) as! Double
+            
+        }
+        
+        
+        let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", price), attributes:attrs1)
         let attributedString2 = NSMutableAttributedString(string:"$ + tx", attributes:attrs2)
 
         attributedString1.append(attributedString2)
         self.labelPrice.attributedText = attributedString1
+        
+        
+        if price == 0 {
+           
+           let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor : UIColor.white]
+           let attributedString1 = NSMutableAttributedString(string:NSLocalizedString("Price to be defined", comment: ""), attributes:attrs1)
+           self.labelPrice.attributedText = attributedString1
+
+        }
         
         self.cancelButton.isHidden = true
         

@@ -139,6 +139,8 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
        
        let queryservices = PFQuery(className: Brain.kServicesClassName)
        queryservices.whereKey(Brain.kServiceAvailable, equalTo: true)
+       queryservices.whereKey(Brain.kServiceMinVersionIOS, lessThanOrEqualTo: Double(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String)!)
+       queryservices.whereKey(Brain.kServicePrivate, notEqualTo: true)
        queryservices.whereKey(Brain.kServiceComingSoon, notEqualTo: true)
        queryservices.order(byAscending: Brain.kServiceOrder)
        queryservices.limit = 1000
@@ -316,7 +318,12 @@ class SkillsViewController: ParentLoadingViewController , UICollectionViewDataSo
                    }
                    
                 cell.name.text = Utils.returnCodeLangageEnFr() == "fr" ? cell.service.object(forKey: Brain.kServicesNameFr) as? String : cell.service.object(forKey: Brain.kServicesName) as? String
-                   
+                         
+                         cell.name.sizeToFit()
+                         
+                         cell.name.frame = CGRect(x: 5, y: cell.icon.yBottom() - 2, width: cell.w() - 10, height: cell.name.frame.height)
+
+                         
                    
                    if let comingSoon = cell.service.object(forKey: Brain.kServiceComingSoon) as? Bool {
                        

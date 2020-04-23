@@ -61,7 +61,6 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
     var labelSize : UIButton!
     var labelPrice : UILabel!
     
-    
     var imageCard : UIImageView!
     var fourpoints : UIImageView!
     var numberCard : UILabel!
@@ -489,8 +488,29 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
 
         }
 
+        
+        if self.request.object(forKey: Brain.kRequestSurface) != nil {
+
+            self.labelPrice.frame.origin.y = self.labelSize.yBottom() + 10
+
+        }else{
             
-        self.labelPrice.frame.origin.y = self.labelSize.yBottom() + 10
+            
+            self.labelSize.isHidden = true
+            
+            if self.labelPhotos.isHidden == true {
+                
+                self.labelPrice.frame.origin.y = self.labelWhen.yBottom() + 5
+
+                
+            }else{
+                
+                self.labelPrice.frame.origin.y = self.labelPhotos.yBottom() + 5
+
+            }
+            
+
+        }
         
         
         
@@ -504,22 +524,39 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.labelWhere.text = self.request.object(forKey: Brain.kRequestAddress) as? String
 
         
-        self.labelSize.setTitle(String(format: NSLocalizedString("≅%dpi²", comment: ""), self.request.object(forKey: Brain.kRequestSurface) as! Int), for: .normal)
+        
+        if self.request.object(forKey: Brain.kRequestSurface) != nil {
+            
+            self.labelSize.setTitle(String(format: NSLocalizedString("≅%dpi²", comment: ""), self.request.object(forKey: Brain.kRequestSurface) as! Int), for: .normal)
 
+            
+        }
         
         let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedString.Key.foregroundColor : UIColor.white]
         let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.white]
          
         
-        print("priceBoos \(priceBoost)")
-        //Worker price
-        let customerPrice = self.request.object(forKey: Brain.kRequestPriceCustomer) as! Double + priceBoost
+        var customerPrice = Double(0)
+        
+        if self.request.object(forKey: Brain.kRequestPriceCustomer)  != nil {
+            
+            customerPrice = self.request.object(forKey: Brain.kRequestPriceCustomer) as! Double + priceBoost
+
+        }
         
         let attributedString1 = NSMutableAttributedString(string:String(format: "%.2f", customerPrice), attributes:attrs1)
         let attributedString2 = NSMutableAttributedString(string:"$ + tx", attributes:attrs2)
 
         attributedString1.append(attributedString2)
         self.labelPrice.attributedText = attributedString1
+        
+        if customerPrice == 0 {
+            
+            let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor : UIColor.white]
+            let attributedString1 = NSMutableAttributedString(string:NSLocalizedString("Price to be defined", comment: ""), attributes:attrs1)
+            self.labelPrice.attributedText = attributedString1
+
+        }
               
         
     }
@@ -588,9 +625,20 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
 
             }
             
-          
-            AppEvents.logPurchase(Double(truncating: self.request.object(forKey: Brain.kRequestPriceCustomer) as! NSNumber), currency: "cad")
             
+            
+            var price = Double(0)
+            
+            
+            if self.request.object(forKey: Brain.kRequestPriceCustomer)  != nil {
+
+                price = Double(truncating: self.request.object(forKey: Brain.kRequestPriceCustomer) as! NSNumber)
+            }
+          
+            
+            
+            AppEvents.logPurchase(price, currency: "cad")
+
             let serviceName = (self.request.object(forKey: Brain.kRequestService) as! PFObject).object(forKey: Brain.kServicesName) as! String
             let serviceId = (self.request.object(forKey: Brain.kRequestService) as! PFObject).objectId!
             
@@ -599,10 +647,21 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
             Intercom.logEvent(withName: "customer_purchase", metaData:
                 [   "service":serviceName,
                     "serviceId":serviceId,
-                    "price":Double(truncating: self.request.object(forKey: Brain.kRequestPriceCustomer) as! NSNumber),
+                    "price":price,
                     "boost":boost])
 
             self.nextButton.loadingIndicatorWhite(true)
+            
+            
+            if PFUser.current()?.object(forKey: Brain.kUserDebug) != nil {
+
+                 if PFUser.current()?.object(forKey: Brain.kUserDebug) as! Bool == true {
+                    
+                    self.request.setObject(true, forKey: Brain.kRequestDebug)
+                }
+            }
+            
+            
             self.request.saveInBackground { (done, error) in
                 
                 self.dismiss(animated: true) {

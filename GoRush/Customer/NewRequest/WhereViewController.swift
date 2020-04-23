@@ -303,11 +303,34 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
         self.request.setObject(geopoint, forKey: Brain.kRequestCenter)
       
         
-        let mowingAreaVC = MowingAreaViewController(request: self.request)
-        self.navigationController?.pushViewController(mowingAreaVC, animated: true)
+        let service = self.request.object(forKey: Brain.kRequestService) as! PFObject
+        
+        
+        
+        print("dd \(service.object(forKey: Brain.kServiceCode) as! String)")
+        
+        if service.object(forKey: Brain.kServiceCode) as! String == "lawnmower" {
+            
+            let mowingAreaVC = MowingAreaViewController(request: self.request)
+            self.navigationController?.pushViewController(mowingAreaVC, animated: true)
+            
+        }else if service.object(forKey: Brain.kServiceCode) as! String == "leafpickups" {
+            
+            let mowingAreaVC = MowingAreaViewController(request: self.request)
+            self.navigationController?.pushViewController(mowingAreaVC, animated: true)
+            
+            
+        }else if service.object(forKey: Brain.kServiceCode) as! String == "shrubpruning" {
+            
+            let options = OptionsMowingViewController(request:self.request)
+            self.navigationController?.pushViewController(options, animated: true)
 
-       
+        }else if service.object(forKey: Brain.kServiceCode) as! String == "default" {
+            
+            let options = OptionsMowingViewController(request:self.request)
+            self.navigationController?.pushViewController(options, animated: true)
 
+        }
         
     }
     

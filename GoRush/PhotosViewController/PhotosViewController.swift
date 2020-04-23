@@ -227,7 +227,6 @@ class PhotosViewController: ParentLoadingViewController, UIScrollViewDelegate {
     @objc func showPicture(_ sender: UIButton){
 
         
-        print("GOOOO")
         
         self.cancelPage()
 

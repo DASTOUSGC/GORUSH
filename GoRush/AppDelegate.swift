@@ -352,7 +352,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
       }
       
-      func updateInstallation() {
+    func updateInstallation() {
              
              
              if(PFUser.current() != nil){
@@ -369,11 +369,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                  installation?.setObject(PFUser.current()!, forKey: "user")
                  installation?.setObject(Locale.preferredLanguages[0], forKey: "language")
                  installation?.addUniqueObject("Global", forKey: "channels")
+                 installation?.setObject(PFUser.current()?.object(forKey: Brain.kUserType)!, forKey: Brain.kUserType)
                  installation?.saveInBackground()
 
              }
 
-         }
+    }
     
     
     
@@ -494,6 +495,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         self.updateIntercomData()
 
+        self.setupStripeAccount()
+
+        
 
         let navTabbar = UINavigationController(rootViewController: tabBarController!)
         navTabbar.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency

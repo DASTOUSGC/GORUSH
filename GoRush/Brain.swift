@@ -80,6 +80,7 @@ class Brain: NSObject {
     static let kUserReviewsCustomerNumber = "reviewsCustomerNumber"
     static let kUserReviewsWorkerNumber = "reviewsWorkerNumber"
     static let kUserPlatform = "platform"
+    static let kUserDebug = "debug"
 
 
 
@@ -107,6 +108,8 @@ class Brain: NSObject {
     static let kServicesNameFr = "nameFr"
     static let kServiceIcon = "icon"
     static let kServiceComingSoon = "comingSoon"
+    static let kServicePrivate = "private"
+    static let kServiceMinVersionIOS = "minVersionIOS"
     static let kServiceAvailable = "available"
     static let kServiceCover = "cover"
     static let kServiceOrder = "order"
@@ -164,7 +167,10 @@ class Brain: NSObject {
     static let kRequestReviewFromCustomer = "reviewFromCustomer"
     static let kRequestReviewFromWorker = "reviewFromWorker"
 
+    static let kRequestDebug = "debug"
 
+    
+    
     //Review
     static let kReviewClassName = "Review"
     static let kReviewRequest = "request"

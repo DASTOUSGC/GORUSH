@@ -123,8 +123,11 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
     
     func getServices() {
         
+        
+        
         let queryservices = PFQuery(className: Brain.kServicesClassName)
         queryservices.whereKey(Brain.kServiceAvailable, equalTo: true)
+        queryservices.whereKey(Brain.kServiceMinVersionIOS, lessThanOrEqualTo: Double(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String)!)
         queryservices.order(byAscending: Brain.kServiceOrder)
         queryservices.limit = 1000
         queryservices.cachePolicy = .cacheThenNetwork
@@ -274,6 +277,8 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
                     cell.comingSoon.isHidden = false
                     
 
+                }else{
+                    
                 }
                 
             }

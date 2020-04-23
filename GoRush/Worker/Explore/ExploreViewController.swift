@@ -175,6 +175,20 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
             requests.whereKeyExists(Brain.kRequestPhoto)
             requests.whereKey(Brain.kRequestServiceId, containedIn: skillsIds)
             requests.whereKey(Brain.kRequestRefuseWorkerId, notEqualTo: PFUser.current()!.objectId!)
+            
+            if PFUser.current()?.object(forKey: Brain.kUserDebug) != nil {
+
+                if PFUser.current()?.object(forKey: Brain.kUserDebug) as! Bool != true {
+                   
+                    requests.whereKey(Brain.kRequestDebug, notEqualTo: true)
+
+                }
+            }else{
+                
+                requests.whereKey(Brain.kRequestDebug, notEqualTo: true)
+
+            }
+
             requests.includeKey(Brain.kRequestService)
             requests.includeKey(Brain.kRequestCustomer)
             requests.limit = 1000

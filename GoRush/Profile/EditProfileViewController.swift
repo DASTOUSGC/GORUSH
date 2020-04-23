@@ -53,7 +53,6 @@ class EditProfileViewController: UIViewController,UITableViewDelegate, UITableVi
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         
-        print("GOOO")
         return .lightContent
     }
     
