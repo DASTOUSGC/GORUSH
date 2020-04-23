@@ -288,6 +288,17 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
         }
         
         
+        
+        
+        
+        if (self.request.object(forKey: Brain.kRequestService) as! PFObject).object(forKey: Brain.kServiceCode) as! String == "diagnostic" {
+            
+            let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("By accepting you will receive a diagnosis of your lawn problems within 24 hours. Then you have the choice of taking a package of several treatments to improve the quality of your lawn.\n\nThe service will be performed by one of the GoRush certified lawn care companies.", comment: ""), preferredStyle: .alert)
+                      
+                       alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
+                       self.present(alert, animated: true, completion: nil)
+
+        }
        
         
         
@@ -320,7 +331,12 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
             self.navigationController?.pushViewController(mowingAreaVC, animated: true)
             
             
-        }else if service.object(forKey: Brain.kServiceCode) as! String == "shrubpruning" {
+        }else if service.object(forKey: Brain.kServiceCode) as! String == "cedartrim" {
+            
+            let options = OptionsMowingViewController(request:self.request)
+            self.navigationController?.pushViewController(options, animated: true)
+
+        }else if service.object(forKey: Brain.kServiceCode) as! String == "diagnostic" {
             
             let options = OptionsMowingViewController(request:self.request)
             self.navigationController?.pushViewController(options, animated: true)

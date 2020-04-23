@@ -321,7 +321,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
         
         let requestsPast = PFQuery(className: Brain.kRequestClassName)
         requestsPast.whereKey(Brain.kRequestCustomer, equalTo: PFUser.current()!)
-        requestsPast.whereKey(Brain.kRequestState, notContainedIn : ["accepted","started","pending","canceled"])
+        requestsPast.whereKey(Brain.kRequestState, notContainedIn : ["accepted","started","pending","canceled","pendingPrice"])
         requestsPast.whereKeyExists(Brain.kRequestPhoto)
         requestsPast.includeKey(Brain.kRequestService)
         requestsPast.includeKey(Brain.kRequestWorker)
@@ -540,7 +540,7 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
             
             if self.requests.count > indexPath.row  {
 
-                    if self.requests[indexPath.row].object(forKey: Brain.kRequestState) as! String != "pending" {
+                    if self.requests[indexPath.row].object(forKey: Brain.kRequestState) as! String != "pending" && self.requests[indexPath.row].object(forKey: Brain.kRequestState) as! String != "pendingPrice" {
                         
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Accepted", for: indexPath as IndexPath) as! exploreCollectionViewCell
                         cell.cover.image = nil

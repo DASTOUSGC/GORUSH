@@ -109,6 +109,7 @@ class Brain: NSObject {
     static let kServiceIcon = "icon"
     static let kServiceComingSoon = "comingSoon"
     static let kServicePrivate = "private"
+    static let kServicePendingPrice = "pendingPrice"
     static let kServiceMinVersionIOS = "minVersionIOS"
     static let kServiceAvailable = "available"
     static let kServiceCover = "cover"

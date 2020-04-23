@@ -1,5 +1,24 @@
 
 
+
+"Service price"="Service price";
+
+"Yes, I accept this price"="Yes, I accept this price";
+"No, I cancel the request"="No, I cancel the request";
+
+
+
+"The price of this service is %.2f$. You can accept this price or refuse it.\n\nBy accepting this price, your request will then be awaiting a worker. By refusing, your request will be canceled."="The price of this service is %.2f$. You can accept this price or refuse it.\n\nBy accepting this price, your request will then be awaiting a worker. By refusing, your request will be canceled.";
+
+
+
+"For this service, you will receive a personalized price proposal in a few minutes that you can accept or refuse. In the meantime your request will remain pending."="For this service, you will receive a personalized price proposal in a few minutes that you can accept or refuse. In the meantime your request will remain pending.";
+
+
+
+"By accepting you will receive a diagnosis of your lawn problems within 24 hours. Then you have the choice of taking a package of several treatments to improve the quality of your lawn.\n\nThe service will be performed by one of the GoRush certified lawn care companies."="By accepting you will receive a diagnosis of your lawn problems within 24 hours. Then you have the choice of taking a package of several treatments to improve the quality of your lawn.\n\nThe service will be performed by one of the GoRush certified lawn care companies.";
+
+
 "Price to be defined"="Price to be defined";
 
 

@@ -1093,11 +1093,9 @@ class MowingAreaViewController: UIViewController, UIGestureRecognizerDelegate, G
         self.request.setObject(surface, forKey: Brain.kRequestSurface)
 
         
-        
         //Worker price
         price = price * (1 - (Double(self.service.object(forKey: Brain.kServiceFee) as! Int) / 100))
         self.request.setObject(price.rounded(toPlaces: 2), forKey: Brain.kRequestPriceWorker)
-
 
     
         let options = OptionsMowingViewController(request:self.request)

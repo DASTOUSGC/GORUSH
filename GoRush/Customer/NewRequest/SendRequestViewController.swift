@@ -384,6 +384,20 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
 
         self.updateRequest()
         
+        
+        
+        
+    if (self.request.object(forKey: Brain.kRequestService) as! PFObject).object(forKey: Brain.kServicePendingPrice) as! Bool == true {
+          
+        let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("For this service, you will receive a personalized price proposal in a few minutes that you can accept or refuse. In the meantime your request will remain pending.", comment: ""), preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+
+      }
+     
+      
+        
     }
     
     
@@ -661,6 +675,8 @@ class SendRequestViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
             }
             
+            
+           
             
             self.request.saveInBackground { (done, error) in
                 

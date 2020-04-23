@@ -830,7 +830,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
         self.reviewButton.isHidden = true
         
 
-        if self.request.object(forKey: Brain.kRequestState) as! String == "pending" {
+        if self.request.object(forKey: Brain.kRequestState) as! String == "pending"  || self.request.object(forKey: Brain.kRequestState) as! String == "pendingPrice"{
             
             
             self.cancelButton.isHidden = false
@@ -981,7 +981,7 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func touchCancel(_ sender: UIButton){
         
         
-        if self.request.object(forKey: Brain.kRequestState) as! String == "pending" {
+        if self.request.object(forKey: Brain.kRequestState) as! String == "pending" || self.request.object(forKey: Brain.kRequestState) as! String == "pendingPrice" {
             
             let alert = UIAlertController(title: NSLocalizedString("Cancel request", comment: ""), message: NSLocalizedString("Are you sure you want to cancel this request?", comment: ""), preferredStyle: .alert)
                   
@@ -1134,6 +1134,68 @@ class RequestViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
+        
+        
+        if self.request.object(forKey: Brain.kRequestState) as! String == "pendingPrice" && self.request.object(forKey: Brain.kRequestPriceCustomer) == nil {
+
+            let alert = UIAlertController(title: NSLocalizedString("Information", comment: ""), message: NSLocalizedString("For this service, you will receive a personalized price proposal in a few minutes that you can accept or refuse. In the meantime your request will remain pending.", comment: ""), preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            
+            
+            
+        }else if self.request.object(forKey: Brain.kRequestState) as! String == "pendingPrice" && self.request.object(forKey: Brain.kRequestPriceCustomer) != nil {
+            
+            
+            let price = Double(truncating: self.request.object(forKey: Brain.kRequestPriceCustomer) as! NSNumber)
+            
+            let alert = UIAlertController(title: NSLocalizedString("Service price", comment: ""), message: String(format: NSLocalizedString("The price of this service is %.2f$. You can accept this price or refuse it.\n\nBy accepting this price, your request will then be awaiting a worker. By refusing, your request will be canceled.", comment: ""), price), preferredStyle: .alert)
+
+            let yesAction = UIAlertAction(title: NSLocalizedString("Yes, I accept this price", comment: ""), style: .default, handler: { action in
+                      
+                
+                self.request.setObject("pending", forKey: Brain.kRequestState)
+                self.request.saveInBackground { (done, error) in
+                 
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.tabBarController?.requestsViewController?.getRequests()
+
+                }
+                
+                
+                
+
+                
+                           
+            })
+            alert.addAction(yesAction)
+            
+            
+            let refuseAction = UIAlertAction(title: NSLocalizedString("No, I cancel the request", comment: ""), style: .default, handler: { action in
+                                  
+                  
+                self.request.setObject("canceled", forKey: Brain.kRequestState)
+                self.request.saveInBackground { (done, error) in
+                 
+                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                 appDelegate.tabBarController?.requestsViewController?.getRequests()
+                 
+
+                     self.navigationController?.popViewController(animated: true)
+                 
+
+                }
+                
+            })
+            alert.addAction(refuseAction)
+                       
+
+            self.present(alert, animated: true, completion: nil)
+
+
+        }
         
     }
     

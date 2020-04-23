@@ -305,7 +305,17 @@ class SelectServiceViewController: ParentLoadingViewController , UICollectionVie
             if self.services[indexPath.row].object(forKey: Brain.kServiceComingSoon) as! Bool != true {
                 
                  let request = PFObject(className: Brain.kRequestClassName)
-                 request.setObject("pending", forKey: Brain.kRequestState)
+                
+                
+                if (self.services[indexPath.row]).object(forKey: Brain.kServicePendingPrice) as! Bool == true {
+
+                   request.setObject("pendingPrice", forKey: Brain.kRequestState)
+                
+                }else{
+                    
+                    request.setObject("pending", forKey: Brain.kRequestState)
+
+                }
                  request.setObject(PFUser.current()!, forKey: Brain.kRequestCustomer)
                  request.setObject(self.services[indexPath.row], forKey: Brain.kRequestService)
                  request.setObject(self.services[indexPath.row].objectId!, forKey: Brain.kRequestServiceId)

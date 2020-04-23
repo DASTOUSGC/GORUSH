@@ -1,5 +1,23 @@
 
 
+
+"Yes, I accept this price"="Oui, j'accepte ce prix";
+"No, I cancel the request"="Non, j'annule la demande";
+
+
+"The price of this service is %.2f$. You can accept this price or refuse it.\n\nBy accepting this price, your request will then be awaiting a worker. By refusing, your request will be canceled."="Le prix de ce service est de %.2f$. Vous pouvez accepter ce prix ou le refuser. En acceptant ce prix, votre demande sera alors en attente d'un travailleur. En refusant, votre demande sera annulée.";
+
+"Service price"="Prix du service";
+
+
+"For this service, you will receive a personalized price proposal in a few minutes that you can accept or refuse. In the meantime your request will remain pending."="Pour ce service, vous allez recevoir une proposition de prix personalisée dans quelques minutes. Vous pourrez l’accepter ou la refuser par la suite. En attendant votre demande restera en attente.";
+
+
+"By accepting you will receive a diagnosis of your lawn problems within 24 hours. Then you have the choice of taking a package of several treatments to improve the quality of your lawn.\n\nThe service will be performed by one of the GoRush certified lawn care companies."="En acceptant vous recevrez un diagnostic des problèmes de votre pelouse dans les 24 heures pour ensuite avoir le choix de prendre un forfait de plusieurs traitements pour améliorer la qualité de votre gazon.\n\nLe service sera exécuté par une des compagnies certifiées GoRush en traitements de pelouse.";
+
+
+
+
 "Price to be defined"="Prix ​​à définir";
 
 "Sorry, your customer has a problem with their payment method. Please try again later"="Désolé, votre client a un problème avec son mode de paiement. Veuillez réessayer plus tard";
