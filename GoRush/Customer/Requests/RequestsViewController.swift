@@ -384,25 +384,31 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
                 if requestsEnded!.count > 0 {
                     
                     let request = requestsEnded![0]
-                    let worker = request.object(forKey: Brain.kRequestWorker) as! PFUser
-                    let name = worker.object(forKey: Brain.kUserFirstName) as! String
                     
-                    
-                    let alert = UIAlertController(title: NSLocalizedString("Pending review", comment: ""),
-                                                  message: String(format:NSLocalizedString("Congratulations %@ has completed your request, you can now add a review regarding his work", comment: ""), name), preferredStyle: .alert)
+                    if request.object(forKey: Brain.kRequestWorker) != nil {
 
-                    let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
+                        let worker = request.object(forKey: Brain.kRequestWorker) as! PFUser
+                        let name = worker.object(forKey: Brain.kUserFirstName) as! String
 
-                        let rateVC = NewReviewToUserViewController(user: worker, request : request , fromWorker: false)
-                        rateVC.hidesBottomBarWhenPushed = true
-                        self.navigationController?.pushViewController(rateVC, animated: true)
+
+                        let alert = UIAlertController(title: NSLocalizedString("Pending review", comment: ""),
+                                                     message: String(format:NSLocalizedString("Congratulations %@ has completed your request, you can now add a review regarding his work", comment: ""), name), preferredStyle: .alert)
+
+                        let yesAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
+
+                           let rateVC = NewReviewToUserViewController(user: worker, request : request , fromWorker: false)
+                           rateVC.hidesBottomBarWhenPushed = true
+                           self.navigationController?.pushViewController(rateVC, animated: true)
+                           
+                        })
+                        alert.addAction(yesAction)
+
+                        DispatchQueue.main.async {
+                        self.present(alert, animated: true)
+                        }
                         
-                    })
-                    alert.addAction(yesAction)
-
-                    DispatchQueue.main.async {
-                    self.present(alert, animated: true)
                     }
+                   
                 }
             }
           
@@ -609,29 +615,43 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
 
 
                         
+                        
+                        if cell.worker != nil {
+                            
+                            if cell.worker.object(forKey: Brain.kUserProfilePicture) != nil {
+                               
+                               cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
+                               cell.profilePicture.loadInBackground()
+                               
+                            }else{
+                               
+                               cell.profilePicture.image = UIImage(named: "whiteProfilePicture")
+                               
+                            }
+                            
+                            
+                           if cell.worker.object(forKey: Brain.kUserFirstName) != nil {
+                               
+                               cell.name.text = (cell.worker.object(forKey: Brain.kUserFirstName) as? String)?.capitalizingFirstLetter()
+
+                           }else{
+                               
+                               cell.name.text = ""
+                           }
+                           
+                      
+                        }else{
+                            
+                            cell.profilePicture.image = UIImage(named: "whiteProfilePicture")
+                            cell.name.text = ""
+
+                            
+                        }
                    
                                      
-                         if cell.worker.object(forKey: Brain.kUserProfilePicture) != nil {
-                             
-                             cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
-                             cell.profilePicture.loadInBackground()
-                             
-                         }else{
-                             
-                             cell.profilePicture.image = UIImage(named: "whiteProfilePicture")
-                             
-                         }
+                       
                          
-                         
-                         if cell.worker.object(forKey: Brain.kUserFirstName) != nil {
-                             
-                             cell.name.text = (cell.worker.object(forKey: Brain.kUserFirstName) as? String)?.capitalizingFirstLetter()
-
-                         }else{
-                             
-                             cell.name.text = ""
-                         }
-                         
+                       
                         
 
                         if cell.request.createdAt != nil {
@@ -741,18 +761,43 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
 
                 }
 
-
                 
-                if cell.worker.object(forKey: Brain.kUserProfilePicture) != nil {
-                                            
-                    cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
-                    cell.profilePicture.loadInBackground()
+                if cell.worker != nil {
+                    
+                    
+                    if cell.worker.object(forKey: Brain.kUserProfilePicture) != nil {
+                                                
+                        cell.profilePicture.file = cell.worker.object(forKey: Brain.kUserProfilePicture) as? PFFileObject
+                        cell.profilePicture.loadInBackground()
+                        
+                    }else{
+                        
+                        cell.profilePicture.image = UIImage(named: "whiteProfilePicture")
+                        
+                    }
+                    
+                    
+
+                    if cell.worker.object(forKey: Brain.kUserFirstName) != nil {
+                        
+                        cell.name.text = (cell.worker.object(forKey: Brain.kUserFirstName) as? String)?.capitalizingFirstLetter()
+
+                    }else{
+                        
+                        cell.name.text = ""
+                    }
+                    
+                    
                     
                 }else{
                     
                     cell.profilePicture.image = UIImage(named: "whiteProfilePicture")
-                    
+                    cell.name.text = ""
+
                 }
+
+                
+                
                 
                
 
@@ -775,14 +820,6 @@ class RequestsViewController: ParentLoadingViewController , UICollectionViewData
                                 
                 
                 
-                if cell.worker.object(forKey: Brain.kUserFirstName) != nil {
-                    
-                    cell.name.text = (cell.worker.object(forKey: Brain.kUserFirstName) as? String)?.capitalizingFirstLetter()
-
-                }else{
-                    
-                    cell.name.text = ""
-                }
             
                  
              }
