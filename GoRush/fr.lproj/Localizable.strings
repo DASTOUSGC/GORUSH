@@ -1,5 +1,8 @@
 
 
+"Unable to accept request"="Impossible d'accepter la demande";
+"Sorry, you already have too many simultaneous requests. You must finish your jobs in order to accept this new request"="Désolé, vous avez déjà trop de demandes simultanées. Vous devez terminer vos travaux afin d'accepter cette nouvelle demande";
+
 
 "Yes, I accept this price"="Oui, j'accepte ce prix";
 "No, I cancel the request"="Non, j'annule la demande";

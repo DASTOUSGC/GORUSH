@@ -562,7 +562,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         
         PFUser.current()?.fetchInBackground()
-        
+        PFConfig.getInBackground()
    
     }
 

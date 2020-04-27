@@ -302,7 +302,6 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
        
         
         
-        
     }
     
   
@@ -318,7 +317,6 @@ class WhereViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogn
         
         
         
-        print("dd \(service.object(forKey: Brain.kServiceCode) as! String)")
         
         if service.object(forKey: Brain.kServiceCode) as! String == "lawnmower" {
             

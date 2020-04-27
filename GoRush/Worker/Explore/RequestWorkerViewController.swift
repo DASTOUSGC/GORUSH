@@ -1238,75 +1238,116 @@ class RequestWorkerViewController: UIViewController, UIGestureRecognizerDelegate
 
             if self.request.object(forKey: Brain.kRequestState) as! String == "pending" {
 
-                Intercom.logEvent(withName: "worker_acceptRequest", metaData: ["id":self.request.objectId!])
-                print("2")
-
                 
-                PFCloud.callFunction(inBackground: "ChargeCustomerForRequestAccepted", withParameters: ["requestId":self.request.objectId!,"workerId":PFUser.current()!.objectId!], block: { (object, error) in
-                                    
-                    print("3")
-
-                        
-                        if error != nil {
-                            
-                              self.acceptButton.loadingIndicatorWhite(false)
-                              let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                              appDelegate.tabBarController?.exploreViewController?.getRequests()
-
-
-                            Intercom.logEvent(withName: "worker_acceptRequestButChargeError", metaData: ["id":self.request.objectId!,"customerId":self.customer.objectId!])
-
-                            
-                              let alert = UIAlertController(title: NSLocalizedString("Payment error", comment: ""), message: NSLocalizedString("Sorry, your customer has a problem with their payment method. Please try again later", comment: ""), preferredStyle: UIAlertController.Style.alert)
-
-
-                              let okAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
-
-                                self.navigationController?.popViewController(animated: true)
-
-                              })
-
-                              alert.addAction(okAction)
-                              self.present(alert, animated: true, completion: nil)
-
-                            
-                        }else{
-                            
-                            
-                            print("4")
-
-                             self.request.setObject("accepted", forKey: Brain.kRequestState)
-                              self.request.setObject(PFUser.current()!, forKey: Brain.kRequestWorker)
-                              self.request.saveInBackground { (object, error) in
-
-                                 print("5")
-                                  
-                                  
-                                  Intercom.logEvent(withName: "worker_acceptRequestChargeDone", metaData: ["id":self.request.objectId!])
-
-                                    
-                                      let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                      appDelegate.tabBarController?.exploreViewController?.getRequests()
-                                      appDelegate.tabBarController?.jobsViewController?.getRequests()
-                                      appDelegate.tabBarController?.selectedIndex = 1
-
-
-                                      self.modeToAcceptJob = false
-                                      self.currentMedia = 0
-                                      self.enableEndLoopVideoAndSoundOn()
-                                      self.updateRequest(withMedia: true)
-
-                                      self.acceptButton.loadingIndicatorWhite(false)
-          
-                              }
-
-
-                        }
+                
+                let countQuerySimulatenousJobs = PFQuery(className: Brain.kRequestClassName)
+                countQuerySimulatenousJobs.whereKey(Brain.kRequestWorker, equalTo: PFUser.current()!)
+                countQuerySimulatenousJobs.whereKey(Brain.kRequestState, notContainedIn: ["canceled","pending","ended"])
+                
+                countQuerySimulatenousJobs.countObjectsInBackground { (simultaneousJobs, error) in
+                    
+                    
+                    if simultaneousJobs < PFUser.current()?.object(forKey: Brain.kUserSimultaneousJobs) as! Int {
                         
                         
-                    })
-    
-    
+                        
+                                     Intercom.logEvent(withName: "worker_acceptRequest", metaData: ["id":self.request.objectId!])
+                                     print("2")
+
+                                     
+                                     PFCloud.callFunction(inBackground: "ChargeCustomerForRequestAccepted", withParameters: ["requestId":self.request.objectId!,"workerId":PFUser.current()!.objectId!], block: { (object, error) in
+                                                         
+                                         print("3")
+
+                                             
+                                             if error != nil {
+                                                 
+                                                   self.acceptButton.loadingIndicatorWhite(false)
+                                                   let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                                   appDelegate.tabBarController?.exploreViewController?.getRequests()
+
+
+                                                 Intercom.logEvent(withName: "worker_acceptRequestButChargeError", metaData: ["id":self.request.objectId!,"customerId":self.customer.objectId!])
+
+                                                 
+                                                   let alert = UIAlertController(title: NSLocalizedString("Payment error", comment: ""), message: NSLocalizedString("Sorry, your customer has a problem with their payment method. Please try again later", comment: ""), preferredStyle: UIAlertController.Style.alert)
+
+
+                                                   let okAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
+
+                                                     self.navigationController?.popViewController(animated: true)
+
+                                                   })
+
+                                                   alert.addAction(okAction)
+                                                   self.present(alert, animated: true, completion: nil)
+
+                                                 
+                                             }else{
+                                                 
+                                                 
+                                                 print("4")
+
+                                                  self.request.setObject("accepted", forKey: Brain.kRequestState)
+                                                   self.request.setObject(PFUser.current()!, forKey: Brain.kRequestWorker)
+                                                   self.request.saveInBackground { (object, error) in
+
+                                                      print("5")
+                                                       
+                                                       
+                                                       Intercom.logEvent(withName: "worker_acceptRequestChargeDone", metaData: ["id":self.request.objectId!])
+
+                                                         
+                                                           let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                                           appDelegate.tabBarController?.exploreViewController?.getRequests()
+                                                           appDelegate.tabBarController?.jobsViewController?.getRequests()
+                                                           appDelegate.tabBarController?.selectedIndex = 1
+
+
+                                                           self.modeToAcceptJob = false
+                                                           self.currentMedia = 0
+                                                           self.enableEndLoopVideoAndSoundOn()
+                                                           self.updateRequest(withMedia: true)
+
+                                                           self.acceptButton.loadingIndicatorWhite(false)
+                               
+                                                   }
+
+
+                                             }
+                                             
+                                             
+                                         })
+                         
+                        
+                    }else{
+                        
+                        
+                        //Trop de jobs en parrallele non fini, donc le worker ne peut pas accepter une nouvelle request
+                        
+                        self.acceptButton.loadingIndicatorWhite(false)
+
+                        let alert = UIAlertController(title: NSLocalizedString("Unable to accept request", comment: ""), message: NSLocalizedString("Sorry, you already have too many simultaneous requests. You must finish your jobs in order to accept this new request", comment: ""), preferredStyle: UIAlertController.Style.alert)
+                        let okAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default, handler: { action in
+
+                            self.navigationController?.popViewController(animated: true)
+
+                        })
+
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+
                 
             }else{
 

@@ -1,6 +1,11 @@
 
 
 
+
+"Unable to accept request"="Unable to accept request";
+"Sorry, you already have too many simultaneous requests. You must finish your jobs in order to accept this new request"="Sorry, you already have too many simultaneous requests. You must finish your jobs in order to accept this new request";
+
+
 "Service price"="Service price";
 
 "Yes, I accept this price"="Yes, I accept this price";

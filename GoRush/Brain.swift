@@ -81,6 +81,8 @@ class Brain: NSObject {
     static let kUserReviewsWorkerNumber = "reviewsWorkerNumber"
     static let kUserPlatform = "platform"
     static let kUserDebug = "debug"
+    static let kUserExploreDistance = "exploreDistance"
+    static let kUserSimultaneousJobs = "simultaneousJobs"
 
 
 
@@ -206,7 +208,10 @@ class Brain: NSObject {
     static let kConfigHideFacebookLogin = "hideFacebookLogin"
     static let kConfigHideFacebookLoginVersion = "version"
     static let kConfigHideFacebookLoginHide = "hide"
+    static let kConfigExploreDistance = "exploreDistance"
+    static let kConfigSimultaneousJobs = "simultaneousJobs"
 
+    
 }
 
 

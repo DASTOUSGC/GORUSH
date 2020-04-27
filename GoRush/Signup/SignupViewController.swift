@@ -210,31 +210,50 @@ class SignupViewController: UIViewController , UIGestureRecognizerDelegate, UISc
     func updateButtonsWithConfig(){
         
         
-        
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                           
-            let hideFb = PFConfig.current().object(forKey: Brain.kConfigHideFacebookLogin) as! [String:Any]
+        self.loginButtonFacebook.isHidden = true
 
-            if  hideFb[Brain.kConfigHideFacebookLoginVersion] as! String == version && hideFb[Brain.kConfigHideFacebookLoginHide] as! Bool == true{
-                
-                self.loginButtonFacebook.isHidden = true
+        PFConfig.getInBackground { (done, error) in
+            
+            
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                               
+                let hideFb = PFConfig.current().object(forKey: Brain.kConfigHideFacebookLogin) as! [String:Any]
 
-            }else{
+                if  hideFb[Brain.kConfigHideFacebookLoginVersion] as! String == version && hideFb[Brain.kConfigHideFacebookLoginHide] as! Bool == true{
+                    
+                    self.loginButtonFacebook.isHidden = true
+
+                }else{
+                    
+                    
+                    print("SSSS")
+                    self.loginButtonFacebook.isHidden = false
+                }
+
+                print("YOOO \(version) \( hideFb[Brain.kConfigHideFacebookLoginVersion] as! String)")
+
+                UIView.animate(withDuration: 0.4) {
+                         
+                         self.loginButtonFacebook.alpha = 1
+                        
+                }
                 
-                
-                self.loginButtonFacebook.isHidden = false
+               
             }
-
-            print("YOOO \(version) \( hideFb[Brain.kConfigHideFacebookLoginVersion] as! String)")
-
-            UIView.animate(withDuration: 0.4) {
-                
-                self.loginButtonFacebook.alpha = 1
-                self.signupButton.alpha = 1
-                self.loginButton.alpha = 1
-                self.terms.alpha = 1
-            }
+            
+            
         }
+        
+        
+        
+        UIView.animate(withDuration: 0.4) {
+           
+           self.signupButton.alpha = 1
+           self.loginButton.alpha = 1
+           self.terms.alpha = 1
+        }
+
+        
             
             
     }

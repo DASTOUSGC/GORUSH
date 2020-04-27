@@ -188,6 +188,12 @@ class ExploreViewController: ParentLoadingViewController , UICollectionViewDataS
                 requests.whereKey(Brain.kRequestDebug, notEqualTo: true)
 
             }
+            
+            
+            if self.currentLocation != nil && PFUser.current()?.object(forKey: Brain.kUserExploreDistance) != nil{
+                
+                requests.whereKey(Brain.kRequestCenter, nearGeoPoint:self.currentLocation!, withinKilometers: Double(PFUser.current()?.object(forKey: Brain.kUserExploreDistance) as! Int))
+            }
 
             requests.includeKey(Brain.kRequestService)
             requests.includeKey(Brain.kRequestCustomer)
