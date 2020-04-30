@@ -460,12 +460,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
       
         
-        print("GET DEVICE \(deviceToken)")
         
         
         let installation = PFInstallation.current()
         installation?.setDeviceTokenFrom(deviceToken)
         installation?.saveInBackground()
+        
+        Intercom.setDeviceToken(deviceToken)
        
     }
     
@@ -685,7 +686,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         installation?.saveInBackground()
         
         
-        self.receivePush(content: response.notification.request.content)
+        if (Intercom.isIntercomPushNotification(response.notification.request.content.userInfo)) {
+             
+            Intercom.handlePushNotification(response.notification.request.content.userInfo)
+           
+        }else{
+            
+            self.receivePush(content: response.notification.request.content)
+
+        }
+        
+        
 
       
         completionHandler()
